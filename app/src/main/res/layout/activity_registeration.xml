@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp"
+
+    android:gravity="center_vertical"
+    tools:context=".Registeration">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Driver Registration"
+            android:textColor="#fece2f"
+
+            android:textSize="34dp"
+            android:textStyle="italic"
+
+            android:layout_marginBottom="66dp"
+            android:layout_gravity="center"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            >
+            <EditText
+                android:id="@+id/eddriverName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="Driver Name" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            >
+            <EditText
+                android:id="@+id/eddrivermobileNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="Mobile  Number" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--    <com.google.android.material.textfield.TextInputLayout-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_marginBottom="10dp"-->
+
+        <!--        >-->
+        <!--        <EditText-->
+        <!--            android:id="@+id/edfatherName"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+
+        <!--            android:hint="CNIC" />-->
+        <!--    </com.google.android.material.textfield.TextInputLayout>-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            >
+            <EditText
+                android:id="@+id/eddriverAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="Age" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            >
+            <EditText
+                android:id="@+id/eddriverAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="Current Location" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/spinner_show_bus"
+            />
+
+
+        <!--    <com.toptoche.searchablespinnerlibrary.SearchableSpinner-->
+        <!--        android:id="@+id/customer_spinner"-->
+        <!--        android:layout_width="199dp"-->
+
+        <!--        android:layout_height="66dp"-->
+        <!--        android:padding="5dp"-->
+        <!--        />-->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            >
+            <EditText
+                android:id="@+id/eddriveremail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="Email" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+            <!-- Edit text for password -->
+
+            <EditText
+                android:id="@+id/eddriverpassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <!-- Button for register with text "Register" -->
+        <Button
+            android:id="@+id/btnregister"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+            android:text="Register" />
+
+        <!-- ProgressBar for loading time -->
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</ScrollView>

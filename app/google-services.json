@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "311293970670",
+    "firebase_url": "https://bus-tracking-ed909-default-rtdb.firebaseio.com",
+    "project_id": "bus-tracking-ed909",
+    "storage_bucket": "bus-tracking-ed909.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:311293970670:android:961b54a3b5f0a264ca8bff",
+        "android_client_info": {
+          "package_name": "com.asadkhan.bus_tracking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "311293970670-g84vf31u4n41n70pk9a73ang4ne9dahq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBA-opAeo0_DUO9vFYIjnpZygCIdJ1dI0o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "311293970670-g84vf31u4n41n70pk9a73ang4ne9dahq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:311293970670:android:3791d158d2b07067ca8bff",
+        "android_client_info": {
+          "package_name": "com.asadkhan.schoolbustracking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "311293970670-g84vf31u4n41n70pk9a73ang4ne9dahq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBA-opAeo0_DUO9vFYIjnpZygCIdJ1dI0o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "311293970670-g84vf31u4n41n70pk9a73ang4ne9dahq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
