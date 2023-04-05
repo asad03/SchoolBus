@@ -41,7 +41,7 @@ public class Login_Activity extends AppCompatActivity {
     RadioButton chparent,chdriver;
     DatabaseReference databaseReference;
     ValueEventListener valueEventListener;
-    String parentKey,driverKey;
+    String parentKey,driver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
