@@ -41,7 +41,10 @@ public class Login_Activity extends AppCompatActivity {
     RadioButton chparent,chdriver;
     DatabaseReference databaseReference;
     ValueEventListener valueEventListener;
-    String parentKey,driver;
+    String parentKey,driverKey;
+    Parents_Model_class parent_addModal_class;
+    Location_Modal_class driver_model_class;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,194 +87,180 @@ public class Login_Activity extends AppCompatActivity {
 
     private void LoginAdmin(String textemail, String textpassword) {
 
-        databaseReference= FirebaseDatabase.getInstance().getReference("Parent").child("Parents Register");
-        valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
-                     parentKey=dataSnapshot.getKey();
-                    System.out.println(parentKey);
-                    System.out.println("parentKey");
+//        databaseReference= FirebaseDatabase.getInstance().getReference("Parent").child("Parents Register");
+//        valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+//                     parentKey=dataSnapshot.getKey();
+//                    Parents_Model_class parent_addModal_class=dataSnapshot.getValue(Parents_Model_class.class);
+//                    String usertype=parent_addModal_class.getUsertype();
+//
+//                    System.out.println(parentKey);
+//                    System.out.println("parentKey");
+//                    System.out.println(usertype);
+//                    String email=textemail.replace(".","");
+//                    System.out.println(email);
 
-                }
-            }
+                    if (chparent.isChecked()){
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                        databaseReference= FirebaseDatabase.getInstance().getReference("Parent").child("Parents Register");
+                        System.out.println(databaseReference);
+                        valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                //   parentData.clear();
+                                //  Toast.makeText(Show_Buses.this, "show data", Toast.LENGTH_SHORT).show();
+                                for (DataSnapshot dataSnapshot:snapshot.getChildren()) {
+                                    System.out.println(dataSnapshot);
+                                    System.out.println("data22");
 
-            }
-        });
-
-
-        databaseReference = FirebaseDatabase.getInstance().getReference("Driver").child("Driver Register");
-
-
-        valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
-                     driverKey=dataSnapshot.getKey();
-                    System.out.println(driverKey);
-                    System.out.println("driverKey");
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-   String email=textemail.replace(".","");
+                                    // Toast.makeText(Show_Buses.this, dataSnapshot+"", Toast.LENGTH_SHORT).show();
+                                    parent_addModal_class = dataSnapshot.getValue(Parents_Model_class.class);
 
 
-System.out.println(email);
+                                    String Parent_name=parent_addModal_class.getParent_name();
+                                    String Parent_mobile=parent_addModal_class.getParent_mobile();
+                                    String Parent_age=parent_addModal_class.getParent_age();
+                                    String Parent_Addres=parent_addModal_class.getParent_Addres();
+                                    String Parent_mail=parent_addModal_class.getParent_mail();
+                                    String Parent_password=parent_addModal_class.getParent_password();
+                                    String usertype=parent_addModal_class.getUsertype();
+                                    String Parent_Chils=parent_addModal_class.getParent_Chils();
+                                    String emaill=textemail.replace(".","");
+                                    String pemail=Parent_mail.replace(".","");
+                                    System.out.println(emaill);
+                                    System.out.println(pemail);
+                                    System.out.println("showp");
+                                    if (emaill.equals(pemail)){
 
 
+                                        authprofile.signInWithEmailAndPassword(Parent_mail, Parent_password).addOnCompleteListener(Login_Activity.this, new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if (task.isSuccessful()) {
+                                                    progressBar.setVisibility(View.GONE);
 
-        if (email==parentKey) {
-            FirebaseAuth auth=FirebaseAuth.getInstance();
-            FirebaseUser firebaseUser=auth.getCurrentUser();
-            firebaseUser.getUid();
 
-            databaseReference= FirebaseDatabase.getInstance().getReference("Parent").child("Parents Register");
-            System.out.println(databaseReference);
-            valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                 //   parentData.clear();
-                    //  Toast.makeText(Show_Buses.this, "show data", Toast.LENGTH_SHORT).show();
-                    for (DataSnapshot dataSnapshot:snapshot.getChildren()){
-                        System.out.println(dataSnapshot);
-                        System.out.println("data22");
-
-                        // Toast.makeText(Show_Buses.this, dataSnapshot+"", Toast.LENGTH_SHORT).show();
-                        Parents_Model_class parent_addModal_class=dataSnapshot.getValue(Parents_Model_class.class);
-                        String Parent_name=parent_addModal_class.getParent_name();
-                        String Parent_mobile=parent_addModal_class.getParent_mobile();
-                        String Parent_age=parent_addModal_class.getParent_age();
-                        String Parent_Addres=parent_addModal_class.getParent_Addres();
-                        String Parent_mail=parent_addModal_class.getParent_mail();
-                        String Parent_password=parent_addModal_class.getParent_password();
-                        String usertype=parent_addModal_class.getUsertype();
+                                                    Intent intent1=new Intent(getApplicationContext(), Parent_Profile_Activity.class);
+                                                    intent1.putExtra("Parent_name",Parent_name);
+                                                    intent1.putExtra("Parent_mobile",Parent_mobile);
+                                                    intent1.putExtra("Parent_age",Parent_age);
+                                                    intent1.putExtra("Parent_Addres",Parent_Addres);
+                                                    intent1.putExtra("Parent_mail",Parent_mail);
+                                                    intent1.putExtra("Parent_Chils",Parent_Chils);
 
 
 
-//                       if (textpassword==password){
+                                                    startActivity(intent1);
+                                                    // startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                    Toast.makeText(getApplicationContext(),
+                                                                    "Login p",
+                                                                    Toast.LENGTH_LONG)
+                                                            .show();
 
+                                                } else {
+                                                    Toast.makeText(getApplicationContext(),
+                                                                    "Login failed!!",
+                                                                    Toast.LENGTH_LONG)
+                                                            .show();
+                                                }
 
-                           authprofile.signInWithEmailAndPassword(textemail, textpassword).addOnCompleteListener(Login_Activity.this, new OnCompleteListener<AuthResult>() {
-                               @Override
-                               public void onComplete(@NonNull Task<AuthResult> task) {
-                                   if (task.isSuccessful()) {
-                              progressBar.setVisibility(View.GONE);
+                                            }
+                                        });
+                                        // Toast.makeText(Login_Activity.this, "Same", Toast.LENGTH_SHORT).show();
+                                        System.out.println("aa2");
+                                        System.out.println("same");
+                                    }else {
 
-
-                              Intent intent1=new Intent(getApplicationContext(), Parent_Profile_Activity.class);
-                              intent1.putExtra("Parent_name",Parent_name);
-                              intent1.putExtra("Parent_mobile",Parent_mobile);
-                              intent1.putExtra("Parent_age",Parent_age);
-                              intent1.putExtra("Parent_Addres",Parent_Addres);
-                              intent1.putExtra("Parent_mail",Parent_mail);
-
-
-
-                              startActivity(intent1);
-                                      // startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                       Toast.makeText(getApplicationContext(),
-                                                       "Login p",
-                                                       Toast.LENGTH_LONG)
-                                               .show();
-
-                                   } else {
-                                       Toast.makeText(getApplicationContext(),
-                                                       "Login failed!!",
-                                                       Toast.LENGTH_LONG)
-                                               .show();
-                                   }
-
-                               }
-                           });
-                          // Toast.makeText(Login_Activity.this, "Same", Toast.LENGTH_SHORT).show();
-                           System.out.println("aa2");
-                           System.out.println("same");
-                       }
-
-                    }
+                                        Toast.makeText(Login_Activity.this, "not present", Toast.LENGTH_SHORT).show();
+                                    }
 
 
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                   Toast.makeText(getApplicationContext(), "Some thing went worng", Toast.LENGTH_SHORT).show();
-                }
-            });
+                                }
 
-        }
-        else if (email==driverKey){
+//                         //??
+
+                            }
 
 
-//            FirebaseAuth auth = FirebaseAuth.getInstance();
-//            FirebaseUser firebaseUser = auth.getCurrentUser();
-//            firebaseUser.getUid();
 
-            databaseReference = FirebaseDatabase.getInstance().getReference("Driver").child("Driver Register");
-            System.out.println(databaseReference);
-            valueEventListener = databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    //   parentData.clear();
-                    //  Toast.makeText(Show_Buses.this, "show data", Toast.LENGTH_SHORT).show();
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        System.out.println(dataSnapshot);
-                        System.out.println("data22");
-
-                        // Toast.makeText(Show_Buses.this, dataSnapshot+"", Toast.LENGTH_SHORT).show();
-
-                        Location_Modal_class driver_model_class = dataSnapshot.getValue(Location_Modal_class.class);
-                        String driver_name = driver_model_class.getDriver_name();
-                        String driver_mobile = driver_model_class.getDriver_mobile();
-                        String driver_age = driver_model_class.getDriver_age();
-                        String driver_Addres = driver_model_class.getDriver_Addres();
-                        String bus = driver_model_class.getBus();
-                        String emaild = driver_model_class.getDrivere_mail();
-                        String passwordd = driver_model_class.getDriver_password();
-                        String usertype = driver_model_class.getUsertype();
-                        String driver_password = driver_model_class.getDriver_password();
-                        String Longitude = String.valueOf(driver_model_class.getLongitude());
-                        String Latitude = String.valueOf(driver_model_class.getLatitude());
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(getApplicationContext(), "Some thing went worng", Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
 
-                       // Toast.makeText(Login_Activity.this, driver_model_class + "", Toast.LENGTH_SHORT).show();
 
-  String type="driver";
-                      if (emaild==textemail || passwordd==textpassword) {
+                    }else if (chdriver.isChecked()){
 
 
-                          authprofile.signInWithEmailAndPassword(emaild, passwordd).addOnCompleteListener(Login_Activity.this, new OnCompleteListener<AuthResult>() {
-                              @Override
-                              public void onComplete(@NonNull Task<AuthResult> task) {
-                                  if (task.isSuccessful()) {
-                                      progressBar.setVisibility(View.GONE);
+                        databaseReference = FirebaseDatabase.getInstance().getReference("Driver").child("Driver Register");
+                        System.out.println(databaseReference);
+                        valueEventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                //   parentData.clear();
+                                //  Toast.makeText(Show_Buses.this, "show data", Toast.LENGTH_SHORT).show();
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                    System.out.println(dataSnapshot);
+                                    System.out.println("data22");
 
-                                      Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                      intent.putExtra("driver_name", driver_name);
-                                      intent.putExtra("driver_mobile", driver_mobile);
-                                      intent.putExtra("driver_age", driver_age);
-                                      intent.putExtra("emaild", emaild);
-                                      intent.putExtra("driver_Addres", driver_Addres);
-                                      intent.putExtra("usertype", usertype);
-                                      intent.putExtra("bus", bus);
-                                      intent.putExtra("driver_password", driver_password);
-                                      intent.putExtra("Longitude", Longitude);
-                                      intent.putExtra("Latitude", Latitude);
+                                    // Toast.makeText(Show_Buses.this, dataSnapshot+"", Toast.LENGTH_SHORT).show();
 
-                                      startActivity(intent);
-                                      Toast.makeText(getApplicationContext(),
-                                                      "Login p",
-                                                      Toast.LENGTH_LONG)
-                                              .show();
+                                     driver_model_class = dataSnapshot.getValue(Location_Modal_class.class);
+
+
+
+
+
+                                    String driver_name = driver_model_class.getDriver_name();
+                                    String driver_mobile = driver_model_class.getDriver_mobile();
+                                    String driver_age = driver_model_class.getDriver_age();
+                                    String driver_Addres = driver_model_class.getDriver_Addres();
+                                    String bus = driver_model_class.getBus();
+                                    String emaild = driver_model_class.getDrivere_mail();
+                                    String passwordd = driver_model_class.getDriver_password();
+                                    String usertype = driver_model_class.getUsertype();
+                                    String driver_password = driver_model_class.getDriver_password();
+                                    String Longitude = String.valueOf(driver_model_class.getLongitude());
+                                    String Latitude = String.valueOf(driver_model_class.getLatitude());
+
+
+                                    // Toast.makeText(Login_Activity.this, driver_model_class + "", Toast.LENGTH_SHORT).show();
+                                    String emaill=textemail.replace(".","");
+                                    String demail=emaild.replace(".","");
+                                    System.out.println(emaill);
+                                    System.out.println(demail);
+                                    System.out.println("showd");
+                                    if (emaill.equals(demail)) {
+
+
+                                        authprofile.signInWithEmailAndPassword(emaild, passwordd).addOnCompleteListener(Login_Activity.this, new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if (task.isSuccessful()) {
+                                                    progressBar.setVisibility(View.GONE);
+
+                                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                    intent.putExtra("driver_name", driver_name);
+                                                    intent.putExtra("driver_mobile", driver_mobile);
+                                                    intent.putExtra("driver_age", driver_age);
+                                                    intent.putExtra("emaild", emaild);
+                                                    intent.putExtra("driver_Addres", driver_Addres);
+                                                    intent.putExtra("usertype", usertype);
+                                                    intent.putExtra("bus", bus);
+                                                    intent.putExtra("driver_password", driver_password);
+                                                    intent.putExtra("Longitude", Longitude);
+                                                    intent.putExtra("Latitude", Latitude);
+
+                                                    startActivity(intent);
+                                                    Toast.makeText(getApplicationContext(),
+                                                                    "Login p",
+                                                                    Toast.LENGTH_LONG)
+                                                            .show();
 
 
 //                    }else if (chdriver.isChecked()){
@@ -282,40 +271,276 @@ System.out.println(email);
 //                                .show();
 //                    }
 
-                                  } else {
-                                      Toast.makeText(getApplicationContext(),
-                                                      "Login failed!!",
-                                                      Toast.LENGTH_LONG)
-                                              .show();
-                                  }
+                                                } else {
+                                                    Toast.makeText(getApplicationContext(),
+                                                                    "Login failed!!",
+                                                                    Toast.LENGTH_LONG)
+                                                            .show();
+                                                }
 
-                              }
-                          });
-                      }else {
-                          Toast.makeText(Login_Activity.this, "usertype is not present", Toast.LENGTH_SHORT).show();
-                      }
-                    }
+                                            }
+                                        });
+                                    }else {
+                                        Toast.makeText(Login_Activity.this, "not present", Toast.LENGTH_SHORT).show();
+                                    }
+
+
+                                }
+
+// ???
+
 //                       else {
 //                           System.out.println("aa3");
 //                           System.out.println("not same");
 //                           Toast.makeText(Login_Activity.this, "not same", Toast.LENGTH_SHORT).show();
 //                       }
-                    //  parentData.add(parent_addModal_class);
-                    // Toast.makeText(Show_Buses.this, ""+busdata.get(2), Toast.LENGTH_SHORT).show();
+                                //  parentData.add(parent_addModal_class);
+                                // Toast.makeText(Show_Buses.this, ""+busdata.get(2), Toast.LENGTH_SHORT).show();
+                            }
+                            //   adapter_parentShow.notifyDataSetChanged();
+
+
+                            //    }
+
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(getApplicationContext(), "Some thing went worng", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
+
+
+
+
+
+                 //   }
+
+
+                   // System.out.println(email);
+
+
                 }
-                //   adapter_parentShow.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
 
-                //    }
+//        databaseReference = FirebaseDatabase.getInstance().getReference("Driver").child("Driver Register");
+//
+//
+//        valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+//                     driverKey=dataSnapshot.getKey();
+//                    System.out.println(driverKey);
+//                    System.out.println("driverKey");
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getApplicationContext(), "Some thing went worng", Toast.LENGTH_SHORT).show();
-                }
-            });
 
 
-        }
+
+//        if (email==parentKey) {
+//            FirebaseAuth auth=FirebaseAuth.getInstance();
+//            FirebaseUser firebaseUser=auth.getCurrentUser();
+//            firebaseUser.getUid();
+
+//            databaseReference= FirebaseDatabase.getInstance().getReference("Parent").child("Parents Register");
+//            System.out.println(databaseReference);
+//            valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                 //   parentData.clear();
+//                    //  Toast.makeText(Show_Buses.this, "show data", Toast.LENGTH_SHORT).show();
+//                    for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+//                        System.out.println(dataSnapshot);
+//                        System.out.println("data22");
+//
+//                        // Toast.makeText(Show_Buses.this, dataSnapshot+"", Toast.LENGTH_SHORT).show();
+//                        Parents_Model_class parent_addModal_class=dataSnapshot.getValue(Parents_Model_class.class);
+//                        String Parent_name=parent_addModal_class.getParent_name();
+//                        String Parent_mobile=parent_addModal_class.getParent_mobile();
+//                        String Parent_age=parent_addModal_class.getParent_age();
+//                        String Parent_Addres=parent_addModal_class.getParent_Addres();
+//                        String Parent_mail=parent_addModal_class.getParent_mail();
+//                        String Parent_password=parent_addModal_class.getParent_password();
+//                        String usertype=parent_addModal_class.getUsertype();
+//
+//
+//
+////                       if (textpassword==password){
+//
+//
+//                           authprofile.signInWithEmailAndPassword(textemail, textpassword).addOnCompleteListener(Login_Activity.this, new OnCompleteListener<AuthResult>() {
+//                               @Override
+//                               public void onComplete(@NonNull Task<AuthResult> task) {
+//                                   if (task.isSuccessful()) {
+//                              progressBar.setVisibility(View.GONE);
+//
+//
+//                              Intent intent1=new Intent(getApplicationContext(), Parent_Profile_Activity.class);
+//                              intent1.putExtra("Parent_name",Parent_name);
+//                              intent1.putExtra("Parent_mobile",Parent_mobile);
+//                              intent1.putExtra("Parent_age",Parent_age);
+//                              intent1.putExtra("Parent_Addres",Parent_Addres);
+//                              intent1.putExtra("Parent_mail",Parent_mail);
+//
+//
+//
+//                              startActivity(intent1);
+//                                      // startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                                       Toast.makeText(getApplicationContext(),
+//                                                       "Login p",
+//                                                       Toast.LENGTH_LONG)
+//                                               .show();
+//
+//                                   } else {
+//                                       Toast.makeText(getApplicationContext(),
+//                                                       "Login failed!!",
+//                                                       Toast.LENGTH_LONG)
+//                                               .show();
+//                                   }
+//
+//                               }
+//                           });
+//                          // Toast.makeText(Login_Activity.this, "Same", Toast.LENGTH_SHORT).show();
+//                           System.out.println("aa2");
+//                           System.out.println("same");
+//                       }
+//
+//                    }
+//
+//
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//                   Toast.makeText(getApplicationContext(), "Some thing went worng", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+
+       // }
+//        else if (email==driverKey){
+
+
+//            FirebaseAuth auth = FirebaseAuth.getInstance();
+//            FirebaseUser firebaseUser = auth.getCurrentUser();
+//            firebaseUser.getUid();
+
+//            databaseReference = FirebaseDatabase.getInstance().getReference("Driver").child("Driver Register");
+//            System.out.println(databaseReference);
+//            valueEventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    //   parentData.clear();
+//                    //  Toast.makeText(Show_Buses.this, "show data", Toast.LENGTH_SHORT).show();
+//                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                        System.out.println(dataSnapshot);
+//                        System.out.println("data22");
+//
+//                        // Toast.makeText(Show_Buses.this, dataSnapshot+"", Toast.LENGTH_SHORT).show();
+//
+//                        Location_Modal_class driver_model_class = dataSnapshot.getValue(Location_Modal_class.class);
+//                        String driver_name = driver_model_class.getDriver_name();
+//                        String driver_mobile = driver_model_class.getDriver_mobile();
+//                        String driver_age = driver_model_class.getDriver_age();
+//                        String driver_Addres = driver_model_class.getDriver_Addres();
+//                        String bus = driver_model_class.getBus();
+//                        String emaild = driver_model_class.getDrivere_mail();
+//                        String passwordd = driver_model_class.getDriver_password();
+//                        String usertype = driver_model_class.getUsertype();
+//                        String driver_password = driver_model_class.getDriver_password();
+//                        String Longitude = String.valueOf(driver_model_class.getLongitude());
+//                        String Latitude = String.valueOf(driver_model_class.getLatitude());
+//
+//
+//                       // Toast.makeText(Login_Activity.this, driver_model_class + "", Toast.LENGTH_SHORT).show();
+//
+//  String type="driver";
+//                      if (emaild==textemail || passwordd==textpassword) {
+//
+//
+//                          authprofile.signInWithEmailAndPassword(emaild, passwordd).addOnCompleteListener(Login_Activity.this, new OnCompleteListener<AuthResult>() {
+//                              @Override
+//                              public void onComplete(@NonNull Task<AuthResult> task) {
+//                                  if (task.isSuccessful()) {
+//                                      progressBar.setVisibility(View.GONE);
+//
+//                                      Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                                      intent.putExtra("driver_name", driver_name);
+//                                      intent.putExtra("driver_mobile", driver_mobile);
+//                                      intent.putExtra("driver_age", driver_age);
+//                                      intent.putExtra("emaild", emaild);
+//                                      intent.putExtra("driver_Addres", driver_Addres);
+//                                      intent.putExtra("usertype", usertype);
+//                                      intent.putExtra("bus", bus);
+//                                      intent.putExtra("driver_password", driver_password);
+//                                      intent.putExtra("Longitude", Longitude);
+//                                      intent.putExtra("Latitude", Latitude);
+//
+//                                      startActivity(intent);
+//                                      Toast.makeText(getApplicationContext(),
+//                                                      "Login p",
+//                                                      Toast.LENGTH_LONG)
+//                                              .show();
+//
+//
+////                    }else if (chdriver.isChecked()){
+////                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+////                        Toast.makeText(getApplicationContext(),
+////                                        "Login",
+////                                        Toast.LENGTH_LONG)
+////                                .show();
+////                    }
+//
+//                                  } else {
+//                                      Toast.makeText(getApplicationContext(),
+//                                                      "Login failed!!",
+//                                                      Toast.LENGTH_LONG)
+//                                              .show();
+//                                  }
+//
+//                              }
+//                          });
+//                      }else {
+//                          Toast.makeText(Login_Activity.this, "usertype is not present", Toast.LENGTH_SHORT).show();
+//                      }
+//                    }
+////                       else {
+////                           System.out.println("aa3");
+////                           System.out.println("not same");
+////                           Toast.makeText(Login_Activity.this, "not same", Toast.LENGTH_SHORT).show();
+////                       }
+//                    //  parentData.add(parent_addModal_class);
+//                    // Toast.makeText(Show_Buses.this, ""+busdata.get(2), Toast.LENGTH_SHORT).show();
+//                }
+//                //   adapter_parentShow.notifyDataSetChanged();
+//
+//
+//                //    }
+//
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//                    Toast.makeText(getApplicationContext(), "Some thing went worng", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//
+
+        //}
 
     }}

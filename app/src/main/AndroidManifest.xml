@@ -17,6 +17,13 @@
         android:theme="@style/Theme.SchoolBusTracking"
         tools:targetApi="31">
         <activity
+            android:name=".Student_Activity.Student_Profile_Activity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Parents_Activity.Parent_Profile_Activity"
             android:exported="false">
             <meta-data

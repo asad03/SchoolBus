@@ -52,5 +52,19 @@
         android:layout_marginTop="12dp"
         android:textSize="19dp"
         />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="name"
+        android:id="@+id/txtperent_chil"
+        android:padding="22dp"
+        android:layout_marginTop="12dp"
+        android:textSize="19dp"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Child"
+        android:id="@+id/btnChild"/>
 
 </LinearLayout>
