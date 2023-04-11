@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Parent_Profile_Activity extends AppCompatActivity {
 TextView textViewpname,textViewpMobile,textViewpAge,textViewpAddres,textViewpEmail,textViewPerentChild;
-Button btnchild;
+Button btnchild,btnChildLocation;
     DatabaseReference databaseReference;
     ValueEventListener valueEventListener;
     @Override
@@ -34,6 +34,7 @@ Button btnchild;
         textViewpEmail=findViewById(R.id.txtpemail);
         textViewPerentChild=findViewById(R.id.txtperent_chil);
         btnchild=findViewById(R.id.btnChild);
+        btnChildLocation=findViewById(R.id.btnChildLocation);
 
 
 
@@ -52,9 +53,22 @@ Button btnchild;
         textViewpEmail.setText(Parent_email);
         textViewPerentChild.setText(Parent_Chils);
 
+
+        btnChildLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Parent_Profile_Activity.this, "Location", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
         btnchild.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+              Show_Child_Profile();
+            }
+
+            private void Show_Child_Profile() {
                 System.out.println(Parent_Chils);
                 System.out.println("pp");
                 Toast.makeText(Parent_Profile_Activity.this, "clack", Toast.LENGTH_SHORT).show();
@@ -65,36 +79,38 @@ Button btnchild;
                         for (DataSnapshot dataSnapshot:snapshot.getChildren()) {
                             Show_Child_ModalClass show_child_modalClass=dataSnapshot.getValue(Show_Child_ModalClass.class);
                             //    String student_registerationNo, stdent_fullname, student_fatherName, student_class, student_mobileNo, student_email, student_location;
-                           String student_registerationNo  =show_child_modalClass.getStudent_registerationNo();
-                           String  stdent_fullname=show_child_modalClass.getStdent_fullname();
-                           String student_fatherName=show_child_modalClass.getStudent_fatherName();
-                           String student_class=show_child_modalClass.getStudent_class();
-                           String student_mobileNo=show_child_modalClass.getStudent_mobileNo();
-                           String student_email=show_child_modalClass.getStudent_email();
-                           String student_location=show_child_modalClass.getStudent_location();
-                            System.out.println(student_registerationNo);
-                            System.out.println(Parent_Chils);
+                            String student_registerationNo  =show_child_modalClass.getStudent_registerationNo();
+                            String  stdent_fullname=show_child_modalClass.getStdent_fullname();
+                            String student_fatherName=show_child_modalClass.getStudent_fatherName();
+                            String student_class=show_child_modalClass.getStudent_class();
+                            String student_mobileNo=show_child_modalClass.getStudent_mobileNo();
+                            String student_email=show_child_modalClass.getStudent_email();
+                            String student_location=show_child_modalClass.getStudent_location();
+                            String student_Bus= show_child_modalClass.getSbus();
+                           // System.out.println(student_registerationNo);
+                            System.out.println(show_child_modalClass.getSbus());
                             System.out.println(student_registerationNo+",,,,"+Parent_Chils);
                             System.out.println("sid");
 
-                           if (Parent_Chils.equals(student_registerationNo)){
-                               Intent intent1=new Intent(getApplicationContext(), Student_Profile_Activity.class);
-                               intent1.putExtra("stdent_fullname",stdent_fullname);
-                               intent1.putExtra("student_fatherName",student_fatherName);
-                               intent1.putExtra("student_class",student_class);
-                               intent1.putExtra("student_mobileNo",student_mobileNo);
-                               intent1.putExtra("student_email",student_email);
-                               intent1.putExtra("student_location",student_location);
+                            if (Parent_Chils.equals(student_registerationNo)){
+                                Intent intent1=new Intent(getApplicationContext(), Student_Profile_Activity.class);
+                                intent1.putExtra("stdent_fullname",stdent_fullname);
+                                intent1.putExtra("student_fatherName",student_fatherName);
+                                intent1.putExtra("student_class",student_class);
+                                intent1.putExtra("student_mobileNo",student_mobileNo);
+                                intent1.putExtra("student_email",student_email);
+                                intent1.putExtra("student_location",student_location);
+                                intent1.putExtra("student_Bus",student_Bus);
 
 
 
-                               startActivity(intent1);
-                               Toast.makeText(Parent_Profile_Activity.this, "same", Toast.LENGTH_SHORT).show();
-                           }else {
+                                startActivity(intent1);
+                                Toast.makeText(Parent_Profile_Activity.this, "same", Toast.LENGTH_SHORT).show();
+                            }else {
 
 
-                               Toast.makeText(Parent_Profile_Activity.this, "not same", Toast.LENGTH_SHORT).show();
-                           }
+                                Toast.makeText(Parent_Profile_Activity.this, "not same", Toast.LENGTH_SHORT).show();
+                            }
 
                         }
 

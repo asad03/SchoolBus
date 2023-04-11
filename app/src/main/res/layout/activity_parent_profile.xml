@@ -61,10 +61,22 @@
         android:layout_marginTop="12dp"
         android:textSize="19dp"
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Child"
         android:id="@+id/btnChild"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Child Location"
+            android:layout_marginLeft="33dp"
+            android:id="@+id/btnChildLocation"/>
+</LinearLayout>
 
 </LinearLayout>

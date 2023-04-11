@@ -1,24 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <fragment
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/google_map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        />
+        android:layout_width="390dp"
+        android:layout_height="500dp" />
+
+    <TextView
+        android:id="@+id/txtshowQr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="22dp"
+        android:textSize="14dp" />
+
     <Button
+        android:id="@+id/btnscanall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register"
+
+        android:text="Scan Code" />
+
+    <RelativeLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/google_map"
-        android:id="@+id/btnreg"/>
+        android:layout_marginLeft="66dp">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/btnscan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Morning Enter" />
+
+            <RadioButton
+                android:id="@+id/btnscan2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
 
+                android:text="Morning Out" />
 
-</RelativeLayout>
+            <RadioButton
+                android:id="@+id/btneveningenter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@+id/btnscan"
+                android:text="Evening Enter" />
+
+            <RadioButton
+                android:id="@+id/btneveningout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnscan2"
+
+                android:layout_marginRight="0dp"
+
+                android:text="Evening Out" />
+
+        </RadioGroup>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

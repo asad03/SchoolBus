@@ -155,7 +155,7 @@ public class Login_Activity extends AppCompatActivity {
                                                     startActivity(intent1);
                                                     // startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                                     Toast.makeText(getApplicationContext(),
-                                                                    "Login p",
+                                                                    "Login parents",
                                                                     Toast.LENGTH_LONG)
                                                             .show();
 
@@ -173,7 +173,7 @@ public class Login_Activity extends AppCompatActivity {
                                         System.out.println("same");
                                     }else {
 
-                                        Toast.makeText(Login_Activity.this, "not present", Toast.LENGTH_SHORT).show();
+                                       // Toast.makeText(Login_Activity.this, "not present", Toast.LENGTH_SHORT).show();
                                     }
 
 
@@ -258,7 +258,7 @@ public class Login_Activity extends AppCompatActivity {
 
                                                     startActivity(intent);
                                                     Toast.makeText(getApplicationContext(),
-                                                                    "Login p",
+                                                                    "Login driver",
                                                                     Toast.LENGTH_LONG)
                                                             .show();
 
@@ -281,7 +281,7 @@ public class Login_Activity extends AppCompatActivity {
                                             }
                                         });
                                     }else {
-                                        Toast.makeText(Login_Activity.this, "not present", Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(Login_Activity.this, "not present", Toast.LENGTH_SHORT).show();
                                     }
 
 

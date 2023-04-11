@@ -1,18 +1,36 @@
 package com.asadkhan.schoolbustracking;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.icu.util.Calendar;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.text.format.Time;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.asadkhan.schoolbustracking.Attendance_Activity.Attendance_Model_Class;
+import com.asadkhan.schoolbustracking.Attendance_Activity.Attendance_Out_Activity;
+import com.asadkhan.schoolbustracking.Attendance_Activity.EveningScan_Activity;
+import com.asadkhan.schoolbustracking.Attendance_Activity.MorningSCan_Activity;
+import com.asadkhan.schoolbustracking.Attendance_Activity.OutingScan_Activity;
+import com.asadkhan.schoolbustracking.Student_Activity.Capture2_QR;
+import com.asadkhan.schoolbustracking.Student_Activity.Capture_QR;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -31,6 +49,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -38,19 +58,118 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     SupportMapFragment smf;
 
     FusedLocationProviderClient client;
     ValueEventListener valueEventListener;
     DatabaseReference databaseReference;
+    FirebaseDatabase firebaseDatabase;
+    Attendance_Out_Activity attendance_out_activity;
+    Button  btnscanall;
+    RadioButton btneveningout, btnscan,btnscan2,btneveningenter;
+    // CheckBox chmorningtime,cheveningtime;
+
+    TextView txtshowQR, txtshowQR2;
+    String bus,student_name,studnet_RNumber,StudentnameandRno;
+
+    String MorningStatus,EveningStatus;
+    String eveningDateandTime, eveningentryDate, eveningentryTime;
+    SimpleDateFormat simpleDateFormat, sdf, simpleFormat;
+
+    List<String> myList;
+    List data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        btnscan=findViewById(R.id.btnscan);
+        txtshowQR=findViewById(R.id.txtshowQr);
+        btnscan2=findViewById(R.id.btnscan2);
+        btneveningenter=findViewById(R.id.btneveningenter);
+        btneveningout=findViewById(R.id.btneveningout);
+        btnscanall=findViewById(R.id.btnscanall);
+        sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm:ss");
+        simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
+        simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+
+        // on below line we are creating a variable
+        // for current date and time and calling a simple date format in it.
+        eveningDateandTime = sdf.format(new Date());
+        eveningentryDate = simpleFormat.format(new Date());
+        eveningentryTime = simpleDateFormat.format(new Date());
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         smf = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
         client = LocationServices.getFusedLocationProviderClient(this);
+
+        btnscanall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IntentIntegrator intentIntegrator=new IntentIntegrator(MainActivity.this);
+                intentIntegrator.setPrompt("use up key");
+                intentIntegrator.setBeepEnabled(true);
+                intentIntegrator.setOrientationLocked(true);
+                intentIntegrator.setCaptureActivity(Capture_QR.class);
+                intentIntegrator.initiateScan();
+            }
+        });
+//        btneveningout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+
+//        btnscan.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                IntentIntegrator intentIntegrator=new IntentIntegrator(MainActivity.this);
+//                intentIntegrator.setPrompt("use up key");
+//                intentIntegrator.setBeepEnabled(true);
+//                intentIntegrator.setOrientationLocked(true);
+//                intentIntegrator.setCaptureActivity(Capture_QR.class);
+//                intentIntegrator.initiateScan();
+//                MorningEnter();
+//               // Intent intent=new Intent(getApplicationContext(), MorningSCan_Activity.class);
+////
+////                intent.putExtra("bus",bus);
+////                startActivity(intent);
+//               // chmorningtime.isChecked();
+//            }
+//
+//            private void MorningEnter() {
+//
+//              //  studnet_RNumber = txtshowQR.getText().toString().trim();
+////                if (TextUtils.isEmpty(studnet_RNumber)) {
+////                    txtshowQR.setError("please scan again");
+////                    txtshowQR.requestFocus();
+////                } else {
+//
+//               // }
+//            }
+//        });
+
+//        btnscan2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                IntentIntegrator intentIntegrator=new IntentIntegrator(MainActivity.this);
+//                intentIntegrator.setPrompt("use up key");
+//                intentIntegrator.setBeepEnabled(true);
+//                intentIntegrator.setOrientationLocked(true);
+//                intentIntegrator.setCaptureActivity(Capture2_QR.class);
+//                intentIntegrator.initiateScan();
+//              MorningOut();
+//
+//            }
+//        });
+
 
         Dexter.withContext(getApplicationContext())
                 .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
@@ -72,6 +191,58 @@ public class MainActivity extends AppCompatActivity {
                 }).check();
 
     }
+
+//    private void MorningOut() {
+//
+//        // Intent intent=new Intent(getApplicationContext(), EveningScan_Activity.class);
+//
+//        //intent.putExtra("bus",bus);
+//        //startActivity(intent);
+//
+//
+//        //IntentResult intentResultt = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+//        //  txtshowQR.setText(intentResultt.getContents());
+//       // studnet_RNumber = txtshowQR.getText().toString().trim();
+////        if (TextUtils.isEmpty(studnet_RNumber)) {
+////            txtshowQR.setError("please scan again");
+////            txtshowQR.requestFocus();
+////        } else {
+//             sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm");
+//             simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
+//            simpleDateFormat = new SimpleDateFormat("HH:mm");
+//
+//            // on below line we are creating a variable
+//            // for current date and time and calling a simple date format in it.
+//             eveningDateandTime = sdf.format(new Date());
+//             eveningentryDate = simpleFormat.format(new Date());
+//             eveningentryTime = simpleDateFormat.format(new Date());
+//
+//            // on below line we are setting current
+//            // date and time to our text view.
+//            // currentTV.setText(currentDateAndTime);
+//            MorningStatus = "absent";
+//
+//            firebaseDatabase = FirebaseDatabase.getInstance();
+//            databaseReference = firebaseDatabase.getReference("AttendanceMorning").child("StudentMorning");
+//             attendance_out_activity = new   Attendance_Out_Activity(bus, studnet_RNumber, eveningentryDate, eveningentryTime, MorningStatus, eveningDateandTime);
+//            databaseReference.child(eveningDateandTime).setValue(attendance_out_activity);
+//            databaseReference.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    Toast.makeText(getApplicationContext(), "Add Student Data Successfully", Toast.LENGTH_SHORT).show();
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//                    Toast.makeText(getApplicationContext(), "Faild to add data", Toast.LENGTH_SHORT).show();
+//
+//                }
+//            });
+//
+//
+//    }
+
 
     private void getMyLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -122,10 +293,10 @@ public class MainActivity extends AppCompatActivity {
                       String drivere_mail=intent.getStringExtra("emaild");
                       String driver_Addres=intent.getStringExtra("driver_Addres");
                       String usertype=intent.getStringExtra("usertype");
-                      String bus=intent.getStringExtra("bus");
+                       bus=intent.getStringExtra("bus");
                       String driver_password=intent.getStringExtra("driver_password");
-                      double Longitude=intent.getDoubleExtra("Longitude",location.getLongitude());
-                      double Latitude=intent.getDoubleExtra("Latitude",location.getLatitude());
+                 double  longitude =intent.getDoubleExtra("Longitude",location.getLongitude());
+                   double latitude= intent.getDoubleExtra("Latitude",location.getLatitude());
 
 
 
@@ -158,4 +329,258 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        IntentResult intentResultt = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        StudentnameandRno=intentResultt.getContents();
+        String ab= StudentnameandRno.toString();
+//        txtshowQR.setText( studnet_RNumber);
+//  String a=      txtshowQR.getText().toString();
+        System.out.println(ab);
+        System.out.println("aaaa");
+                myList = new ArrayList<String>(Arrays.asList(ab.split(",")));
+
+        System.out.println(myList);
+        student_name=myList.get(0);
+        studnet_RNumber=myList.get(1);
+        txtshowQR.setText(  student_name+"        "+ studnet_RNumber);
+
+
+
+
+
+        if (btnscan2.isChecked()){
+
+//             sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm");
+//             simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
+//            simpleDateFormat = new SimpleDateFormat("HH:mm");
+//
+//            // on below line we are creating a variable
+//            // for current date and time and calling a simple date format in it.
+//             eveningDateandTime = sdf.format(new Date());
+//             eveningentryDate = simpleFormat.format(new Date());
+//             eveningentryTime = simpleDateFormat.format(new Date());
+
+            // on below line we are setting current
+            // date and time to our text view.
+            // currentTV.setText(currentDateAndTime);
+              MorningStatus = "absent";
+
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            databaseReference = firebaseDatabase.getReference("AttendanceMorning").child("StudentMorning");
+             attendance_out_activity = new   Attendance_Out_Activity(bus, studnet_RNumber, eveningentryDate, eveningentryTime, MorningStatus, eveningDateandTime,student_name);
+            databaseReference.child(eveningDateandTime).setValue(attendance_out_activity);
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Toast.makeText(getApplicationContext(), "Add Student Data Successfully", Toast.LENGTH_SHORT).show();
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(getApplicationContext(), "Faild to add data", Toast.LENGTH_SHORT).show();
+
+                }
+            }); }
+            if (btnscan.isChecked()){
+//                 sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm");
+//                 simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
+//                simpleDateFormat = new SimpleDateFormat("HH:mm");
+//
+//                // on below line we are creating a variable
+//                // for current date and time and calling a simple date format in it.
+//                 eveningDateandTime = sdf.format(new Date());
+//                 eveningentryDate = simpleFormat.format(new Date());
+//                 eveningentryTime = simpleDateFormat.format(new Date());
+
+                // on below line we are setting current
+                // date and time to our text view.
+                // currentTV.setText(currentDateAndTime);
+                MorningStatus = "present";
+
+                firebaseDatabase = FirebaseDatabase.getInstance();
+                databaseReference = firebaseDatabase.getReference("AttendanceMorning").child("StudentMorning");
+                Attendance_Out_Activity attendance_out_activity1 = new   Attendance_Out_Activity(bus, studnet_RNumber, eveningentryDate, eveningentryTime, MorningStatus, eveningDateandTime,student_name);
+                databaseReference.child(eveningDateandTime).setValue(attendance_out_activity1);
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Toast.makeText(getApplicationContext(), "Add Student Data Successfully", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(getApplicationContext(), "Faild to add data", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+            }
+
+
+          if (btneveningenter.isChecked()){
+//              sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm");
+//              simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
+//              simpleDateFormat = new SimpleDateFormat("HH:mm");
+//
+//              // on below line we are creating a variable
+//              // for current date and time and calling a simple date format in it.
+//              eveningDateandTime = sdf.format(new Date());
+//              eveningentryDate = simpleFormat.format(new Date());
+//              eveningentryTime = simpleDateFormat.format(new Date());
+
+              // on below line we are setting current
+              // date and time to our text view.
+              // currentTV.setText(currentDateAndTime);
+              EveningStatus = "present";
+
+              firebaseDatabase = FirebaseDatabase.getInstance();
+              databaseReference = firebaseDatabase.getReference("AttendanceEvening").child("StudentEvening");
+        Attendance_Model_Class attendance_model_class=new Attendance_Model_Class(bus,studnet_RNumber, eveningentryDate, eveningentryTime, EveningStatus, eveningDateandTime,student_name);
+databaseReference.child(eveningDateandTime).setValue(attendance_model_class);
+databaseReference.addValueEventListener(new ValueEventListener() {
+    @Override
+    public void onDataChange(@NonNull DataSnapshot snapshot) {
+        Toast.makeText(getApplicationContext(), "Add Student Data Successfully", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onCancelled(@NonNull DatabaseError error) {
+        Toast.makeText(getApplicationContext(), "Faild to add data", Toast.LENGTH_SHORT).show();
+
+    }
+});
+          }
+          if (btneveningout.isChecked()){
+
+
+//              sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm");
+//              simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
+//              simpleDateFormat = new SimpleDateFormat("HH:mm");
+//
+//              // on below line we are creating a variable
+//              // for current date and time and calling a simple date format in it.
+//              eveningDateandTime = sdf.format(new Date());
+//              eveningentryDate = simpleFormat.format(new Date());
+//              eveningentryTime = simpleDateFormat.format(new Date());
+              // on below line we are setting current
+              // date and time to our text view.
+              // currentTV.setText(currentDateAndTime);
+              EveningStatus = "absent";
+
+              firebaseDatabase = FirebaseDatabase.getInstance();
+              databaseReference = firebaseDatabase.getReference("AttendanceEvening").child("StudentEvening");
+              Attendance_Model_Class attendance_model_class=new Attendance_Model_Class(bus,studnet_RNumber, eveningentryDate, eveningentryTime, EveningStatus, eveningDateandTime,student_name);
+              databaseReference.child(eveningDateandTime).setValue(attendance_model_class);
+              databaseReference.addValueEventListener(new ValueEventListener() {
+                  @Override
+                  public void onDataChange(@NonNull DataSnapshot snapshot) {
+                      Toast.makeText(getApplicationContext(), "Add Student Data Successfully", Toast.LENGTH_SHORT).show();
+
+                  }
+
+                  @Override
+                  public void onCancelled(@NonNull DatabaseError error) {
+                      Toast.makeText(getApplicationContext(), "Faild to add data", Toast.LENGTH_SHORT).show();
+
+                  }
+              });
+
+          }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         //studnet_RNumber = txtshowQR.getText().toString().trim();
+
+//            databaseReference = FirebaseDatabase.getInstance().getReference("AttendanceEvening").child("StudentEveningEnter");
+//            valueEventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                        System.out.println(dataSnapshot);
+//                        System.out.println("data");
+//
+//                        // Toast.makeText(Show_Buses.this, dataSnapshot+"", Toast.LENGTH_SHORT).show();
+//
+//                        Attendance_Out_Activity attendance_out_activity = dataSnapshot.getValue( Attendance_Out_Activity.class);
+//                        System.out.println("stuu");
+//
+//                        eveningOStatus =  attendance_out_activity.getEveningOStatus();
+//
+//                        System.out.println( attendance_out_activity.getBus());
+//                        System.out.println( attendance_out_activity.getEveningOStatus());
+//                        System.out.println("statuu");}
+//                    if (chmorning.isChecked()){
+//                  //  if (eveningOStatus==null ) {
+//                        IntentResult intentResultt = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+//                        txtshowQR.setText(intentResultt.getContents());
+//
+//                        System.out.println(eveningOStatus);
+//                        System.out.println("cvb");
+//
+//
+//                    }else if (chevening.isChecked()){
+//
+//
+//
+//
+//                       // Toast.makeText(MainActivity.this, "absent???", Toast.LENGTH_SHORT).show();
+//
+//                    }
+//                    }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                }
+//            });
+//
+
+           // Toast.makeText(this, "evening chicked", Toast.LENGTH_SHORT).show();
+
+
+    }
+
+
 }
