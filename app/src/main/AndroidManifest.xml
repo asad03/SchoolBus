@@ -18,6 +18,41 @@
         android:theme="@style/Theme.SchoolBusTracking"
         tools:targetApi="31">
         <activity
+            android:name=".Show_Attendance_Activity.ShowFull_EveningAtten_Activity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Show_Attendance_Activity.ShowFull_MorningAtten_Activity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Show_Attendance_Activity.EveningAtten_Bus_Activity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Show_Attendance_Activity.MorningAttendance_Activity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Show_Attendance_Activity.AttenAllBtn_Activity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Attendance_Activity.EveningScan_Activity"
             android:exported="false">
             <meta-data

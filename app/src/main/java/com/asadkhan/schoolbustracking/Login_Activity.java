@@ -543,4 +543,20 @@ public class Login_Activity extends AppCompatActivity {
 
         //}
 
-    }}
+    }
+
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        if (authprofile.getCurrentUser() !=null){
+//            Toast.makeText(this, "Already Logged In!", Toast.LENGTH_SHORT).show();
+//            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+//            finish();
+//        }
+//        else {
+//            Toast.makeText(this, "You can login now !", Toast.LENGTH_SHORT).show();
+//
+//        }
+//    }
+}

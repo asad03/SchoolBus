@@ -71,12 +71,7 @@
         android:layout_height="wrap_content"
         android:text="Child"
         android:id="@+id/btnChild"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Child Location"
-            android:layout_marginLeft="33dp"
-            android:id="@+id/btnChildLocation"/>
+
 </LinearLayout>
 
 </LinearLayout>

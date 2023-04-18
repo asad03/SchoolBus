@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.asadkhan.schoolbustracking.Location_Modal_class;
 import com.asadkhan.schoolbustracking.R;
+import com.asadkhan.schoolbustracking.Show_Attendance_Activity.AttenAllBtn_Activity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,8 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Student_Profile_Activity extends AppCompatActivity {
-TextView txtstdent_fullname,txtstudent_fatherName,txtstudent_class,txtstudent_mobileNo,txtstudent_email,txtstudent_location,txtstudent_bus;
- Button    btnChildLocation;
+TextView txtstudent_rno,txtstdent_fullname,txtstudent_fatherName,txtstudent_class,txtstudent_mobileNo,txtstudent_email,txtstudent_location,txtstudent_bus;
+ Button    btnChildLocation,btnAtten,btncurrentstatus;
     DatabaseReference databaseReference;
     ValueEventListener valueEventListener;
 
@@ -35,7 +36,9 @@ TextView txtstdent_fullname,txtstudent_fatherName,txtstudent_class,txtstudent_mo
         txtstudent_email=findViewById(R.id.textstudent_email);
         txtstudent_location=findViewById(R.id.textstudent_location);
         txtstudent_bus=findViewById(R.id.textstudent_bus);
-        btnChildLocation=findViewById(R.id.btnChildLocation);
+        txtstudent_rno=findViewById(R.id.textstudent_Rno);
+        btnAtten=findViewById(R.id.btnchAtten);
+
 
         Intent intent=getIntent();
         String  stdent_fullname   =intent.getStringExtra("stdent_fullname");
@@ -45,6 +48,7 @@ TextView txtstdent_fullname,txtstudent_fatherName,txtstudent_class,txtstudent_mo
         String  student_email   =intent.getStringExtra("student_email");
         String   student_location  =intent.getStringExtra("student_location");
         String student_Bus=intent.getStringExtra("student_Bus");
+        String student_registerationNo=intent.getStringExtra("student_registerationNo");
 
         txtstdent_fullname.setText(stdent_fullname);
         txtstudent_fatherName.setText(student_fatherName);
@@ -53,6 +57,8 @@ TextView txtstdent_fullname,txtstudent_fatherName,txtstudent_class,txtstudent_mo
         txtstudent_email.setText(student_email);
         txtstudent_location.setText(student_location);
         txtstudent_bus.setText(student_Bus);
+        txtstudent_rno.setText(student_registerationNo);
+        btnChildLocation=findViewById(R.id.btnChidloc);
 
 
         btnChildLocation.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +86,9 @@ TextView txtstdent_fullname,txtstudent_fatherName,txtstudent_class,txtstudent_mo
                                 Intent intent1=new Intent(getApplicationContext(), Student_Location_Activity.class);
                                 intent1.putExtra("student_Latitude",student_Latitude );
                                intent1.putExtra("student_Longitude",student_Longitude);
+
+                                intent1.putExtra("student_Bus",student_Bus);
+                                intent1.putExtra("student_registerationNo",student_registerationNo);
 //                                intent1.putExtra("student_class",student_class);
 //                                intent1.putExtra("student_mobileNo",student_mobileNo);
 //                                intent1.putExtra("student_email",student_email);
@@ -89,11 +98,11 @@ TextView txtstdent_fullname,txtstudent_fatherName,txtstudent_class,txtstudent_mo
 
 
                                 startActivity(intent1);
-                                Toast.makeText(getApplicationContext(), "same", Toast.LENGTH_SHORT).show();
+                              //  Toast.makeText(getApplicationContext(), "same", Toast.LENGTH_SHORT).show();
                             }else {
 
 
-                                Toast.makeText(getApplicationContext(), "not same", Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(getApplicationContext(), "not same", Toast.LENGTH_SHORT).show();
                             }
 
                         }
@@ -110,5 +119,20 @@ TextView txtstdent_fullname,txtstudent_fatherName,txtstudent_class,txtstudent_mo
             }
         });
 
+
+        btnAtten.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1=new Intent(Student_Profile_Activity.this, AttenAllBtn_Activity.class);
+                intent1.putExtra("student_Bus",student_Bus);
+                intent1.putExtra("student_registerationNo",student_registerationNo);
+                startActivity(intent1);
+
+            }
+        });
+
+
+
     }
+
 }

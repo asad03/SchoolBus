@@ -34,7 +34,7 @@ Button btnchild,btnChildLocation;
         textViewpEmail=findViewById(R.id.txtpemail);
         textViewPerentChild=findViewById(R.id.txtperent_chil);
         btnchild=findViewById(R.id.btnChild);
-        btnChildLocation=findViewById(R.id.btnChildLocation);
+        //btnChildLocation=findViewById(R.id.btnChildLocation);
 
 
 
@@ -54,13 +54,7 @@ Button btnchild,btnChildLocation;
         textViewPerentChild.setText(Parent_Chils);
 
 
-        btnChildLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(Parent_Profile_Activity.this, "Location", Toast.LENGTH_SHORT).show();
 
-            }
-        });
 
         btnchild.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +95,7 @@ Button btnchild,btnChildLocation;
                                 intent1.putExtra("student_email",student_email);
                                 intent1.putExtra("student_location",student_location);
                                 intent1.putExtra("student_Bus",student_Bus);
+                                intent1.putExtra("student_registerationNo",student_registerationNo);
 
 
 

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="11dp"
+    tools:context=".Show_Attendance_Activity.AttenAllBtn_Activity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:text="Morning In"
+            android:layout_marginTop="130dp"
+            android:layout_marginLeft="22dp"
+            android:id="@+id/btnmoringattenin"
+            />
+        <Button
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:text="Morning Out"
+            android:layout_marginTop="130dp"
+            android:layout_marginLeft="72dp"
+            android:id="@+id/btnmorningattenout"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:text="Evening In"
+            android:layout_marginTop="130dp"
+            android:layout_marginLeft="22dp"
+            android:id="@+id/btnatteneveningin"
+            />
+        <Button
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:text="Evening Out"
+            android:layout_marginTop="130dp"
+            android:layout_marginLeft="72dp"
+            android:id="@+id/btnatteneveningout"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

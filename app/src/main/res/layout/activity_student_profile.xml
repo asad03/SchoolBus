@@ -77,13 +77,36 @@
         android:text="name"
         android:padding="12dp"
         />
-    <Button
-        android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:text="Child Location"
-        android:layout_marginLeft="33dp"
-        android:id="@+id/btnChildLocation"/>
+        android:layout_marginTop="10dp"
+        android:textSize="18dp"
+        android:id="@+id/textstudent_Rno"
+        android:text="name"
+        android:padding="12dp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Child Location"
+
+            android:id="@+id/btnChidloc"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Child Attendance"
+            android:id="@+id/btnchAtten"/>
+
+
+    </LinearLayout>
+
 
 
 </LinearLayout>

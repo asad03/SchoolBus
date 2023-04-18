@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         btnscanall=findViewById(R.id.btnscanall);
         sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm:ss");
         simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
-        simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+        simpleDateFormat = new SimpleDateFormat("HH:mm");
 
         // on below line we are creating a variable
         // for current date and time and calling a simple date format in it.
@@ -352,27 +352,27 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        if (btnscan2.isChecked()){
+        if (btnscan.isChecked()){
 
-//             sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm");
-//             simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
-//            simpleDateFormat = new SimpleDateFormat("HH:mm");
-//
-//            // on below line we are creating a variable
-//            // for current date and time and calling a simple date format in it.
-//             eveningDateandTime = sdf.format(new Date());
-//             eveningentryDate = simpleFormat.format(new Date());
-//             eveningentryTime = simpleDateFormat.format(new Date());
+     SimpleDateFormat        sdf2 = new SimpleDateFormat("dd-MM-yyyy,HH:mm:ss");
+            SimpleDateFormat      simpleFormat2 = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat     simpleDateFormat2 = new SimpleDateFormat("HH:mm");
 
-            // on below line we are setting current
-            // date and time to our text view.
-            // currentTV.setText(currentDateAndTime);
-              MorningStatus = "absent";
+            // on below line we are creating a variable
+            // for current date and time and calling a simple date format in it.
+         String    eveningDateandTime2 = sdf2.format(new Date());
+          String   eveningentryDate2 = simpleFormat2.format(new Date());
+           String  eveningentryTime2 = simpleDateFormat2.format(new Date());
+
+//             on below line we are setting current
+//             date and time to our text view.
+//             currentTV.setText(currentDateAndTime);
+              MorningStatus = "present";
 
             firebaseDatabase = FirebaseDatabase.getInstance();
-            databaseReference = firebaseDatabase.getReference("AttendanceMorning").child("StudentMorning");
-             attendance_out_activity = new   Attendance_Out_Activity(bus, studnet_RNumber, eveningentryDate, eveningentryTime, MorningStatus, eveningDateandTime,student_name);
-            databaseReference.child(eveningDateandTime).setValue(attendance_out_activity);
+            databaseReference = firebaseDatabase.getReference("AttendanceMorningIn").child(bus);
+             attendance_out_activity = new   Attendance_Out_Activity(bus, studnet_RNumber, eveningentryDate2, eveningentryTime2, MorningStatus, eveningDateandTime2,student_name);
+            databaseReference.child(eveningentryDate).child(studnet_RNumber).setValue(attendance_out_activity);
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -386,26 +386,27 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             }); }
-            if (btnscan.isChecked()){
-//                 sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm");
-//                 simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
-//                simpleDateFormat = new SimpleDateFormat("HH:mm");
-//
-//                // on below line we are creating a variable
-//                // for current date and time and calling a simple date format in it.
-//                 eveningDateandTime = sdf.format(new Date());
-//                 eveningentryDate = simpleFormat.format(new Date());
-//                 eveningentryTime = simpleDateFormat.format(new Date());
+            if (btnscan2.isChecked()){
+                SimpleDateFormat        sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm:ss");
+                SimpleDateFormat      simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat     simpleDateFormat = new SimpleDateFormat("HH:mm");
 
-                // on below line we are setting current
-                // date and time to our text view.
-                // currentTV.setText(currentDateAndTime);
-                MorningStatus = "present";
+                // on below line we are creating a variable
+                // for current date and time and calling a simple date format in it.
+                String    eveningDateandTime = sdf.format(new Date());
+                String   eveningentryDate = simpleFormat.format(new Date());
+                String  eveningentryTime = simpleDateFormat.format(new Date());
+
+//                 on below line we are setting current
+//                 date and time to our text view.
+//                 currentTV.setText(currentDateAndTime);
+                MorningStatus = "absent";
 
                 firebaseDatabase = FirebaseDatabase.getInstance();
-                databaseReference = firebaseDatabase.getReference("AttendanceMorning").child("StudentMorning");
+
                 Attendance_Out_Activity attendance_out_activity1 = new   Attendance_Out_Activity(bus, studnet_RNumber, eveningentryDate, eveningentryTime, MorningStatus, eveningDateandTime,student_name);
-                databaseReference.child(eveningDateandTime).setValue(attendance_out_activity1);
+                databaseReference = firebaseDatabase.getReference("AttendanceMorningout").child(bus);
+                databaseReference.child(eveningentryDate).child(studnet_RNumber).setValue(attendance_out_activity1);
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -424,25 +425,21 @@ public class MainActivity extends AppCompatActivity {
 
 
           if (btneveningenter.isChecked()){
-//              sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm");
-//              simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
-//              simpleDateFormat = new SimpleDateFormat("HH:mm");
-//
-//              // on below line we are creating a variable
-//              // for current date and time and calling a simple date format in it.
-//              eveningDateandTime = sdf.format(new Date());
-//              eveningentryDate = simpleFormat.format(new Date());
-//              eveningentryTime = simpleDateFormat.format(new Date());
+ SimpleDateFormat        sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm:ss");
+              SimpleDateFormat      simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
+              SimpleDateFormat     simpleDateFormat = new SimpleDateFormat("HH:mm");
 
-              // on below line we are setting current
-              // date and time to our text view.
-              // currentTV.setText(currentDateAndTime);
+              // on below line we are creating a variable
+              // for current date and time and calling a simple date format in it.
+              String    eveningDateandTime = sdf.format(new Date());
+              String   eveningentryDate = simpleFormat.format(new Date());
+              String  eveningentryTime = simpleDateFormat.format(new Date());
               EveningStatus = "present";
 
               firebaseDatabase = FirebaseDatabase.getInstance();
-              databaseReference = firebaseDatabase.getReference("AttendanceEvening").child("StudentEvening");
-        Attendance_Model_Class attendance_model_class=new Attendance_Model_Class(bus,studnet_RNumber, eveningentryDate, eveningentryTime, EveningStatus, eveningDateandTime,student_name);
-databaseReference.child(eveningDateandTime).setValue(attendance_model_class);
+              databaseReference = firebaseDatabase.getReference("AttendanceEveningIn").child(bus);
+              Attendance_Model_Class attendance_model_class=new Attendance_Model_Class(bus,studnet_RNumber, eveningentryDate, eveningentryTime, EveningStatus, eveningDateandTime,student_name);
+              databaseReference.child(eveningentryDate).child(studnet_RNumber).setValue(attendance_model_class);
 databaseReference.addValueEventListener(new ValueEventListener() {
     @Override
     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -460,24 +457,21 @@ databaseReference.addValueEventListener(new ValueEventListener() {
           if (btneveningout.isChecked()){
 
 
-//              sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm");
-//              simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
-//              simpleDateFormat = new SimpleDateFormat("HH:mm");
-//
-//              // on below line we are creating a variable
-//              // for current date and time and calling a simple date format in it.
-//              eveningDateandTime = sdf.format(new Date());
-//              eveningentryDate = simpleFormat.format(new Date());
-//              eveningentryTime = simpleDateFormat.format(new Date());
-              // on below line we are setting current
-              // date and time to our text view.
-              // currentTV.setText(currentDateAndTime);
+              SimpleDateFormat        sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm:ss");
+              SimpleDateFormat      simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+              SimpleDateFormat     simpleDateFormat = new SimpleDateFormat("HH:mm");
+
+              // on below line we are creating a variable
+              // for current date and time and calling a simple date format in it.
+              String    eveningDateandTime = sdf.format(new Date());
+              String   eveningentryDate = simpleFormat.format(new Date());
+              String  eveningentryTime = simpleDateFormat.format(new Date());
               EveningStatus = "absent";
 
               firebaseDatabase = FirebaseDatabase.getInstance();
-              databaseReference = firebaseDatabase.getReference("AttendanceEvening").child("StudentEvening");
-              Attendance_Model_Class attendance_model_class=new Attendance_Model_Class(bus,studnet_RNumber, eveningentryDate, eveningentryTime, EveningStatus, eveningDateandTime,student_name);
-              databaseReference.child(eveningDateandTime).setValue(attendance_model_class);
+              databaseReference = firebaseDatabase.getReference("AttendanceEveningOut").child(bus);                Attendance_Model_Class attendance_model_class=new Attendance_Model_Class(bus,studnet_RNumber, eveningentryDate, eveningentryTime, EveningStatus, eveningDateandTime,student_name);
+              databaseReference.child(eveningentryDate).child(studnet_RNumber).setValue(attendance_model_class);
               databaseReference.addValueEventListener(new ValueEventListener() {
                   @Override
                   public void onDataChange(@NonNull DataSnapshot snapshot) {

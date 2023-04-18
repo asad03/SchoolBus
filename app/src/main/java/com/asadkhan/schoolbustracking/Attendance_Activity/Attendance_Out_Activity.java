@@ -1,18 +1,18 @@
 package com.asadkhan.schoolbustracking.Attendance_Activity;
 
 public class Attendance_Out_Activity {
-    String bus,studnet_RNumber,eveningentryDate,eveningentryTime,MorningStatus,eveningDateandTime,student_name;
+    String bus,studnet_RNumber,morningentryDate,morningentryTime,MorningStatus,morningDateandTime,student_name;
 
     public Attendance_Out_Activity() {
     }
 
-    public Attendance_Out_Activity(String bus, String studnet_RNumber, String eveningentryDate, String eveningentryTime, String morningStatus, String eveningDateandTime, String student_name) {
+    public Attendance_Out_Activity(String bus, String studnet_RNumber, String morningentryDate, String morningentryTime, String morningStatus, String morningDateandTime, String student_name) {
         this.bus = bus;
         this.studnet_RNumber = studnet_RNumber;
-        this.eveningentryDate = eveningentryDate;
-        this.eveningentryTime = eveningentryTime;
+        this.morningentryDate = morningentryDate;
+        this.morningentryTime = morningentryTime;
         MorningStatus = morningStatus;
-        this.eveningDateandTime = eveningDateandTime;
+        this.morningDateandTime = morningDateandTime;
         this.student_name = student_name;
     }
 
@@ -32,20 +32,20 @@ public class Attendance_Out_Activity {
         this.studnet_RNumber = studnet_RNumber;
     }
 
-    public String getEveningentryDate() {
-        return eveningentryDate;
+    public String getMorningentryDate() {
+        return morningentryDate;
     }
 
-    public void setEveningentryDate(String eveningentryDate) {
-        this.eveningentryDate = eveningentryDate;
+    public void setMorningentryDate(String morningentryDate) {
+        this.morningentryDate = morningentryDate;
     }
 
-    public String getEveningentryTime() {
-        return eveningentryTime;
+    public String getMorningentryTime() {
+        return morningentryTime;
     }
 
-    public void setEveningentryTime(String eveningentryTime) {
-        this.eveningentryTime = eveningentryTime;
+    public void setMorningentryTime(String morningentryTime) {
+        this.morningentryTime = morningentryTime;
     }
 
     public String getMorningStatus() {
@@ -56,12 +56,12 @@ public class Attendance_Out_Activity {
         MorningStatus = morningStatus;
     }
 
-    public String getEveningDateandTime() {
-        return eveningDateandTime;
+    public String getMorningDateandTime() {
+        return morningDateandTime;
     }
 
-    public void setEveningDateandTime(String eveningDateandTime) {
-        this.eveningDateandTime = eveningDateandTime;
+    public void setMorningDateandTime(String morningDateandTime) {
+        this.morningDateandTime = morningDateandTime;
     }
 
     public String getStudent_name() {
