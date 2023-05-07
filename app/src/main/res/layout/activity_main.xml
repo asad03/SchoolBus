@@ -6,19 +6,41 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            app:titleTextColor="#fff"
+            app:title="Google Map"
+
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/teal_200"
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <fragment
         android:id="@+id/google_map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="390dp"
-        android:layout_height="500dp" />
+        android:layout_width="match_parent"
+        android:layout_height="450dp" />
 
     <TextView
         android:id="@+id/txtshowQr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="22dp"
-        android:textSize="14dp" />
+        android:padding="12dp"
+        android:textSize="12dp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/layouta"
+        android:orientation="horizontal">
 
     <Button
         android:id="@+id/btnscanall"
@@ -26,13 +48,27 @@
         android:layout_height="wrap_content"
 
         android:text="Scan Code" />
+<!--    <Button-->
+<!--        android:id="@+id/btnLogoutD"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        android:text="Log Out" />-->
+        <Button
+            android:id="@+id/btnLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Students" />
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/layout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:layout_below="@+id/google_map"
-        android:layout_marginLeft="66dp">
+        android:layout_marginLeft="176dp">
 
         <RadioGroup
             android:layout_width="match_parent"
@@ -40,6 +76,7 @@
 
             <RadioButton
                 android:id="@+id/btnscan"
+                android:checked="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 

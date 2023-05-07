@@ -6,8 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="11dp"
+
     tools:context=".Show_Attendance_Activity.AttenAllBtn_Activity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            app:titleTextColor="#fff"
+            app:title="Student Attendance"
+
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/teal_200"
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,6 +32,7 @@
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:text="Morning In"
+            android:background="@color/teal_200"
             android:layout_marginTop="130dp"
             android:layout_marginLeft="22dp"
             android:id="@+id/btnmoringattenin"
@@ -24,6 +41,7 @@
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:text="Morning Out"
+            android:background="@color/teal_200"
             android:layout_marginTop="130dp"
             android:layout_marginLeft="72dp"
             android:id="@+id/btnmorningattenout"
@@ -37,6 +55,7 @@
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:text="Evening In"
+            android:background="@color/teal_200"
             android:layout_marginTop="130dp"
             android:layout_marginLeft="22dp"
             android:id="@+id/btnatteneveningin"
@@ -46,6 +65,7 @@
             android:layout_height="110dp"
             android:text="Evening Out"
             android:layout_marginTop="130dp"
+            android:background="@color/teal_200"
             android:layout_marginLeft="72dp"
             android:id="@+id/btnatteneveningout"
             />

@@ -6,21 +6,88 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Student_Activity.Student_Location_Activity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            app:titleTextColor="#fff"
+            app:title="Student Location"
+
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/teal_200"
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
     <fragment
         android:layout_width="match_parent"
-        android:layout_height="499dp"
+        android:layout_height="599dp"
         android:id="@+id/google_map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         />
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/google_map"
+    android:id="@+id/lay"
+    android:orientation="horizontal">
     <TextView
-        android:layout_width="199dp"
-        android:layout_height="199dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/txtstatus"
         android:layout_marginTop="22dp"
-        android:layout_below="@+id/google_map"
-        android:text="Status"
+
+        android:text="Attendance"
+        android:layout_marginLeft="33dp"
+        android:textColor="@color/black"
         android:textSize="22dp"
         ></TextView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="22dp"
+        android:id="@+id/txtstatusAbsent"
+        android:text="Status"
+
+        android:layout_marginLeft="33dp"
+        android:textColor="@color/black"
+        android:textSize="22dp"
+        ></TextView>
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lay"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtstatusevin"
+            android:layout_marginTop="22dp"
+
+            android:text="Attendance"
+            android:layout_marginLeft="33dp"
+            android:textColor="@color/black"
+            android:textSize="22dp"
+            ></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="22dp"
+            android:id="@+id/txtstatusevout"
+
+            android:text="Status"
+            android:layout_marginLeft="33dp"
+            android:textColor="@color/black"
+            android:textSize="22dp"
+            ></TextView>
+
+    </LinearLayout>
 
 </RelativeLayout>

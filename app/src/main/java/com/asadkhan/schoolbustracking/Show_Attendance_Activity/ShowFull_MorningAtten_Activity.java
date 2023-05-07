@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.asadkhan.schoolbustracking.Attendance_Activity.Attendance_Out_Activity;
 import com.asadkhan.schoolbustracking.R;
@@ -71,7 +72,9 @@ public class ShowFull_MorningAtten_Activity extends AppCompatActivity {
                         System.out.println("studenttr");
                         students.add(dataSnapshott.getValue(Attendance_Out_Activity.class));
                         System.out.println(students);
-                       }
+                       }else {
+                          Toast.makeText(ShowFull_MorningAtten_Activity.this, "sorry your child is not present today", Toast.LENGTH_SHORT).show();
+                      }
                     }
 ////            cardData = (HashMap<Integer, HashMap<String, Object>>) dataSnapshott.getValue();
 //

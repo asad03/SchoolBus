@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.asadkhan.schoolbustracking.Attendance_Activity.Attendance_Out_Activity;
 import com.asadkhan.schoolbustracking.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,6 +50,13 @@ public class MorningAttendance_Activity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                        Attendance_Out_Activity attendance_out_activity=dataSnapshot.getValue(Attendance_Out_Activity.class);
+                        String StudentRno=  attendance_out_activity.getStudnet_RNumber();
+                        System.out.println(student_registerationNo);
+                        System.out.println(StudentRno);
+                        System.out.println("studentt");
+                      
                         keydate = dataSnapshot.getKey();
                         date.add(keydate);
                         System.out.println(date);

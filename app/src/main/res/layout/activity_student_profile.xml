@@ -5,108 +5,150 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
+
     tools:context=".Student_Activity.Student_Profile_Activity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            app:titleTextColor="#fff"
+            app:title="Student Record"
+
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/teal_200"
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="11dp">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Student Record"
-        android:textSize="44dp"
         android:layout_gravity="center"
-        android:layout_marginTop="33dp"/>
+
+        android:background="#F4F8F8"
+        android:text="Student Record"
+        android:textSize="44dp" />
+
     <TextView
+        android:id="@+id/textstdent_fullname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:textSize="18dp"
-        android:id="@+id/textstdent_fullname"
-        android:text="name"
+        android:background="#F4F8F8"
         android:padding="12dp"
-        />
+        android:text="name"
+        android:textSize="18dp" />
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textSize="18dp"
         android:id="@+id/textstudent_fatherName"
-        android:text="name"
-        android:padding="12dp"
-        />
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textSize="18dp"
+        android:background="#F4F8F8"
+        android:padding="12dp"
+        android:text="name"
+        android:textSize="18dp" />
+
+    <TextView
         android:id="@+id/textstudent_class"
-        android:text="name"
-        android:padding="12dp"
-        />
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textSize="18dp"
+        android:background="#F4F8F8"
+        android:padding="12dp"
+        android:text="name"
+        android:textSize="18dp" />
+
+    <TextView
         android:id="@+id/textstudent_mobileNo"
-        android:text="name"
-        android:padding="12dp"
-        />
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textSize="18dp"
+        android:background="#F4F8F8"
+        android:padding="12dp"
+        android:text="name"
+        android:textSize="18dp" />
+
+    <TextView
         android:id="@+id/textstudent_email"
-        android:text="name"
-        android:padding="12dp"
-        />
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textSize="18dp"
+        android:background="#F4F8F8"
+        android:padding="12dp"
+        android:text="name"
+        android:textSize="18dp" />
+
+    <TextView
         android:id="@+id/textstudent_location"
-        android:text="name"
-        android:padding="12dp"
-        />
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textSize="18dp"
+        android:background="#F4F8F8"
+        android:padding="12dp"
+        android:text="name"
+        android:textSize="18dp" />
+
+    <TextView
         android:id="@+id/textstudent_bus"
-        android:text="name"
-        android:padding="12dp"
-        />
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textSize="18dp"
-        android:id="@+id/textstudent_Rno"
-        android:text="name"
+        android:background="#F4F8F8"
         android:padding="12dp"
-        />
+        android:text="name"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/textstudent_Rno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#F4F8F8"
+        android:padding="12dp"
+        android:text="name"
+        android:textSize="18dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
+        android:padding="22dp"
+        android:layout_gravity="center"
         android:orientation="horizontal">
+
         <Button
+            android:id="@+id/btnChidloc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#32BDB0"
 
-            android:text="Child Location"
+            android:text="Child Location" />
 
-            android:id="@+id/btnChidloc"/>
         <Button
+            android:id="@+id/btnchAtten"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Child Attendance"
-            android:id="@+id/btnchAtten"/>
+            android:background="#32BDB0"
+            android:layout_marginLeft="22dp"
+            android:text="Child Attendance" />
 
 
     </LinearLayout>
 
-
-
+</LinearLayout>
+    </ScrollView>
 </LinearLayout>

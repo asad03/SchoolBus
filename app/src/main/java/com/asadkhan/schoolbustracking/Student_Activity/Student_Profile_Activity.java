@@ -2,6 +2,7 @@ package com.asadkhan.schoolbustracking.Student_Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.asadkhan.schoolbustracking.Location_Modal_class;
+import com.asadkhan.schoolbustracking.Parents_Activity.Parent_Profile_Activity;
 import com.asadkhan.schoolbustracking.R;
 import com.asadkhan.schoolbustracking.Show_Attendance_Activity.AttenAllBtn_Activity;
 import com.google.firebase.database.DataSnapshot;
@@ -38,7 +40,17 @@ TextView txtstudent_rno,txtstdent_fullname,txtstudent_fatherName,txtstudent_clas
         txtstudent_bus=findViewById(R.id.textstudent_bus);
         txtstudent_rno=findViewById(R.id.textstudent_Rno);
         btnAtten=findViewById(R.id.btnchAtten);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getApplicationContext(), Parent_Profile_Activity.class));
+//            }
+//        });
 
         Intent intent=getIntent();
         String  stdent_fullname   =intent.getStringExtra("stdent_fullname");
@@ -66,7 +78,7 @@ TextView txtstudent_rno,txtstdent_fullname,txtstudent_fatherName,txtstudent_clas
             public void onClick(View v) {
                 System.out.println(student_Bus);
                 System.out.println("pp");
-                Toast.makeText(getApplicationContext(), "clack", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "clack", Toast.LENGTH_SHORT).show();
                 databaseReference = FirebaseDatabase.getInstance().getReference("Driver").child("Driver Register");                valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

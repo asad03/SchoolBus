@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.asadkhan.schoolbustracking.Attendance_Activity.Attendance_Model_Class;
 import com.asadkhan.schoolbustracking.Attendance_Activity.Attendance_Out_Activity;
 import com.asadkhan.schoolbustracking.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -48,13 +49,18 @@ public class Student_Location_Activity extends AppCompatActivity {
     DatabaseReference databaseReference;
     Intent intent;
     String student_Bus,student_registerationNo, eveningentryDate;
-    TextView txtstatus;
+    TextView txtstatus,txtstatusAbsent,txtstatusEvIn,txtstatusEvOut;
+    String Attendance="present";
+    String status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         intent=getIntent();
         setContentView(R.layout.activity_student_location);
+        txtstatusAbsent=findViewById(R.id.txtstatusAbsent);
         txtstatus=findViewById(R.id.txtstatus);
+        txtstatusEvIn=findViewById(R.id.txtstatusevin);
+        txtstatusEvOut=findViewById(R.id.txtstatusevout);
        // Intent intent=getIntent();
         SimpleDateFormat simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
            eveningentryDate = simpleFormat.format(new Date());
@@ -144,15 +150,28 @@ public class Student_Location_Activity extends AppCompatActivity {
 
                     Attendance_Out_Activity attendance_out_activity=dataSnapshott.getValue(Attendance_Out_Activity.class);
                     String StudentRno=  attendance_out_activity.getStudnet_RNumber();
-                    String status=attendance_out_activity.getMorningStatus();
-                    System.out.println(student_registerationNo);
-                    System.out.println(StudentRno);
-                    System.out.println("studentt");
+                     status=attendance_out_activity.getMorningStatus();
+//                    System.out.println(student_registerationNo);
+//                    System.out.println(StudentRno);
+//                    System.out.println("studentt");
                     if (StudentRno.equals(student_registerationNo)){
                         // System.out.println(sr);
-                        txtstatus.setText(status);
+//                        System.out.println(status);
+                if (Attendance.equals(status)){
+                    txtstatus.setText("Morning " + status);
+                    txtstatusAbsent.setText("");
+                }else {
 
-                        System.out.println("studenttr");
+
+              txtstatus.setText("");
+
+
+                }
+
+
+                       // txtstatus.setText(Attendance);
+
+                      //  System.out.println("studenttr");
 //                        students.add(dataSnapshott.getValue(Attendance_Out_Activity.class));
 //                        System.out.println(students);
                     }
@@ -218,15 +237,22 @@ public class Student_Location_Activity extends AppCompatActivity {
 
                     Attendance_Out_Activity attendance_out_activity=dataSnapshott.getValue(Attendance_Out_Activity.class);
                     String StudentRno=  attendance_out_activity.getStudnet_RNumber();
-                    String status=attendance_out_activity.getMorningStatus();
-                    System.out.println(student_registerationNo);
-                    System.out.println(StudentRno);
-                    System.out.println("studentt");
+                    status=attendance_out_activity.getMorningStatus();
+//                    System.out.println(student_registerationNo);
+//                    System.out.println(StudentRno);
+//                    System.out.println("studentt");
+                    String a="absent";
                     if (StudentRno.equals(student_registerationNo)){
                         // System.out.println(sr);
-                        txtstatus.setText(status);
-                        txtstatus.setTextColor(Color.parseColor("#f0"));
-                        System.out.println("studenttr");
+                        if (a.equals(status)){
+                            txtstatus.setText("");
+                            txtstatusAbsent.setText("Morning  "+a);
+                        }else {
+                            txtstatusAbsent.setText("");
+                        }
+                        //txtstatus.setText(Attendance);
+                        // txtstatus.setTextColor(Color.parseColor("#f0"));
+                        // System.out.println("studenttr");
 //                        students.add(dataSnapshott.getValue(Attendance_Out_Activity.class));
 //                        System.out.println(students);
                     }
@@ -276,6 +302,7 @@ public class Student_Location_Activity extends AppCompatActivity {
 
 
 
+
         databaseReference = FirebaseDatabase.getInstance().getReference("AttendanceEveningIn").child(student_Bus).child( eveningentryDate);
         valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -287,22 +314,33 @@ public class Student_Location_Activity extends AppCompatActivity {
 
                 System.out.println(snapshott.getValue());
 
-                System.out.println("keyddd");
+                System.out.println("keyddd44");
 
 
                 for (DataSnapshot dataSnapshott:snapshott.getChildren()) {
 
-                    Attendance_Out_Activity attendance_out_activity=dataSnapshott.getValue(Attendance_Out_Activity.class);
+              Attendance_Model_Class attendance_out_activity=dataSnapshott.getValue(    Attendance_Model_Class.class);
                     String StudentRno=  attendance_out_activity.getStudnet_RNumber();
-                    String status=attendance_out_activity.getMorningStatus();
-                    System.out.println(student_registerationNo);
+                  String   status1=attendance_out_activity.getEveningStatus();
+                  //  System.out.println(student_registerationNo);
                     System.out.println(StudentRno);
-                    System.out.println("studentt");
+                   // System.out.println("studentt");
+                    System.out.println(status1);
+                    System.out.println("stat12345");
+                    String eveningenter="present";
                     if (StudentRno.equals(student_registerationNo)){
                         // System.out.println(sr);
-                        txtstatus.setText(status);
-                        txtstatus.setTextColor(Color.parseColor("#ff00"));
-                        System.out.println("studenttr");
+
+                        if (Attendance.equals(status1)){
+                            txtstatusEvIn.setText("evening  "+Attendance);
+                            txtstatusEvOut.setText("");
+                        }else {
+
+
+                            txtstatusEvIn.setText("");
+
+
+                        }
 //                        students.add(dataSnapshott.getValue(Attendance_Out_Activity.class));
 //                        System.out.println(students);
                     }
@@ -363,24 +401,33 @@ public class Student_Location_Activity extends AppCompatActivity {
 
                 System.out.println(snapshott.getValue());
 
-                System.out.println("keyddd");
+                System.out.println("keyddd77");
 
 
                 for (DataSnapshot dataSnapshott:snapshott.getChildren()) {
 
-                    Attendance_Out_Activity attendance_out_activity=dataSnapshott.getValue(Attendance_Out_Activity.class);
+                    Attendance_Model_Class attendance_out_activity=dataSnapshott.getValue(Attendance_Model_Class.class);
                     String StudentRno=  attendance_out_activity.getStudnet_RNumber();
-                    String status=attendance_out_activity.getMorningStatus();
-                    System.out.println(student_registerationNo);
-                    System.out.println(StudentRno);
-                    System.out.println("studentt");
+                    status=attendance_out_activity.getEveningStatus();
+//                    System.out.println(student_registerationNo);
+//                    System.out.println(StudentRno);
+//                    System.out.println("studentt");
+                    System.out.println(status);
+                    System.out.println("765");
+                    String ab="absent";
                     if (StudentRno.equals(student_registerationNo)){
                         // System.out.println(sr);
-                        txtstatus.setTextColor(Color.parseColor("#ff00"));
-                        txtstatus.setText(status);
+                       // txtstatus.setTextColor(Color.parseColor("#ff00"));
+                        if (ab.equals(status)){
+                            txtstatusEvIn.setText("");
+                            txtstatusEvOut.setText("Evening  "+ab);
+                        }else {
+                            txtstatusEvOut.setText("");
+                        }
+                   //  txtstatus.setText(Attendance);
                        // txtstatus.setTextColor(Color.parseColor(getDrawable(R.drawa)));
 
-                        System.out.println("studenttr");
+                       // System.out.println("studenttr");
 //                        students.add(dataSnapshott.getValue(Attendance_Out_Activity.class));
 //                        System.out.println(students);
                     }
@@ -427,6 +474,16 @@ public class Student_Location_Activity extends AppCompatActivity {
 
             }
         });
+//txtstatus.setText(Attendance);
+//        System.out.println(status);
+//
+//        System.out.println("Abvvv");
+//        if (Attendance.equals("present")){
+//            txtstatus.setText("Present");
+//
+//        }else {
+//            txtstatus.setText("Absent");
+//        }
     }
 
 

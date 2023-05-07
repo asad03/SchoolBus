@@ -4,17 +4,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.icu.util.Calendar;
 import android.location.Location;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.Time;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -29,6 +36,10 @@ import com.asadkhan.schoolbustracking.Attendance_Activity.Attendance_Out_Activit
 import com.asadkhan.schoolbustracking.Attendance_Activity.EveningScan_Activity;
 import com.asadkhan.schoolbustracking.Attendance_Activity.MorningSCan_Activity;
 import com.asadkhan.schoolbustracking.Attendance_Activity.OutingScan_Activity;
+import com.asadkhan.schoolbustracking.Driver_Activity.LocationShow_Activity;
+import com.asadkhan.schoolbustracking.Driver_Activity.ShowStudent_D_Activity;
+import com.asadkhan.schoolbustracking.Parents_Activity.Parent_Profile_Activity;
+import com.asadkhan.schoolbustracking.Parents_Activity.SendMsg_Activity;
 import com.asadkhan.schoolbustracking.Student_Activity.Capture2_QR;
 import com.asadkhan.schoolbustracking.Student_Activity.Capture_QR;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -72,12 +83,12 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase;
     Attendance_Out_Activity attendance_out_activity;
-    Button  btnscanall;
+    Button  btnscanall,btnLogOutD,btnLocation;
     RadioButton btneveningout, btnscan,btnscan2,btneveningenter;
     // CheckBox chmorningtime,cheveningtime;
 
     TextView txtshowQR, txtshowQR2;
-    String bus,student_name,studnet_RNumber,StudentnameandRno;
+    String bus,student_name,studnet_RNumber,StudentnameandRno, dMobile;
 
     String MorningStatus,EveningStatus;
     String eveningDateandTime, eveningentryDate, eveningentryTime;
@@ -85,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
     List<String> myList;
     List data;
+    public static final String MyPREFERENCES = "Myapp";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,9 +108,23 @@ public class MainActivity extends AppCompatActivity {
         btneveningenter=findViewById(R.id.btneveningenter);
         btneveningout=findViewById(R.id.btneveningout);
         btnscanall=findViewById(R.id.btnscanall);
+        //btnLogOutD=findViewById(R.id.btnLogoutD);
+        btnLocation=findViewById(R.id.btnLocation);
         sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm:ss");
         simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
         simpleDateFormat = new SimpleDateFormat("HH:mm");
+        // assigning ID of the toolbar to a variable
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//               // startActivity(new Intent(getApplicationContext(), Dashboardb_Activity.class));
+//            }
+//        });
 
         // on below line we are creating a variable
         // for current date and time and calling a simple date format in it.
@@ -108,6 +134,29 @@ public class MainActivity extends AppCompatActivity {
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         smf = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
         client = LocationServices.getFusedLocationProviderClient(this);
+        btnLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), ShowStudent_D_Activity.class);
+                intent.putExtra("bus",bus);
+startActivity(intent);
+               // startActivity(new Intent(MainActivity.this, LocationShow_Activity.class));
+            }
+        });
+//        btnLogOutD.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+////
+////                SharedPreferences.Editor editor = sharedpreferences.edit();
+////                // editor.putString("namee", "");
+////                editor.remove("driver");
+////                editor.clear();
+////                editor.apply();
+////                startActivity(new Intent(MainActivity.this,Login_Activity.class));
+////                finish();
+//            }
+//        });
 
         btnscanall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -262,11 +311,11 @@ public class MainActivity extends AppCompatActivity {
               smf.getMapAsync(new OnMapReadyCallback() {
                   @Override
                   public void onMapReady(GoogleMap googleMap) {
-                      FirebaseAuth auth=FirebaseAuth.getInstance();
-                      FirebaseUser firebaseUser=auth.getCurrentUser();
-                      firebaseUser.getUid();
+//                      FirebaseAuth auth=FirebaseAuth.getInstance();
+//                      FirebaseUser firebaseUser=auth.getCurrentUser();
+//                      firebaseUser.getUid();
 
-                      databaseReference= FirebaseDatabase.getInstance().getReference(firebaseUser.getUid()).child("Driver Register");
+                      databaseReference= FirebaseDatabase.getInstance().getReference("Driver").child("Driver Register");
                   valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
                       @Override
                       public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -281,7 +330,7 @@ public class MainActivity extends AppCompatActivity {
                       @Override
                       public void onCancelled(@NonNull DatabaseError error) {
                           System.out.println("not");
-                          Toast.makeText(MainActivity.this, "not", Toast.LENGTH_SHORT).show();
+                         // Toast.makeText(MainActivity.this, "not", Toast.LENGTH_SHORT).show();
                       }
                   });
                       //  String C,driver_mobile,driver_age,drivere_mail,driver_Addres,usertype,bus,driver_password;
@@ -334,19 +383,28 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+
         IntentResult intentResultt = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        StudentnameandRno=intentResultt.getContents();
-        String ab= StudentnameandRno.toString();
+        if (TextUtils.isEmpty(StudentnameandRno)){
+            Toast.makeText(this, "please scan again", Toast.LENGTH_SHORT).show();
+        }
+            StudentnameandRno=intentResultt.getContents();
+            String ab= StudentnameandRno.toString();
 //        txtshowQR.setText( studnet_RNumber);
 //  String a=      txtshowQR.getText().toString();
-        System.out.println(ab);
-        System.out.println("aaaa");
-                myList = new ArrayList<String>(Arrays.asList(ab.split(",")));
+            System.out.println(ab);
+            System.out.println("aaaa");
+            myList = new ArrayList<String>(Arrays.asList(ab.split(",")));
 
-        System.out.println(myList);
-        student_name=myList.get(0);
-        studnet_RNumber=myList.get(1);
-        txtshowQR.setText(  student_name+"        "+ studnet_RNumber);
+            System.out.println(myList);
+            student_name=myList.get(0);
+            studnet_RNumber=myList.get(1);
+
+            txtshowQR.setText(  student_name+"        "+ studnet_RNumber);
+
+
+
 
 
 
@@ -576,5 +634,92 @@ databaseReference.addValueEventListener(new ValueEventListener() {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_logout,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.btnlogout:
+                SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                // editor.putString("namee", "");
+                editor.remove("driver");
+                editor.clear();
+                editor.apply();
+                startActivity(new Intent(MainActivity.this,Login_Activity.class));
+                finish();
+               // Toast.makeText(getApplicationContext(),"Item 3 Selected",Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.btncall:
+                databaseReference=FirebaseDatabase.getInstance().getReference("Admin").child("Admin Register");
+                valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        System.out.println(snapshot);
+
+
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            Admin_ModalClass admin_modalClass=dataSnapshot.getValue(Admin_ModalClass.class);
+                            dMobile=    admin_modalClass.getMobile();
+                            System.out.println(dMobile);
+                            System.out.println("ccds");}
+                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                        callIntent.setData(Uri.parse("tel:" + dMobile));
+                        //   getContext().startActivity(callIntent);
+                        if (Build.VERSION.SDK_INT > 23) {
+                            startActivity(callIntent);
+                        } else {
+
+                            if (ActivityCompat.checkSelfPermission(getApplicationContext(),
+                                    android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                Toast.makeText(getApplicationContext(), "Permission Not Granted ", Toast.LENGTH_SHORT).show();
+                            } else {
+                                final String[] PERMISSIONS_STORAGE = {android.Manifest.permission.CALL_PHONE};
+                                //ActivityCompat.requestPermissions(getContext(), PERMISSIONS_STORAGE, 9);
+                                startActivity(callIntent);
+                            }
+                        }
+                        // adminemail=    admin_modalClass.getAdminNumber();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                return true;
+            case R.id.btnmsg:
+                databaseReference=FirebaseDatabase.getInstance().getReference("Admin").child("Admin Register");
+                valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        System.out.println(snapshot);
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            Admin_ModalClass admin_modalClass=dataSnapshot.getValue(Admin_ModalClass.class);
+                            dMobile=    admin_modalClass.getMobile();
+                            System.out.println(dMobile);
+                            System.out.println("adsds");}
+                        Intent intent1 = new Intent(getApplicationContext(), SendMsg_Activity.class);
+                        intent1.putExtra("dMobile", dMobile);
+                        startActivity(intent1);
+                        // adminemail=    admin_modalClass.getAdminNumber();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
 }

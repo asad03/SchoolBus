@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Show_Attendance_Activity.EveningAtten_Bus_Activity">
+
+    tools:context=".Driver_Activity.ShowStudent_D_Activity">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,18 +17,28 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             app:titleTextColor="#fff"
-            app:title="Student Attendance"
+            app:title="Google Map"
 
             android:layout_height="?attr/actionBarSize"
             android:background="@color/teal_200"
             />
 
     </com.google.android.material.appbar.AppBarLayout>
-    <ListView
-        android:id="@+id/simpleListView"
+    <EditText
+        android:id="@+id/searchEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@color/teal_200"
-        android:dividerHeight="1dp"
-        android:listSelector="@color/teal_200"/>
+        android:hint="Search" />
+    <GridView
+        android:id="@+id/simpleGridView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnWidth="60dp"
+        android:layout_marginTop="18dp"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="20dp"
+        android:padding="11dp"
+        android:horizontalSpacing="20dp"
+        android:numColumns="2"/>
+
 </LinearLayout>
