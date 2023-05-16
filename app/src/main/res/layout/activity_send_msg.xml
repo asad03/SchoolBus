@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-
+android:background="#DEF8F6F6"
     tools:context=".Parents_Activity.SendMsg_Activity">
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,6 +18,7 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_alignBaseline="@+id/editText1"
             android:layout_alignBottom="@+id/editText1"
             android:layout_toLeftOf="@+id/editText1"
@@ -26,6 +27,7 @@
             android:id="@+id/editText1"
 
             android:text="Number"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -44,6 +46,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_alignBaseline="@+id/editText2"
             android:layout_alignBottom="@+id/editText2"
             android:layout_alignLeft="@+id/textView1"
@@ -53,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-
+android:textColor="@color/black"
             android:ems="10"
             android:inputType="textMultiLine" />
 

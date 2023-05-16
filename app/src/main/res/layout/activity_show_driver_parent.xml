@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".Parents_Activity.ShowDriver_Parent_Activity">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -33,73 +34,136 @@
             android:orientation="vertical"
             android:padding="11dp">
 
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
 
-                android:background="#F4F8F8"
+                android:textColor="#42C1B6"
                 android:text="Driver Record"
                 android:textSize="44dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:padding="6dp"
+                android:layout_marginTop="50dp"
+                android:textColor="#3A3A3A"
+
+                android:text="Driver Name*"/>
 
             <TextView
                 android:id="@+id/textd_fullname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:background="#F4F8F8"
-                android:padding="12dp"
+
+                android:background="@drawable/background_tx"
+                android:padding="16dp"
+                android:textColor="@color/black"
                 android:text="name"
                 android:textSize="18dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:padding="6dp"
+                android:layout_marginTop="10dp"
+                android:textColor="#3A3A3A"
+
+                android:text="Driver M.Number*"/>
+
 
             <TextView
                 android:id="@+id/textd_mobiloe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="#F4F8F8"
-                android:padding="12dp"
+
+                android:background="@drawable/background_tx"
+                android:padding="16dp"
+                android:textColor="@color/black"
                 android:text="name"
                 android:textSize="18dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:padding="6dp"
+                android:layout_marginTop="10dp"
+                android:textColor="#3A3A3A"
+
+                android:text="Driver Age*"/>
 
             <TextView
                 android:id="@+id/textd_age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="#F4F8F8"
-                android:padding="12dp"
+
+                android:background="@drawable/background_tx"
+                android:padding="16dp"
+                android:textColor="@color/black"
                 android:text="name"
                 android:textSize="18dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:padding="6dp"
+                android:layout_marginTop="10dp"
+                android:textColor="#3A3A3A"
+
+                android:text="Bus*"/>
 
             <TextView
                 android:id="@+id/textd_bus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="#F4F8F8"
-                android:padding="12dp"
+
+                android:background="@drawable/background_tx"
+                android:padding="16dp"
+                android:textColor="@color/black"
                 android:text="name"
                 android:textSize="18dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:padding="6dp"
+                android:layout_marginTop="10dp"
+                android:textColor="#3A3A3A"
 
+                android:text="Driver Address*"/>
             <TextView
                 android:id="@+id/textd_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="#F4F8F8"
-                android:padding="12dp"
+
+                android:background="@drawable/background_tx"
+                android:padding="16dp"
+                android:textColor="@color/black"
                 android:text="name"
                 android:textSize="18dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:padding="6dp"
+                android:layout_marginTop="10dp"
+                android:textColor="#3A3A3A"
+
+                android:text="Driver Email*"/>
 
             <TextView
                 android:id="@+id/textd_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="#F4F8F8"
-                android:padding="12dp"
+
+                android:textColor="@color/black"
+                android:background="@drawable/background_tx"
+                android:padding="16dp"
+
                 android:text="name"
+
 
                 android:textSize="18dp" />
 
@@ -116,10 +180,12 @@
                     android:layout_width="99dp"
                     android:layout_marginLeft="9dp"
                     android:layout_height="50dp"
+                    android:background="@drawable/background_tx"
                     android:src="@drawable/call"/>
                 <ImageButton
                     android:id="@+id/btnDrmsg"
                     android:layout_width="99dp"
+                    android:background="@drawable/background_tx"
                     android:layout_marginLeft="9dp"
                     android:layout_height="50dp"
                     android:src="@drawable/message"/>

@@ -3,6 +3,7 @@ package com.asadkhan.schoolbustracking.Driver_Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -64,17 +65,46 @@ import com.google.firebase.database.core.utilities.Utilities;
 import java.util.HashMap;
 
 public class LocationShow_Activity extends AppCompatActivity{
-
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
+    private Button startButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_show);
-       // alarmManagerIsha= (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//        Intent intent=new Intent(this,IshaEndB.class);
-//
-//        pendingIntentIsha=PendingIntent.getBroadcast(this,0,intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE );
-//        alarmManagerIsha.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendarIend.getTimeInMillis(),
-//                AlarmManager.INTERVAL_DAY,pendingIntentIsha);
+        startButton = findViewById(R.id.startButton);
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkLocationPermission();
+            }
+        });
     }
+
+    private void checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            startLocationService();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startLocationService();
+            } else {
+                Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void startLocationService() {
+        Intent serviceIntent = new Intent(this, LocationTrackingService.class);
+        startService(serviceIntent);
+    }
+
+
 
 }

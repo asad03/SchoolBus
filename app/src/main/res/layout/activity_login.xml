@@ -23,7 +23,7 @@
             android:layout_marginTop="100dp"
             android:layout_marginBottom="66dp"
             android:text="Login"
-
+            android:layout_gravity="center"
 
             android:textAllCaps="true"
             android:textColor="@color/black"
@@ -169,6 +169,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Parent"
+        android:textColor="@color/black"
            android:checked="true"
         android:textSize="18dp"
         android:id="@+id/chparent"/>
@@ -176,6 +177,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Driver"
+        android:textColor="@color/black"
         android:textSize="18dp"
         android:layout_marginLeft="40dp"
 

@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,9 +32,8 @@ public class ShowStudent_D_Activity extends AppCompatActivity {
     GridView gridView;
 
     ArrayList<Show_Child_ModalClass> studentData;
-    ArrayList<Show_Child_ModalClass> studentData2;
-    ArrayList<Show_Child_ModalClass> studentData3;
-    List<Show_Child_ModalClass> filteredDataList;
+
+    ArrayList<Show_Child_ModalClass> filteredDataList;
     DatabaseReference databaseReference;
     String Dbus;
     ValueEventListener valueEventListener;
@@ -44,7 +44,7 @@ public class ShowStudent_D_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_student_dactivity);
-        searchEditText = findViewById(R.id.searchEditText);
+//        searchEditText = findViewById(R.id.searchEditText);
         Intent intent=getIntent();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -53,15 +53,20 @@ public class ShowStudent_D_Activity extends AppCompatActivity {
         System.out.println("nbn");
         gridView=findViewById(R.id.simpleGridView);
 
-
+        searchEditText = findViewById(R.id.searchEditText);
 
         studentData=new ArrayList<>();
 
 //        FirebaseAuth auth=FirebaseAuth.getInstance();
 //        FirebaseUser firebaseUser=auth.getCurrentUser();
 //        firebaseUser.getUid();
-        filteredDataList = new ArrayList<Show_Child_ModalClass>();
-      adopter_studentShow=new AdapterShow_StudentD(ShowStudent_D_Activity.this,studentData);
+        filteredDataList = new ArrayList<>();
+        if (searchEditText.getText().toString().isEmpty()){
+            adopter_studentShow=new AdapterShow_StudentD(ShowStudent_D_Activity.this,studentData);
+
+        }else {
+      adopter_studentShow=new AdapterShow_StudentD(ShowStudent_D_Activity.this,filteredDataList);
+        }
         //adopter_studentShow=new BaseAdapter_ShowStudent(ShowStudent_D_Activity.this,studentData);
 
         gridView.setAdapter(adopter_studentShow);
@@ -94,52 +99,47 @@ public class ShowStudent_D_Activity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Some thing went worng", Toast.LENGTH_SHORT).show();
             }
         });
+searchEditText.addTextChangedListener(new TextWatcher() {
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        filterItems(s.toString());
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+});
+
+//      aa
+    }
+
+    private void filterItems(String searchText) {
 
 
-        searchEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Not used in this example
+        filteredDataList.clear();
+        if (TextUtils.isEmpty(searchText)){
+
+            filteredDataList.addAll(studentData);
+        }else {
+            for (Show_Child_ModalClass modalClass: studentData) {
+                System.out.println(searchText);
+                System.out.println(modalClass.getStdent_fullname());
+                System.out.println("kkll");
+                if (modalClass.getStdent_fullname().toLowerCase().contains(searchText.toLowerCase())) {
+                    filteredDataList.add(modalClass);
+
+                    System.out.println(  filteredDataList.get(0));
+
+                }
             }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Filter the data based on the search query
-               // adopter_studentShow.getFilter().filter(s.toString());
-//                filteredDataList.clear();
-//                if (s.length() == 0) {
-//
-//                    filteredDataList.addAll(studentData);
-//                    System.out.println(studentData);
-//                    System.out.println(filteredDataList);
-//                    System.out.println("qwqw");// Add all data items when search query is empty
-//                } else {
-//
-//                for (Show_Child_ModalClass show_child_modalClass : studentData) {
-//
-////                    if (show_child_modalClass.getStdent_fullname().toLowerCase().contains(s.toString().toLowerCase())||show_child_modalClass.getStdent_fullname().toLowerCase().contains(searchStr)){ {
-////                        filteredDataList.add(show_child_modalClass);
-////                    }
-//                    if (show_child_modalClass.getStdent_fullname().contains(s.toString().toLowerCase())){
-//                        filteredDataList.add(show_child_modalClass);
-//                    }
-//                   // adopter_studentShow.add(show_child_modalClass);
-//                }}
-////                   adopter_studentShow.clear();
-////                   adopter_studentShow.addAll(filteredDataList);
-//                    adopter_studentShow.notifyDataSetChanged();
-//
-
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-               // adopter_studentShow.addAll(studentData);
-               // adopter_studentShow.notifyDataSetChanged();
-                // Not used in this example
-            }
-        });
+        }
+        adopter_studentShow.notifyDataSetChanged();
 
     }
 

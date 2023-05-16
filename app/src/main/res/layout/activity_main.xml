@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".MainActivity">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -28,7 +29,7 @@
         android:id="@+id/google_map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="450dp" />
+        android:layout_height="420dp" />
 
     <TextView
         android:id="@+id/txtshowQr"
@@ -46,19 +47,21 @@
         android:id="@+id/btnscanall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:background="@drawable/background_tx"
+        android:backgroundTint="#32BDB0"
         android:text="Scan Code" />
 <!--    <Button-->
-<!--        android:id="@+id/btnLogoutD"-->
+<!--        android:id="@+id/btnbackground"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
 
-<!--        android:text="Log Out" />-->
+<!--        android:text="BackGround" />-->
         <Button
             android:id="@+id/btnLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:background="@drawable/background_tx"
+            android:backgroundTint="#32BDB0"
             android:text="Students" />
     </LinearLayout>
 
@@ -77,12 +80,14 @@
             <RadioButton
                 android:id="@+id/btnscan"
                 android:checked="true"
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
                 android:text="Morning Enter" />
 
             <RadioButton
+                android:textColor="@color/black"
                 android:id="@+id/btnscan2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -91,6 +96,7 @@
                 android:text="Morning Out" />
 
             <RadioButton
+                android:textColor="@color/black"
                 android:id="@+id/btneveningenter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,6 +105,7 @@
                 android:text="Evening Enter" />
 
             <RadioButton
+                android:textColor="@color/black"
                 android:id="@+id/btneveningout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

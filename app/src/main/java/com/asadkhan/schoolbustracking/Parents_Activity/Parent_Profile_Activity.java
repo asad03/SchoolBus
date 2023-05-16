@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.asadkhan.schoolbustracking.Admin_ModalClass;
 import com.asadkhan.schoolbustracking.Driver_Activity.Driver_Model_Class;
+import com.asadkhan.schoolbustracking.Driver_Activity.LocationShow_Activity;
 import com.asadkhan.schoolbustracking.Login_Activity;
 import com.asadkhan.schoolbustracking.R;
 import com.asadkhan.schoolbustracking.Student_Activity.Student_Profile_Activity;
@@ -32,11 +33,13 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Parent_Profile_Activity extends AppCompatActivity {
 TextView textViewpname,textViewpMobile,textViewpAge,textViewpAddres,textViewpEmail,textViewPerentChild;
-Button btnchild,btnlogout;
+Button btnchild,btnlogout,btnloc;
     DatabaseReference databaseReference;
     ValueEventListener valueEventListener;
     public static final String MyPREFERENCES = "Myapp";
     String student_Bus,dMobile;
+    String student_registerationNo,Parent_Chils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,10 +52,17 @@ Button btnchild,btnlogout;
         textViewPerentChild=findViewById(R.id.txtperent_chil);
         btnchild=findViewById(R.id.btnChild);
         btnlogout=findViewById(R.id.btnlogout);
+        btnloc=findViewById(R.id.btnloc);
         //btnChildLocation=findViewById(R.id.btnChildLocation);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        btnloc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), LocationShow_Activity.class));
+            }
+        });
 
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -88,7 +98,7 @@ Button btnchild,btnlogout;
         String Parent_age=intent.getStringExtra("Parent_age");
         String Parent_Addres=intent.getStringExtra("Parent_Addres");
         String Parent_email=intent.getStringExtra("Parent_mail");
-        String Parent_Chils=intent.getStringExtra("Parent_Chils");
+         Parent_Chils=intent.getStringExtra("Parent_Chils");
 
 
         textViewpname.setText(Parent_name);
@@ -118,7 +128,7 @@ Button btnchild,btnlogout;
                         for (DataSnapshot dataSnapshot:snapshot.getChildren()) {
                             Show_Child_ModalClass show_child_modalClass=dataSnapshot.getValue(Show_Child_ModalClass.class);
                             //    String student_registerationNo, stdent_fullname, student_fatherName, student_class, student_mobileNo, student_email, student_location;
-                            String student_registerationNo  =show_child_modalClass.getStudent_registerationNo();
+                             student_registerationNo  =show_child_modalClass.getStudent_registerationNo();
                             String  stdent_fullname=show_child_modalClass.getStdent_fullname();
                             String student_fatherName=show_child_modalClass.getStudent_fatherName();
                             String student_class=show_child_modalClass.getStudent_class();
@@ -175,8 +185,9 @@ Button btnchild,btnlogout;
                         for (DataSnapshot dataSnapshot:snapshot.getChildren()) {
                             Show_Child_ModalClass show_child_modalClass=dataSnapshot.getValue(Show_Child_ModalClass.class);
                             //    String student_registerationNo, stdent_fullname, student_fatherName, student_class, student_mobileNo, student_email, student_location;
-                            String student_buss  =show_child_modalClass.getSbus();
-
+                            String student_b  =show_child_modalClass.getStudent_registerationNo();
+                            if (student_b.equals(Parent_Chils)){
+                           String sbus=show_child_modalClass.getSbus();
                             databaseReference= FirebaseDatabase.getInstance().getReference("Driver").child("Driver Register");
                             valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
                                 @Override
@@ -191,14 +202,14 @@ Button btnchild,btnlogout;
                                         System.out.println("nnaammmm");
                                         String dname=driver_model_class.getDriver_name();
                                         String dMobile=driver_model_class.getDriver_mobile();
-                                        String dLocation=driver_model_class.getDriver_mobile();
+                                        String dLocation=driver_model_class.getDriver_Addres();
                                         String dAge=driver_model_class.getDriver_age();
                                         String dBus=driver_model_class.getBus();
                                         String dEmail=driver_model_class.getDrivere_mail();
                                         System.out.println(dBus);
                                         System.out.println(student_Bus);
                                         System.out.println("bbbnn");
-                                        if (dBus.equals(student_buss)){
+                                        if (dBus.equals(sbus)){
                                             Intent intent1=new Intent(getApplicationContext(),ShowDriver_Parent_Activity.class);
                                             intent1.putExtra("dname",dname);
                                             intent1.putExtra("dMobile",dMobile);
@@ -222,7 +233,7 @@ Button btnchild,btnlogout;
                             });
 
 
-                        }
+                        }}
 
                     }
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
+android:background="@color/white"
     tools:context=".Parents_Activity.Parent_Profile_Activity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -33,64 +33,141 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="11dp">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="name"
-        android:id="@+id/txtpname"
-        android:background="#F4F8F8"
-        android:padding="22dp"
-        android:layout_marginTop="12dp"
-        android:textSize="19dp"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="36dp"
+            android:padding="26dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="#42C1B6"
+            android:layout_marginTop="10dp"
+            android:text="Parent Profile"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:padding="6dp"
+            android:textColor="#3A3A3A"
+            android:layout_marginTop="13dp"
+            android:text="Name*"/>
+
+        <TextView
+            android:id="@+id/txtpname"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+
+            android:background="@drawable/background_tx"
+
+
+            android:hint="Comfirm Password"  />
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="name"-->
+<!--        android:id="@+id/txtpname"-->
+<!--       android:background="@drawable/background_tx"-->
+<!--        android:padding="18dp"-->
+<!--        android:layout_marginTop="12dp"-->
+<!--        android:textSize="19dp"-->
+<!--        />-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:padding="6dp"
+            android:textColor="#3A3A3A"
+            android:layout_marginTop="10dp"
+            android:text="Mobile Number*"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="name"
         android:id="@+id/txtpmobile"
-        android:padding="22dp"
-        android:background="#F4F8F8"
-        android:layout_marginTop="12dp"
-        android:textSize="19dp"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="name"
-        android:background="#F4F8F8"
-        android:id="@+id/txtpage"
-        android:padding="22dp"
-        android:layout_marginTop="12dp"
-        android:textSize="19dp"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="name"
-        android:background="#F4F8F8"
-        android:id="@+id/txtpaddres"
-        android:padding="22dp"
-        android:layout_marginTop="12dp"
-        android:textSize="19dp"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="name"
-        android:id="@+id/txtpemail"
-        android:background="#F4F8F8"
-        android:padding="22dp"
-        android:layout_marginTop="12dp"
-        android:textSize="19dp"
-        />
+        android:textColor="@color/black"
+        android:padding="15dp"
+    android:background="@drawable/background_tx"
 
+        android:textSize="19dp"
+        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:padding="6dp"
+            android:textColor="#3A3A3A"
+            android:layout_marginTop="10dp"
+            android:text="Age*"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="name"
+        android:textColor="@color/black"
+        android:id="@+id/txtpage"
+        android:padding="15dp"
+        android:background="@drawable/background_tx"
+
+
+        android:textSize="19dp"
+        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:padding="6dp"
+            android:textColor="#3A3A3A"
+            android:layout_marginTop="10dp"
+            android:text="Address*"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="name"
+        android:textColor="@color/black"
+        android:id="@+id/txtpaddres"
+        android:padding="15dp"
+        android:background="@drawable/background_tx"
+
+        android:textSize="19dp"
+        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:padding="6dp"
+            android:textColor="#3A3A3A"
+            android:layout_marginTop="10dp"
+            android:text="Email*"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="name"
+        android:textColor="@color/black"
+        android:id="@+id/txtpemail"
+        android:padding="15dp"
+        android:background="@drawable/background_tx"
+
+        android:textSize="19dp"
+        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:padding="6dp"
+            android:textColor="#3A3A3A"
+            android:layout_marginTop="10dp"
+            android:text="Child R.No*"/>
     <TextView
         android:id="@+id/txtperent_chil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:background="#F4F8F8"
-        android:padding="22dp"
+
+        android:padding="15dp"
+        android:textColor="@color/black"
+        android:background="@drawable/background_tx"
         android:text="name"
         android:textSize="19dp" />
 
@@ -105,16 +182,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Child"
-        android:background="#32BDB0"
+        android:background="@drawable/background_tx"
+        android:backgroundTint="#32BDB0"
         android:id="@+id/btnChild"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Driver"
             android:layout_marginLeft="22dp"
-            android:background="#32BDB0"
+            android:background="@drawable/background_tx"
+            android:backgroundTint="#32BDB0"
             android:id="@+id/btnlogout"/>
-
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location"
+            android:layout_marginLeft="22dp"
+            android:background="@drawable/background_tx"
+            android:backgroundTint="#32BDB0"
+            android:id="@+id/btnloc"/>
 </LinearLayout>
     </LinearLayout>
     </ScrollView>

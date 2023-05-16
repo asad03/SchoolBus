@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
+    android:background="@color/white"
     tools:context=".Driver_Activity.ShowStudent_D_Activity">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -28,7 +28,9 @@
         android:id="@+id/searchEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Search" />
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:hint="Searching ..." />
     <GridView
         android:id="@+id/simpleGridView"
         android:layout_width="match_parent"

@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -23,7 +23,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SchoolBusTracking"
         tools:targetApi="31">
-
         <activity
             android:name=".Driver_Activity.ShowStudent_D_Activity"
             android:exported="false">
@@ -168,6 +167,9 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity android:name="com.asadkhan.schoolbustracking.Location.ShowLocation_Activity" />
+
+        <service android:name=".Driver_Activity.LocationTrackingService" />
     </application>
 
 </manifest>

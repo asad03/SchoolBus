@@ -18,8 +18,10 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.text.TextUtils;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,7 +39,9 @@ import com.asadkhan.schoolbustracking.Attendance_Activity.EveningScan_Activity;
 import com.asadkhan.schoolbustracking.Attendance_Activity.MorningSCan_Activity;
 import com.asadkhan.schoolbustracking.Attendance_Activity.OutingScan_Activity;
 import com.asadkhan.schoolbustracking.Driver_Activity.LocationShow_Activity;
+import com.asadkhan.schoolbustracking.Driver_Activity.LocationTrackingService;
 import com.asadkhan.schoolbustracking.Driver_Activity.ShowStudent_D_Activity;
+import com.asadkhan.schoolbustracking.Location.ShowLocation_Activity;
 import com.asadkhan.schoolbustracking.Parents_Activity.Parent_Profile_Activity;
 import com.asadkhan.schoolbustracking.Parents_Activity.SendMsg_Activity;
 import com.asadkhan.schoolbustracking.Student_Activity.Capture2_QR;
@@ -83,12 +87,13 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase;
     Attendance_Out_Activity attendance_out_activity;
-    Button  btnscanall,btnLogOutD,btnLocation;
+    int MY_PERMISSIONS_REQUEST_SEND_SMS=0;
+    Button  btnscanall,btnLogOutD,btnLocation,btnbackground;
     RadioButton btneveningout, btnscan,btnscan2,btneveningenter;
     // CheckBox chmorningtime,cheveningtime;
 
     TextView txtshowQR, txtshowQR2;
-    String bus,student_name,studnet_RNumber,StudentnameandRno, dMobile;
+    String bus,student_name,studnet_RNumber,StudentnameandRno, dMobile,student_mobilenumber;
 
     String MorningStatus,EveningStatus;
     String eveningDateandTime, eveningentryDate, eveningentryTime;
@@ -97,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
     List<String> myList;
     List data;
     public static final String MyPREFERENCES = "Myapp";
+    String location,driver_name,driver_mobile,driver_age,drivere_mail,driver_Addres,usertype,driver_password;
+   // double  longitude,latitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
         btnscan2=findViewById(R.id.btnscan2);
         btneveningenter=findViewById(R.id.btneveningenter);
         btneveningout=findViewById(R.id.btneveningout);
+        //btnbackground=findViewById(R.id.btnbackground);
         btnscanall=findViewById(R.id.btnscanall);
         //btnLogOutD=findViewById(R.id.btnLogoutD);
         btnLocation=findViewById(R.id.btnLocation);
@@ -116,6 +124,55 @@ public class MainActivity extends AppCompatActivity {
         // assigning ID of the toolbar to a variable
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED) {
+                Log.d("permission", "permission denied to SEND_SMS - requesting it");
+                String[] permissions = {Manifest.permission.SEND_SMS};
+                requestPermissions(permissions, MY_PERMISSIONS_REQUEST_SEND_SMS);
+            }
+        }
+
+
+        Intent intent=getIntent();
+        driver_name=intent.getStringExtra("driver_name");
+         driver_mobile=intent.getStringExtra("driver_mobile");
+         driver_age=intent.getStringExtra("driver_age");
+        drivere_mail=intent.getStringExtra("emaild");
+         driver_Addres=intent.getStringExtra("driver_Addres");
+        usertype=intent.getStringExtra("usertype");
+        bus=intent.getStringExtra("bus");
+         driver_password=intent.getStringExtra("driver_password");
+     Double    longitude =intent.getDoubleExtra("Longitude",0);
+    Double     latitude= intent.getDoubleExtra("Latitude",0);
+
+//        btnbackground.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //startService(new Intent( getApplicationContext(),  LocationTrackingService.class ) );
+//
+//
+//                Intent serviceIntent = new Intent(getApplicationContext(), ShowLocation_Activity.class);
+//                startActivity(serviceIntent);
+////                String an="abcde";
+////                Location_Modal_class location_modal_class=new Location_Modal_class();
+////                location_modal_class.setDriver_name(driver_name);
+////                System.out.println(driver_name);
+////                System.out.println("dname");
+////                intent.putExtra("an",an);
+////                intent.putExtra("driver_name",driver_name);
+////                intent.putExtra("driver_mobile",driver_mobile);
+////                intent.putExtra("driver_age",driver_age);
+////                intent.putExtra("emaild",drivere_mail);
+////                intent.putExtra("driver_Addres",driver_Addres);
+////                intent.putExtra("usertype",usertype);
+////                intent.putExtra("bus",bus);
+////                intent.putExtra("driver_password",driver_password);
+////                intent.putExtra("longitude",longitude);
+////                intent.putExtra("Latitude",latitude);
+////                startService(serviceIntent);
+//            }
+//        });
+
 
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -305,15 +362,20 @@ startActivity(intent);
             return;
         }
         Task<Location> task = client.getLastLocation();
+
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
-            public void onSuccess(Location location) {
+            public void onSuccess(Location location1) {
+
+                System.out.println(location1);
+                System.out.println("lllooloc");
               smf.getMapAsync(new OnMapReadyCallback() {
                   @Override
                   public void onMapReady(GoogleMap googleMap) {
 //                      FirebaseAuth auth=FirebaseAuth.getInstance();
 //                      FirebaseUser firebaseUser=auth.getCurrentUser();
 //                      firebaseUser.getUid();
+
 
                       databaseReference= FirebaseDatabase.getInstance().getReference("Driver").child("Driver Register");
                   valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
@@ -335,24 +397,25 @@ startActivity(intent);
                   });
                       //  String C,driver_mobile,driver_age,drivere_mail,driver_Addres,usertype,bus,driver_password;
                       FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
-                      Intent intent=getIntent();
-                      String driver_name=intent.getStringExtra("driver_name");
-                      String driver_mobile=intent.getStringExtra("driver_mobile");
-                      String driver_age=intent.getStringExtra("driver_age");
-                      String drivere_mail=intent.getStringExtra("emaild");
-                      String driver_Addres=intent.getStringExtra("driver_Addres");
-                      String usertype=intent.getStringExtra("usertype");
-                       bus=intent.getStringExtra("bus");
-                      String driver_password=intent.getStringExtra("driver_password");
-                 double  longitude =intent.getDoubleExtra("Longitude",location.getLongitude());
-                   double latitude= intent.getDoubleExtra("Latitude",location.getLatitude());
+//                      Intent intent=getIntent();
+//                      String driver_name=intent.getStringExtra("driver_name");
+//                      String driver_mobile=intent.getStringExtra("driver_mobile");
+//                      String driver_age=intent.getStringExtra("driver_age");
+//                      String drivere_mail=intent.getStringExtra("emaild");
+//                      String driver_Addres=intent.getStringExtra("driver_Addres");
+//                      String usertype=intent.getStringExtra("usertype");
+//                       bus=intent.getStringExtra("bus");
+//                      String driver_password=intent.getStringExtra("driver_password");
+//                 double  longitude =intent.getDoubleExtra("Longitude",location.getLongitude());
+//                   double latitude= intent.getDoubleExtra("Latitude",location.getLatitude());
 
 
 
 
 
 
-                      Location_Modal_class helper=new Location_Modal_class(location.getLongitude(),location.getLatitude(),driver_name,driver_mobile,driver_age,drivere_mail,driver_Addres,usertype,bus,driver_password);
+
+                      Location_Modal_class helper=new Location_Modal_class(location1.getLongitude(),location1.getLatitude(),driver_name,driver_mobile,driver_age,drivere_mail,driver_Addres,usertype,bus,driver_password);
 
 
                       DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("Driver").child("Driver Register");
@@ -367,12 +430,21 @@ startActivity(intent);
 
                           }
                       });
-
-
-                      LatLng latLng=new LatLng(location.getLatitude(),location.getLongitude());
-                      MarkerOptions markerOptions=new MarkerOptions().position(latLng).title("You are here..");
-                      googleMap.addMarker(markerOptions);
-                      googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+                      if(location1!= null){
+//                          latitude = location1.getLatitude();
+//                         longitude = location1.getLongitude();
+//                         LatLng latLng=new LatLng(latitude,longitude);
+                          LatLng latLng=new LatLng(location1.getLatitude(),location1.getLongitude());
+                          MarkerOptions markerOptions=new MarkerOptions().position(latLng).title("Your Bus Location..");
+                          googleMap.addMarker(markerOptions);
+                          googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,16));
+                      }else {
+                          System.out.println("nulll");
+//                          MarkerOptions markerOptions=new MarkerOptions().position(latLng).title("You are here..");
+//                          googleMap.addMarker(markerOptions);
+//                          googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+                          Toast.makeText(MainActivity.this, "null", Toast.LENGTH_SHORT).show();
+                     }
                   }
               });
             }
@@ -386,9 +458,7 @@ startActivity(intent);
 
 
         IntentResult intentResultt = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (TextUtils.isEmpty(StudentnameandRno)){
-            Toast.makeText(this, "please scan again", Toast.LENGTH_SHORT).show();
-        }
+
             StudentnameandRno=intentResultt.getContents();
             String ab= StudentnameandRno.toString();
 //        txtshowQR.setText( studnet_RNumber);
@@ -400,6 +470,7 @@ startActivity(intent);
             System.out.println(myList);
             student_name=myList.get(0);
             studnet_RNumber=myList.get(1);
+            student_mobilenumber=myList.get(2);
 
             txtshowQR.setText(  student_name+"        "+ studnet_RNumber);
 
@@ -434,6 +505,15 @@ startActivity(intent);
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    try{
+                        SmsManager smgr = SmsManager.getDefault();
+                        smgr.sendTextMessage(student_mobilenumber,null,"your child is enter to bus",null,null);
+                       // message.setText("");
+                        Toast.makeText(getApplicationContext(), "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getApplicationContext(), "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
+                    }
                     Toast.makeText(getApplicationContext(), "Add Student Data Successfully", Toast.LENGTH_SHORT).show();
 
                 }
@@ -468,6 +548,15 @@ startActivity(intent);
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        try{
+                            SmsManager smgr = SmsManager.getDefault();
+                            smgr.sendTextMessage(student_mobilenumber,null,"your child is out from bus",null,null);
+                            // message.setText("");
+                            Toast.makeText(getApplicationContext(), "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+                        }
+                        catch (Exception e){
+                            Toast.makeText(getApplicationContext(), "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
+                        }
                         Toast.makeText(getApplicationContext(), "Add Student Data Successfully", Toast.LENGTH_SHORT).show();
 
                     }
@@ -501,6 +590,15 @@ startActivity(intent);
 databaseReference.addValueEventListener(new ValueEventListener() {
     @Override
     public void onDataChange(@NonNull DataSnapshot snapshot) {
+        try{
+            SmsManager smgr = SmsManager.getDefault();
+            smgr.sendTextMessage(student_mobilenumber,null,"your child is enter to bus",null,null);
+            // message.setText("");
+            Toast.makeText(getApplicationContext(), "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception e){
+            Toast.makeText(getApplicationContext(), "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
+        }
         Toast.makeText(getApplicationContext(), "Add Student Data Successfully", Toast.LENGTH_SHORT).show();
 
     }
@@ -533,6 +631,15 @@ databaseReference.addValueEventListener(new ValueEventListener() {
               databaseReference.addValueEventListener(new ValueEventListener() {
                   @Override
                   public void onDataChange(@NonNull DataSnapshot snapshot) {
+                      try{
+                          SmsManager smgr = SmsManager.getDefault();
+                          smgr.sendTextMessage(student_mobilenumber,null,"your child is out from bus",null,null);
+                          // message.setText("");
+                          Toast.makeText(getApplicationContext(), "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+                      }
+                      catch (Exception e){
+                          Toast.makeText(getApplicationContext(), "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
+                      }
                       Toast.makeText(getApplicationContext(), "Add Student Data Successfully", Toast.LENGTH_SHORT).show();
 
                   }
