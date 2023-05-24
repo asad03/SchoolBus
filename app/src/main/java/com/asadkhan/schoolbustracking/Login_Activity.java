@@ -110,17 +110,19 @@ public class Login_Activity extends AppCompatActivity {
             String driver_password = sharedpreferences.getString("driver_password", "");
             String Longitude = sharedpreferences.getString("Longitude", "");
             String Latitude = sharedpreferences.getString("emaild", "");
+            String usertype=sharedpreferences.getString("usertype","");
 
             Intent intent3 = new Intent(getApplicationContext(), MainActivity.class);
             intent3.putExtra("driver_name", driver_name);
             intent3.putExtra("driver_mobile", driver_mobile);
-            intent3.putExtra("Parent_age", driver_age);
+            intent3.putExtra("driver_age", driver_age);
             intent3.putExtra("driver_Addres", driver_Addres);
             intent3.putExtra("bus", bus);
             intent3.putExtra("emaild", emaild);
             intent3.putExtra("driver_password", driver_password);
             intent3.putExtra("Longitude", Longitude);
             intent3.putExtra("Latitude", Latitude);
+            intent3.putExtra("usertype",usertype);
 
 
             startActivity(intent3);
@@ -252,12 +254,15 @@ public class Login_Activity extends AppCompatActivity {
                                                         "Login parents",
                                                         Toast.LENGTH_LONG)
                                                 .show();
+                                        progressBar.setVisibility(View.GONE);
+
 
                                     } else {
                                         Toast.makeText(getApplicationContext(),
                                                         "Login failed!!",
                                                         Toast.LENGTH_LONG)
                                                 .show();
+                                        progressBar.setVisibility(View.GONE);
                                     }
 
                                 }
@@ -303,7 +308,11 @@ public class Login_Activity extends AppCompatActivity {
 
                         driver_model_class = dataSnapshot.getValue(Location_Modal_class.class);
 
-
+                        System.out.println(driver_model_class.getDriver_Addres());
+                        System.out.println(driver_model_class.getDriver_age());
+                        System.out.println(driver_model_class.getUsertype());
+                        System.out.println(driver_model_class.getBus());
+                        System.out.println("logg");
                         String driver_name = driver_model_class.getDriver_name();
                         String driver_mobile = driver_model_class.getDriver_mobile();
                         String driver_age = driver_model_class.getDriver_age();
@@ -320,6 +329,8 @@ public class Login_Activity extends AppCompatActivity {
                         // Toast.makeText(Login_Activity.this, driver_model_class + "", Toast.LENGTH_SHORT).show();
                         String emaill = textemail.replace(".", "");
                         String demail = emaild.replace(".", "");
+                        System.out.println(driver_Addres);
+                        System.out.println(driver_age);
                         System.out.println(emaill);
                         System.out.println(demail);
                         System.out.println(usertype);
@@ -340,9 +351,11 @@ public class Login_Activity extends AppCompatActivity {
                                         editor.putString("driver", "true");
                                         editor.putString("driver_name", driver_name);
                                         editor.putString("driver_mobile", driver_mobile);
+                                        editor.putString("driver_Addres",driver_Addres);
                                         editor.putString("driver_age", driver_age);
                                         editor.putString("bus", bus);
                                         editor.putString("emaild", emaild);
+                                        editor.putString("usertype",  usertype);
                                         editor.putString("driver_password", driver_password);
                                         editor.putString("Longitude", Longitude);
                                         editor.putString("Latitude", Latitude);
@@ -363,10 +376,12 @@ public class Login_Activity extends AppCompatActivity {
                                         intent.putExtra("Latitude", Latitude);
 
                                         startActivity(intent);
+
                                         Toast.makeText(getApplicationContext(),
                                                         "Login driver",
                                                         Toast.LENGTH_LONG)
                                                 .show();
+
 
 
 //                    }else if (chdriver.isChecked()){

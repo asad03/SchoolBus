@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Context;
@@ -80,6 +81,7 @@ import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
     SupportMapFragment smf;
 
     FusedLocationProviderClient client;
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
     List<String> myList;
     List data;
     public static final String MyPREFERENCES = "Myapp";
-    String location,driver_name,driver_mobile,driver_age,drivere_mail,driver_Addres,usertype,driver_password;
+   public String location,driver_name,driver_mobile,driver_age,drivere_mail,driver_Addres,usertype,driver_password;
    // double  longitude,latitude;
 
     @Override
@@ -114,10 +116,24 @@ public class MainActivity extends AppCompatActivity {
         btnscan2=findViewById(R.id.btnscan2);
         btneveningenter=findViewById(R.id.btneveningenter);
         btneveningout=findViewById(R.id.btneveningout);
-        //btnbackground=findViewById(R.id.btnbackground);
+//        btnbackground=findViewById(R.id.btnLocationback);
         btnscanall=findViewById(R.id.btnscanall);
         //btnLogOutD=findViewById(R.id.btnLogoutD);
         btnLocation=findViewById(R.id.btnLocation);
+
+        //new location
+
+
+
+
+
+
+
+
+
+
+
+
         sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm:ss");
         simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
         simpleDateFormat = new SimpleDateFormat("HH:mm");
@@ -136,14 +152,36 @@ public class MainActivity extends AppCompatActivity {
         Intent intent=getIntent();
         driver_name=intent.getStringExtra("driver_name");
          driver_mobile=intent.getStringExtra("driver_mobile");
+        driver_Addres=intent.getStringExtra("driver_Addres");
          driver_age=intent.getStringExtra("driver_age");
         drivere_mail=intent.getStringExtra("emaild");
          driver_Addres=intent.getStringExtra("driver_Addres");
+         driver_age=intent.getStringExtra("driver_age");
+         usertype=intent.getStringExtra("usertype");
         usertype=intent.getStringExtra("usertype");
         bus=intent.getStringExtra("bus");
          driver_password=intent.getStringExtra("driver_password");
      Double    longitude =intent.getDoubleExtra("Longitude",0);
     Double     latitude= intent.getDoubleExtra("Latitude",0);
+
+
+
+
+        checkLocationPermission();
+        System.out.println(drivere_mail);
+        System.out.println(driver_age);
+        System.out.println(driver_Addres);
+        System.out.println(usertype);
+        System.out.println("em11");
+//    btnbackground.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            Intent intent1=new Intent(getApplicationContext(),LocationShow_Activity.class);
+//            intent1.putExtra("drivere_mail",drivere_mail);
+//            intent1.putExtra("latitude",latitude);
+//            startActivity(intent1);
+//        }
+//    })
 
 //        btnbackground.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -298,7 +336,46 @@ startActivity(intent);
 
     }
 
-//    private void MorningOut() {
+    private void checkLocationPermission() {
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            startLocationService();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    private void startLocationService() {
+        System.out.println(drivere_mail);
+        System.out.println(driver_age);
+        System.out.println(driver_Addres);
+        System.out.println(usertype);
+        System.out.println("em22");
+        Intent serviceIntent = new Intent(this, LocationTrackingService.class);
+        serviceIntent.putExtra("drivere_mail",drivere_mail);
+        serviceIntent.putExtra("driver_name",driver_name);
+        serviceIntent.putExtra("driver_mobile",driver_mobile);
+        serviceIntent.putExtra("driver_age",driver_age);
+        serviceIntent.putExtra("driver_Addres",driver_Addres);
+        serviceIntent.putExtra("usertype",usertype);
+        serviceIntent.putExtra("driver_password",driver_password);
+        serviceIntent.putExtra("bus",bus);
+        startService(serviceIntent);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startLocationService();
+            } else {
+                Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    //    private void MorningOut() {
 //
 //        // Intent intent=new Intent(getApplicationContext(), EveningScan_Activity.class);
 //
@@ -413,7 +490,11 @@ startActivity(intent);
 
 
 
-
+                      System.out.println(drivere_mail);
+                      System.out.println(driver_age);
+                      System.out.println(driver_Addres);
+                      System.out.println(usertype);
+                      System.out.println("em55");
 
                       Location_Modal_class helper=new Location_Modal_class(location1.getLongitude(),location1.getLatitude(),driver_name,driver_mobile,driver_age,drivere_mail,driver_Addres,usertype,bus,driver_password);
 
@@ -509,10 +590,10 @@ startActivity(intent);
                         SmsManager smgr = SmsManager.getDefault();
                         smgr.sendTextMessage(student_mobilenumber,null,"your child is enter to bus",null,null);
                        // message.setText("");
-                        Toast.makeText(getApplicationContext(), "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+                     //   Toast.makeText(getApplicationContext(), "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
                     }
                     catch (Exception e){
-                        Toast.makeText(getApplicationContext(), "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getApplicationContext(), "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
                     }
                     Toast.makeText(getApplicationContext(), "Add Student Data Successfully", Toast.LENGTH_SHORT).show();
 
@@ -552,7 +633,7 @@ startActivity(intent);
                             SmsManager smgr = SmsManager.getDefault();
                             smgr.sendTextMessage(student_mobilenumber,null,"your child is out from bus",null,null);
                             // message.setText("");
-                            Toast.makeText(getApplicationContext(), "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getApplicationContext(), "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
                         }
                         catch (Exception e){
                             Toast.makeText(getApplicationContext(), "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
@@ -594,7 +675,7 @@ databaseReference.addValueEventListener(new ValueEventListener() {
             SmsManager smgr = SmsManager.getDefault();
             smgr.sendTextMessage(student_mobilenumber,null,"your child is enter to bus",null,null);
             // message.setText("");
-            Toast.makeText(getApplicationContext(), "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(getApplicationContext(), "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
         }
         catch (Exception e){
             Toast.makeText(getApplicationContext(), "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
@@ -755,6 +836,8 @@ databaseReference.addValueEventListener(new ValueEventListener() {
                 SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
                 SharedPreferences.Editor editor = sharedpreferences.edit();
+                Intent serviceIntent = new Intent(getApplicationContext(), LocationTrackingService.class);
+               stopService(serviceIntent);
                 // editor.putString("namee", "");
                 editor.remove("driver");
                 editor.clear();
@@ -776,10 +859,11 @@ databaseReference.addValueEventListener(new ValueEventListener() {
                             dMobile=    admin_modalClass.getMobile();
                             System.out.println(dMobile);
                             System.out.println("ccds");}
-                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                        callIntent.setData(Uri.parse("tel:" + dMobile));
+
                         //   getContext().startActivity(callIntent);
                         if (Build.VERSION.SDK_INT > 23) {
+                            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                            callIntent.setData(Uri.parse("tel:" + dMobile));
                             startActivity(callIntent);
                         } else {
 
@@ -789,6 +873,8 @@ databaseReference.addValueEventListener(new ValueEventListener() {
                             } else {
                                 final String[] PERMISSIONS_STORAGE = {android.Manifest.permission.CALL_PHONE};
                                 //ActivityCompat.requestPermissions(getContext(), PERMISSIONS_STORAGE, 9);
+                                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                                callIntent.setData(Uri.parse("tel:" + dMobile));
                                 startActivity(callIntent);
                             }
                         }

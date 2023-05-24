@@ -163,6 +163,9 @@ public class ShowLocation_Activity extends AppCompatActivity implements OnMapRea
 
     private void updateCurrentLocationMarker(Location location) {
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        System.out.println(location.getLatitude());
+        System.out.println(location.getLongitude());
+        System.out.println("loocc");
         if (currentLocationMarker == null) {
             // Create a new marker if it doesn't exist
             MarkerOptions markerOptions = new MarkerOptions()

@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class AdapterShow_StudentD extends ArrayAdapter<Show_Child_ModalClass> implements Filterable {
+public class AdapterShow_StudentD extends ArrayAdapter<Show_Child_ModalClass>{
 
 //    private List<Show_Child_ModalClass> originalDataList; // Original data list
 //    private List<Show_Child_ModalClass> filteredDataList; // Filtered data list
@@ -39,23 +39,70 @@ public class AdapterShow_StudentD extends ArrayAdapter<Show_Child_ModalClass> im
 
     Show_Child_ModalClass student;
    // ArrayList<Show_Child_ModalClass> dataModalArrayList;
-
+  ArrayList<Show_Child_ModalClass> mData;
+   ArrayList<Show_Child_ModalClass> mStringFilterList;
+    ValueFilter valueFilter;
 
     public AdapterShow_StudentD(@NonNull Context context, ArrayList<Show_Child_ModalClass> dataModalArrayList) {
         super(context, 0, dataModalArrayList);
 //        this.originalDataList = new ArrayList<>(dataModalArrayList); // Initialize originalDataList with all data initially
 //        this.filteredDataList = new ArrayList<>(dataModalArrayList); // Initialize filteredDataList with all data initially
 //        this.itemFilter = new ItemFilter();
+        mData=dataModalArrayList;
+        mStringFilterList = dataModalArrayList;
         }
 //
-//    @Override
-//    public int getCount() {
-//        return filteredDataList.size();
-//    }
-//    @Override
-//    public Show_Child_ModalClass getItem(int position) {
-//        return filteredDataList.get(position);
-//    }
+    @Override
+    public int getCount() {
+        return mData.size();
+    }
+    @Override
+    public Show_Child_ModalClass getItem(int position) {
+        return mData.get(position);
+    }
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+    @Override
+    public Filter getFilter() {
+        if (valueFilter == null) {
+            valueFilter = new ValueFilter();
+        }
+        return valueFilter;
+    }
+
+    private class ValueFilter extends Filter {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            if (constraint != null && constraint.length() > 0) {
+                ArrayList<Show_Child_ModalClass> filterList = new ArrayList<>();
+                for (int i = 0; i < mStringFilterList.size(); i++) {
+                    if ((mStringFilterList.get(i).getStdent_fullname().toUpperCase()).contains(constraint.toString().toUpperCase())) {
+                        filterList.add(mStringFilterList.get(i));
+                    }
+                }
+                results.count = filterList.size();
+                results.values = filterList;
+            } else {
+                results.count = mStringFilterList.size();
+                results.values = mStringFilterList;
+            }
+            return results;
+
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint,
+                                      FilterResults results) {
+            mData = (ArrayList<Show_Child_ModalClass>) results.values;
+            notifyDataSetChanged();
+        }
+
+    }
+
 //
 //    @NonNull
 //    @Override

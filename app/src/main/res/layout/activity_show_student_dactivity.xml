@@ -24,13 +24,23 @@
             />
 
     </com.google.android.material.appbar.AppBarLayout>
-    <EditText
-        android:id="@+id/searchEditText"
+
+    <SearchView
+        android:id="@+id/searchView"
         android:layout_width="match_parent"
+        android:padding="2dp"
+
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:hint="Searching ..." />
+        android:queryHint="Search Here"
+        android:searchHintIcon="@color/black"
+
+android:background="?attr/scrimBackground"
+  android:outlineSpotShadowColor="@color/black"
+        android:outlineAmbientShadowColor="@color/black"
+        android:iconifiedByDefault="false"
+        android:searchIcon="@drawable/search"
+
+        />
     <GridView
         android:id="@+id/simpleGridView"
         android:layout_width="match_parent"

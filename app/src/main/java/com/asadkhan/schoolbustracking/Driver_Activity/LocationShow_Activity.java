@@ -67,6 +67,7 @@ import java.util.HashMap;
 public class LocationShow_Activity extends AppCompatActivity{
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
     private Button startButton;
+    String  drivere_mail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,13 +76,21 @@ public class LocationShow_Activity extends AppCompatActivity{
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkLocationPermission();
+              //  checkLocationPermission();
             }
         });
+        checkLocationPermission();
+        Intent intent=getIntent();
+        drivere_mail=   intent.getStringExtra("drivere_mail");
+        System.out.println(drivere_mail);
+        System.out.println("eemm1");
+        intent.getStringExtra("latitude");
+       // checkLocationPermission();
     }
 
     private void checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
             startLocationService();
         } else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
@@ -102,6 +111,9 @@ public class LocationShow_Activity extends AppCompatActivity{
 
     private void startLocationService() {
         Intent serviceIntent = new Intent(this, LocationTrackingService.class);
+        System.out.println(drivere_mail);
+        System.out.println("em22");
+        serviceIntent.putExtra("drivere_mail",drivere_mail);
         startService(serviceIntent);
     }
 

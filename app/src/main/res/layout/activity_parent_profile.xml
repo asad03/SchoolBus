@@ -193,14 +193,14 @@ android:background="@color/white"
             android:background="@drawable/background_tx"
             android:backgroundTint="#32BDB0"
             android:id="@+id/btnlogout"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Location"
-            android:layout_marginLeft="22dp"
-            android:background="@drawable/background_tx"
-            android:backgroundTint="#32BDB0"
-            android:id="@+id/btnloc"/>
+<!--        <Button-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Location"-->
+<!--            android:layout_marginLeft="22dp"-->
+<!--            android:background="@drawable/background_tx"-->
+<!--            android:backgroundTint="#32BDB0"-->
+<!--            android:id="@+id/btnloc"/>-->
 </LinearLayout>
     </LinearLayout>
     </ScrollView>

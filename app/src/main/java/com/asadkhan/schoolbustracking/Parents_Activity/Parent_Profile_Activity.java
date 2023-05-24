@@ -52,17 +52,17 @@ Button btnchild,btnlogout,btnloc;
         textViewPerentChild=findViewById(R.id.txtperent_chil);
         btnchild=findViewById(R.id.btnChild);
         btnlogout=findViewById(R.id.btnlogout);
-        btnloc=findViewById(R.id.btnloc);
+       // btnloc=findViewById(R.id.btnloc);
         //btnChildLocation=findViewById(R.id.btnChildLocation);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        btnloc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), LocationShow_Activity.class));
-            }
-        });
+//        btnloc.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getApplicationContext(), LocationShow_Activity.class));
+//            }
+//        });
 
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -120,7 +120,7 @@ Button btnchild,btnlogout,btnloc;
             private void Show_Child_Profile() {
                 System.out.println(Parent_Chils);
                 System.out.println("pp");
-               Toast.makeText(Parent_Profile_Activity.this, "clack", Toast.LENGTH_SHORT).show();
+             //  Toast.makeText(Parent_Profile_Activity.this, "clack", Toast.LENGTH_SHORT).show();
                 databaseReference= FirebaseDatabase.getInstance().getReference("Students").child("StudentRecord");                System.out.println(databaseReference);
                 valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -285,10 +285,11 @@ Button btnchild,btnlogout,btnloc;
                         dMobile=    admin_modalClass.getMobile();
                         System.out.println(dMobile);
                         System.out.println("ccds");}
-                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                        callIntent.setData(Uri.parse("tel:" + dMobile));
+
                         //   getContext().startActivity(callIntent);
                         if (Build.VERSION.SDK_INT > 23) {
+                            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                            callIntent.setData(Uri.parse("tel:" + dMobile));
                             startActivity(callIntent);
                         } else {
 
@@ -298,6 +299,8 @@ Button btnchild,btnlogout,btnloc;
                             } else {
                                 final String[] PERMISSIONS_STORAGE = {android.Manifest.permission.CALL_PHONE};
                                 //ActivityCompat.requestPermissions(getContext(), PERMISSIONS_STORAGE, 9);
+                                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                                callIntent.setData(Uri.parse("tel:" + dMobile));
                                 startActivity(callIntent);
                             }
                         }

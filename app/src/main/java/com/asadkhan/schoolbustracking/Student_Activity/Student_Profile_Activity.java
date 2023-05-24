@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,12 +21,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class Student_Profile_Activity extends AppCompatActivity {
 TextView txtstudent_rno,txtstdent_fullname,txtstudent_fatherName,txtstudent_class,txtstudent_mobileNo,txtstudent_email,txtstudent_location,txtstudent_bus;
  Button    btnChildLocation,btnAtten,btncurrentstatus;
     DatabaseReference databaseReference;
     ValueEventListener valueEventListener;
+    ImageView imgstudent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ TextView txtstudent_rno,txtstdent_fullname,txtstudent_fatherName,txtstudent_clas
         txtstudent_bus=findViewById(R.id.textstudent_bus);
         txtstudent_rno=findViewById(R.id.textstudent_Rno);
         btnAtten=findViewById(R.id.btnchAtten);
+        imgstudent=findViewById(R.id.imgstudent);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -51,6 +55,12 @@ TextView txtstudent_rno,txtstdent_fullname,txtstudent_fatherName,txtstudent_clas
 //                startActivity(new Intent(getApplicationContext(), Parent_Profile_Activity.class));
 //            }
 //        });
+
+
+
+
+
+
 
         Intent intent=getIntent();
         String  stdent_fullname   =intent.getStringExtra("stdent_fullname");
@@ -73,13 +83,76 @@ TextView txtstudent_rno,txtstdent_fullname,txtstudent_fatherName,txtstudent_clas
         btnChildLocation=findViewById(R.id.btnChidloc);
 
 
+        DatabaseReference databaseReference;
+
+        ValueEventListener valueEventListener;
+        databaseReference= FirebaseDatabase.getInstance().getReference("images").child(student_registerationNo);
+        System.out.println(databaseReference);
+        valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                String sImage = (String) snapshot.getValue();
+                String Rnum = snapshot.getKey();
+                System.out.println("ppll");
+                System.out.println(sImage);
+                System.out.println(Rnum);
+                System.out.println("nnnn");
+                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+
+
+//                            System.out.println(dataSnapshot);
+//                            System.out.println("data");
+//                        System.out.println(snapshot.getValue());
+//                        System.out.println(snapshot.getKey());
+                    System.out.println("pp22ll");}
+                if (student_registerationNo.equals(Rnum)){
+                    System.out.println(student_registerationNo);
+                    System.out.println(Rnum);
+                    System.out.println("mnkk");
+                    loadImageIntoImageView(sImage);}
+//                    Intent intent=new Intent(getContext(), Generat_Cards.class);
+//                    intent.putExtra("student_name",student_name);
+//                    intent.putExtra("father_name",father_name);
+//                    intent.putExtra("student_mobile",student_mobile);
+//                    intent.putExtra("student_class",student_class);
+//                    intent.putExtra("student_Rnumber",student_Rnumber);
+//                    intent.putExtra("sImage",sImage);
+
+
+
+                    //startActivity(intent);
+                //}
+//
+//
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
         btnChildLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println(student_Bus);
                 System.out.println("pp");
                 //Toast.makeText(getApplicationContext(), "clack", Toast.LENGTH_SHORT).show();
-                databaseReference = FirebaseDatabase.getInstance().getReference("Driver").child("Driver Register");                valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
+             DatabaseReference   databaseReference = FirebaseDatabase.getInstance().getReference("Driver").child("Driver Register");
+                ValueEventListener   valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot:snapshot.getChildren()) {
@@ -146,5 +219,14 @@ TextView txtstudent_rno,txtstdent_fullname,txtstudent_fatherName,txtstudent_clas
 
 
     }
+    private void loadImageIntoImageView(String imageUrl) {
+        // ImageView imageView = findViewById(R.id.imageView);
 
+        Picasso.get()
+
+                .load(imageUrl)
+                .fit()
+                .centerInside()
+                .into(  imgstudent);
+    }
 }

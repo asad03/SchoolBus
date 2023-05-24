@@ -47,7 +47,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/startButton"
+            android:id="@+id/starttButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
@@ -62,7 +62,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/stopButton"
+            android:id="@+id/stButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"

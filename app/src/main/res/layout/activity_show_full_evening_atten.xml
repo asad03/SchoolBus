@@ -41,34 +41,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:divider="?android:dividerHorizontal"
+                android:showDividers="middle"
                 >
                 <TextView
-                    android:layout_width="109dp"
+                    android:layout_width="100dp"
                     android:layout_height="30dp"
+                    android:textColor="@color/black"
                     android:layout_marginLeft="8dp"
                     android:text="name"
                     />
                 <TextView
-                    android:layout_width="109dp"
+                    android:layout_width="50dp"
                     android:layout_height="30dp"
-
-                    android:text="R Number"
+                    android:textColor="@color/black"
+                    android:text="Reg.No"
                     />
                 <TextView
-                    android:layout_width="109dp"
+                    android:layout_width="70dp"
                     android:layout_height="30dp"
+                    android:textColor="@color/black"
                     android:layout_marginLeft="10dp"
                     android:text="Date"
                     />
                 <TextView
-                    android:layout_width="100dp"
+                    android:layout_width="60dp"
                     android:layout_height="30dp"
-
+                    android:textColor="@color/black"
                     android:text="Time"
                     />
                 <TextView
-                    android:layout_width="109dp"
+                    android:layout_width="50dp"
                     android:layout_height="30dp"
+                    android:textColor="@color/black"
                     android:layout_marginLeft="1dp"
                     android:text="Status"
                     />
@@ -78,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
+
                 android:orientation="vertical">
 
                 <GridView
@@ -85,7 +91,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:columnWidth="60dp"
-                    android:layout_marginTop="18dp"
+
+                    android:layout_marginTop="5dp"
                     android:stretchMode="columnWidth"
                     android:verticalSpacing="20dp"
                     android:padding="11dp"

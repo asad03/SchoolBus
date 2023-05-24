@@ -68,6 +68,8 @@ public class LocationTrackingService extends Service implements LocationListener
 
     private LocationManager locationManager;
     private LocationListener locationListener;
+    String drivere_mail,driver_name,driver_mobile,driver_age,driver_Addres,usertype,driver_password,bus;
+
 
     @Nullable
     @Override
@@ -77,6 +79,19 @@ public class LocationTrackingService extends Service implements LocationListener
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        drivere_mail=  intent.getStringExtra("drivere_mail");
+        driver_name=intent.getStringExtra("driver_name");
+        driver_mobile=intent.getStringExtra("driver_mobile");
+        driver_age=intent.getStringExtra("driver_age");
+        driver_Addres=intent.getStringExtra("driver_Addres");
+        usertype=intent.getStringExtra("usertype");
+        driver_password=intent.getStringExtra("driver_password");
+        bus=intent.getStringExtra("bus");
+        System.out.println(driver_Addres);
+        System.out.println(driver_age);
+        System.out.println(usertype);
+        System.out.println(drivere_mail);
+        System.out.println("mqq");
         // Start the location updates
         startLocationUpdates();
         // Create and show the notification
@@ -131,11 +146,42 @@ public class LocationTrackingService extends Service implements LocationListener
 
     private void uploadLocationToFirebase(Location location) {
         // Get the current user ID or any other identifier you use
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // Upload the location data to Firebase Realtime Database
-        DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("locations");
-        locationRef.child(userId).setValue(location);
+        System.out.println( location.getLatitude());
+        System.out.println(location.getLongitude());
+        System.out.println(location.getSpeed());
+        System.out.println("lmlpp");
+        System.out.println(driver_Addres+"adress");
+        System.out.println(driver_age+"age");
+        System.out.println(drivere_mail);
+
+        location.getAltitude();
+
+
+
+        Location_Modal_class helper=new Location_Modal_class(location.getLongitude(),location.getLatitude(),driver_name,driver_mobile,driver_age,drivere_mail,driver_Addres,usertype,bus,driver_password);
+
+
+        DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("Driver").child("Driver Register");
+        databaseReference.child(drivere_mail.replace(".","")).setValue(helper).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(getApplicationContext(), "Location update", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getApplicationContext(), "Location not update", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+
+//        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//
+//        // Upload the location data to Firebase Realtime Database
+//        DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("locations");
+//        locationRef.child(userId).setValue(location);
     }
 
     private void showNotification() {
