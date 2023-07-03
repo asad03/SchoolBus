@@ -1,14 +1,14 @@
 package com.asadkhan.schoolbustracking.Parents_Activity;
 
 public class Parents_Model_class {
-    String Parent_name,Parent_mobile,Parent_age,Parent_mail,Parent_Addres,usertype,Parent_password,Parent_Chils;
+    String Parent_name, Parent_mobile, Parent_mail, Parent_Addres, usertype, Parent_password, Parent_Chils;
+
     public Parents_Model_class() {
     }
 
-    public Parents_Model_class(String parent_name, String parent_mobile, String parent_age, String parent_mail, String parent_Addres, String usertype, String parent_password, String parent_Chils) {
+    public Parents_Model_class(String parent_name, String parent_mobile, String parent_mail, String parent_Addres, String usertype, String parent_password, String parent_Chils) {
         Parent_name = parent_name;
         Parent_mobile = parent_mobile;
-        Parent_age = parent_age;
         Parent_mail = parent_mail;
         Parent_Addres = parent_Addres;
         this.usertype = usertype;
@@ -30,14 +30,6 @@ public class Parents_Model_class {
 
     public void setParent_mobile(String parent_mobile) {
         Parent_mobile = parent_mobile;
-    }
-
-    public String getParent_age() {
-        return Parent_age;
-    }
-
-    public void setParent_age(String parent_age) {
-        Parent_age = parent_age;
     }
 
     public String getParent_mail() {
@@ -80,4 +72,3 @@ public class Parents_Model_class {
         Parent_Chils = parent_Chils;
     }
 }
-

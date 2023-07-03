@@ -139,14 +139,14 @@ public class Login_Activity extends AppCompatActivity {
         if (check.equals("true")) {
             String Parent_name = sharedpreferences.getString("Parent_name", "");
             String Parent_mobile = sharedpreferences.getString("Parent_mobile", "");
-            String Parent_age = sharedpreferences.getString("Parent_age", "");
+           // String Parent_age = sharedpreferences.getString("Parent_age", "");
             String Parent_Addres = sharedpreferences.getString("Parent_Addres", "");
             String Parent_mail = sharedpreferences.getString("Parent_mail", "");
             String Parent_Chils = sharedpreferences.getString("Parent_Chils", "");
             Intent intent2 = new Intent(getApplicationContext(), Parent_Profile_Activity.class);
             intent2.putExtra("Parent_name", Parent_name);
             intent2.putExtra("Parent_mobile", Parent_mobile);
-            intent2.putExtra("Parent_age", Parent_age);
+            //intent2.putExtra("Parent_age", Parent_age);
             intent2.putExtra("Parent_Addres", Parent_Addres);
             intent2.putExtra("Parent_mail", Parent_mail);
             intent2.putExtra("Parent_Chils", Parent_Chils);
@@ -195,7 +195,7 @@ public class Login_Activity extends AppCompatActivity {
 
                         String Parent_name = parent_addModal_class.getParent_name();
                         String Parent_mobile = parent_addModal_class.getParent_mobile();
-                        String Parent_age = parent_addModal_class.getParent_age();
+                       // String Parent_age = parent_addModal_class.getParent_age();
                         String Parent_Addres = parent_addModal_class.getParent_Addres();
                         String Parent_mail = parent_addModal_class.getParent_mail();
                         String Parent_password = parent_addModal_class.getParent_password();
@@ -207,7 +207,7 @@ public class Login_Activity extends AppCompatActivity {
                         System.out.println(pemail);
                         System.out.println(usertype);
                         System.out.println("showp");
-                        if (emaill.equals(pemail)) {
+                        if (emaill.equals(pemail) && textpassword.equals(Parent_password)) {
 
 
                             authprofile.signInWithEmailAndPassword(Parent_mail, Parent_password).addOnCompleteListener(Login_Activity.this, new OnCompleteListener<AuthResult>() {
@@ -218,7 +218,7 @@ public class Login_Activity extends AppCompatActivity {
 
                                         String Parent_n = "Parent_name";
                                         String Parent_mo = "Parent_mobile";
-                                        String Parent_ag = "Parent_age";
+                                      //  String Parent_ag = "Parent_age";
                                         String Parent_Ad = "Parent_Addres";
                                         String Parent_ma = "Parent_mail";
                                         String Parent_pas = "Parent_password";
@@ -231,7 +231,7 @@ public class Login_Activity extends AppCompatActivity {
                                         editor.putString("namee", "true");
                                         editor.putString("Parent_name", Parent_name);
                                         editor.putString("Parent_mobile", Parent_mobile);
-                                        editor.putString("Parent_age", Parent_age);
+                                       // editor.putString("Parent_age", Parent_age);
                                         editor.putString("Parent_Addres", Parent_Addres);
                                         editor.putString("Parent_mail", Parent_mail);
                                         editor.putString("Parent_password", Parent_password);
@@ -241,7 +241,7 @@ public class Login_Activity extends AppCompatActivity {
                                         Intent intent1 = new Intent(getApplicationContext(), Parent_Profile_Activity.class);
                                         intent1.putExtra("Parent_name", Parent_name);
                                         intent1.putExtra("Parent_mobile", Parent_mobile);
-                                        intent1.putExtra("Parent_age", Parent_age);
+                                      //  intent1.putExtra("Parent_age", Parent_age);
                                         intent1.putExtra("Parent_Addres", Parent_Addres);
                                         intent1.putExtra("Parent_mail", Parent_mail);
                                         intent1.putExtra("Parent_Chils", Parent_Chils);
@@ -335,7 +335,7 @@ public class Login_Activity extends AppCompatActivity {
                         System.out.println(demail);
                         System.out.println(usertype);
                         System.out.println("showd2");
-                        if (emaill.equals(demail)) {
+                        if (emaill.equals(demail) && textpassword.equals(driver_password)) {
 
 
                             authprofile.signInWithEmailAndPassword(emaild, passwordd).addOnCompleteListener(Login_Activity.this, new OnCompleteListener<AuthResult>() {
@@ -362,7 +362,7 @@ public class Login_Activity extends AppCompatActivity {
 
                                         editor.apply();
 
-
+String a="abc";
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         intent.putExtra("driver_name", driver_name);
                                         intent.putExtra("driver_mobile", driver_mobile);
@@ -374,6 +374,7 @@ public class Login_Activity extends AppCompatActivity {
                                         intent.putExtra("driver_password", driver_password);
                                         intent.putExtra("Longitude", Longitude);
                                         intent.putExtra("Latitude", Latitude);
+                                        intent.putExtra("a",a);
 
                                         startActivity(intent);
 
@@ -393,16 +394,16 @@ public class Login_Activity extends AppCompatActivity {
 //                    }
 
                                     } else {
-                                        Toast.makeText(getApplicationContext(),
-                                                        "Login failed!!",
-                                                        Toast.LENGTH_LONG)
-                                                .show();
+//                                        Toast.makeText(getApplicationContext(),
+//                                                        "Login failed!!",
+//                                                        Toast.LENGTH_LONG)
+//                                                .show();
                                     }
 
                                 }
                             });
                         } else {
-                            //Toast.makeText(Login_Activity.this, "not present", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login_Activity.this, "Login failed!!", Toast.LENGTH_SHORT).show();
                         }
 
 
@@ -426,7 +427,7 @@ public class Login_Activity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                   // Toast.makeText(getApplicationContext(), "Some thing went worng", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Some thing went worng", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -683,4 +684,5 @@ public class Login_Activity extends AppCompatActivity {
 //
 //        }
 //    }
+
 }

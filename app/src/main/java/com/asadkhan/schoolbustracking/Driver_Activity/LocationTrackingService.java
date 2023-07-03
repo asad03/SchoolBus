@@ -167,7 +167,7 @@ public class LocationTrackingService extends Service implements LocationListener
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(), "Location update", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Location update", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(getApplicationContext(), "Location not update", Toast.LENGTH_SHORT).show();
                 }

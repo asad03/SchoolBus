@@ -38,7 +38,7 @@ TextView txtstudent_rno,txtstdent_fullname,txtstudent_fatherName,txtstudent_clas
         txtstudent_fatherName=findViewById(R.id.textstudent_fatherName);
         txtstudent_class=findViewById(R.id.textstudent_class);
         txtstudent_mobileNo=findViewById(R.id.textstudent_mobileNo);
-        txtstudent_email=findViewById(R.id.textstudent_email);
+       // txtstudent_email=findViewById(R.id.textstudent_email);
         txtstudent_location=findViewById(R.id.textstudent_location);
         txtstudent_bus=findViewById(R.id.textstudent_bus);
         txtstudent_rno=findViewById(R.id.textstudent_Rno);
@@ -67,7 +67,7 @@ TextView txtstudent_rno,txtstdent_fullname,txtstudent_fatherName,txtstudent_clas
         String   student_fatherName  =intent.getStringExtra("student_fatherName");
         String   student_class  =intent.getStringExtra("student_class");
         String student_mobileNo    =intent.getStringExtra("student_mobileNo");
-        String  student_email   =intent.getStringExtra("student_email");
+       // String  student_email   =intent.getStringExtra("student_email");
         String   student_location  =intent.getStringExtra("student_location");
         String student_Bus=intent.getStringExtra("student_Bus");
         String student_registerationNo=intent.getStringExtra("student_registerationNo");
@@ -76,7 +76,7 @@ TextView txtstudent_rno,txtstdent_fullname,txtstudent_fatherName,txtstudent_clas
         txtstudent_fatherName.setText(student_fatherName);
         txtstudent_class.setText(student_class);
         txtstudent_mobileNo.setText(student_mobileNo);
-        txtstudent_email.setText(student_email);
+      //  txtstudent_email.setText(student_email);
         txtstudent_location.setText(student_location);
         txtstudent_bus.setText(student_Bus);
         txtstudent_rno.setText(student_registerationNo);

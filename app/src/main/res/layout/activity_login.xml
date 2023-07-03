@@ -114,7 +114,7 @@
 
                 app:startIconTint="@color/black"
 
-                app:boxBackgroundColor="@color/black"
+
 
                 >
 
@@ -124,9 +124,12 @@
                     android:layout_height="match_parent"
                     android:inputType="textEmailAddress"
                     android:textColor="@color/black"
+                    android:hint="Email"
+                    android:textColorHint="@color/black"
+                    android:background="@color/white"
 
 
-                    android:background="@color/white"/>
+                />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -153,7 +156,10 @@
                     android:layout_height="match_parent"
                     android:inputType="textPassword"
                     android:textColor="@color/black"
-                    android:background="@android:color/background_light"/>
+                    android:hint="Password"
+                    android:textColorHint="@color/black"
+                    android:background="@color/white"
+                  />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout

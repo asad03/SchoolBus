@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             app:titleTextColor="#fff"
-            app:title="Student Location"
+            app:title="Child Location"
 
             android:layout_height="?attr/actionBarSize"
             android:background="@color/teal_200"

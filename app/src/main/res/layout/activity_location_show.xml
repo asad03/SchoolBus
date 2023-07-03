@@ -10,7 +10,7 @@
     tools:context=".Driver_Activity.LocationShow_Activity">
 
     <Button
-        android:id="@+id/startButton"
+        android:id="@+id/startButto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start Location Service"

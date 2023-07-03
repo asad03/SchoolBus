@@ -124,7 +124,19 @@ public class MainActivity extends AppCompatActivity {
         //new location
 
 
-
+        Intent intent=getIntent();
+        driver_name=intent.getStringExtra("driver_name");
+        driver_mobile=intent.getStringExtra("driver_mobile");
+        driver_Addres=intent.getStringExtra("driver_Addres");
+        driver_age=intent.getStringExtra("driver_age");
+        drivere_mail=intent.getStringExtra("emaild");
+        driver_Addres=intent.getStringExtra("driver_Addres");
+        driver_age=intent.getStringExtra("driver_age");
+        usertype=intent.getStringExtra("usertype");
+        usertype=intent.getStringExtra("usertype");
+        bus=intent.getStringExtra("bus");
+        driver_password=intent.getStringExtra("driver_password");
+        intent.getStringExtra("a");
 
 
 
@@ -149,81 +161,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        Intent intent=getIntent();
-        driver_name=intent.getStringExtra("driver_name");
-         driver_mobile=intent.getStringExtra("driver_mobile");
-        driver_Addres=intent.getStringExtra("driver_Addres");
-         driver_age=intent.getStringExtra("driver_age");
-        drivere_mail=intent.getStringExtra("emaild");
-         driver_Addres=intent.getStringExtra("driver_Addres");
-         driver_age=intent.getStringExtra("driver_age");
-         usertype=intent.getStringExtra("usertype");
-        usertype=intent.getStringExtra("usertype");
-        bus=intent.getStringExtra("bus");
-         driver_password=intent.getStringExtra("driver_password");
-     Double    longitude =intent.getDoubleExtra("Longitude",0);
-    Double     latitude= intent.getDoubleExtra("Latitude",0);
+
+//     Double    longitude =intent.getDoubleExtra("Longitude",0);
+//    Double     latitude= intent.getDoubleExtra("Latitude",0);
 
 
 
 
         checkLocationPermission();
+
+
         System.out.println(drivere_mail);
         System.out.println(driver_age);
         System.out.println(driver_Addres);
         System.out.println(usertype);
         System.out.println("em11");
-//    btnbackground.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            Intent intent1=new Intent(getApplicationContext(),LocationShow_Activity.class);
-//            intent1.putExtra("drivere_mail",drivere_mail);
-//            intent1.putExtra("latitude",latitude);
-//            startActivity(intent1);
-//        }
-//    })
-
-//        btnbackground.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //startService(new Intent( getApplicationContext(),  LocationTrackingService.class ) );
-//
-//
-//                Intent serviceIntent = new Intent(getApplicationContext(), ShowLocation_Activity.class);
-//                startActivity(serviceIntent);
-////                String an="abcde";
-////                Location_Modal_class location_modal_class=new Location_Modal_class();
-////                location_modal_class.setDriver_name(driver_name);
-////                System.out.println(driver_name);
-////                System.out.println("dname");
-////                intent.putExtra("an",an);
-////                intent.putExtra("driver_name",driver_name);
-////                intent.putExtra("driver_mobile",driver_mobile);
-////                intent.putExtra("driver_age",driver_age);
-////                intent.putExtra("emaild",drivere_mail);
-////                intent.putExtra("driver_Addres",driver_Addres);
-////                intent.putExtra("usertype",usertype);
-////                intent.putExtra("bus",bus);
-////                intent.putExtra("driver_password",driver_password);
-////                intent.putExtra("longitude",longitude);
-////                intent.putExtra("Latitude",latitude);
-////                startService(serviceIntent);
-//            }
-//        });
-
-
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//               // startActivity(new Intent(getApplicationContext(), Dashboardb_Activity.class));
-//            }
-//        });
-
-        // on below line we are creating a variable
-        // for current date and time and calling a simple date format in it.
-        eveningDateandTime = sdf.format(new Date());
+      eveningDateandTime = sdf.format(new Date());
         eveningentryDate = simpleFormat.format(new Date());
         eveningentryTime = simpleDateFormat.format(new Date());
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -264,55 +217,7 @@ startActivity(intent);
                 intentIntegrator.initiateScan();
             }
         });
-//        btneveningout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
 
-//        btnscan.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                IntentIntegrator intentIntegrator=new IntentIntegrator(MainActivity.this);
-//                intentIntegrator.setPrompt("use up key");
-//                intentIntegrator.setBeepEnabled(true);
-//                intentIntegrator.setOrientationLocked(true);
-//                intentIntegrator.setCaptureActivity(Capture_QR.class);
-//                intentIntegrator.initiateScan();
-//                MorningEnter();
-//               // Intent intent=new Intent(getApplicationContext(), MorningSCan_Activity.class);
-////
-////                intent.putExtra("bus",bus);
-////                startActivity(intent);
-//               // chmorningtime.isChecked();
-//            }
-//
-//            private void MorningEnter() {
-//
-//              //  studnet_RNumber = txtshowQR.getText().toString().trim();
-////                if (TextUtils.isEmpty(studnet_RNumber)) {
-////                    txtshowQR.setError("please scan again");
-////                    txtshowQR.requestFocus();
-////                } else {
-//
-//               // }
-//            }
-//        });
-
-//        btnscan2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                IntentIntegrator intentIntegrator=new IntentIntegrator(MainActivity.this);
-//                intentIntegrator.setPrompt("use up key");
-//                intentIntegrator.setBeepEnabled(true);
-//                intentIntegrator.setOrientationLocked(true);
-//                intentIntegrator.setCaptureActivity(Capture2_QR.class);
-//                intentIntegrator.initiateScan();
-//              MorningOut();
-//
-//            }
-//        });
 
 
         Dexter.withContext(getApplicationContext())
@@ -340,13 +245,13 @@ startActivity(intent);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-            startLocationService();
+            startLocationServices();
         } else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         }
     }
 
-    private void startLocationService() {
+    private void startLocationServices() {
         System.out.println(drivere_mail);
         System.out.println(driver_age);
         System.out.println(driver_Addres);
@@ -369,62 +274,12 @@ startActivity(intent);
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                startLocationService();
+                startLocationServices();
             } else {
                 Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
             }
         }
     }
-    //    private void MorningOut() {
-//
-//        // Intent intent=new Intent(getApplicationContext(), EveningScan_Activity.class);
-//
-//        //intent.putExtra("bus",bus);
-//        //startActivity(intent);
-//
-//
-//        //IntentResult intentResultt = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-//        //  txtshowQR.setText(intentResultt.getContents());
-//       // studnet_RNumber = txtshowQR.getText().toString().trim();
-////        if (TextUtils.isEmpty(studnet_RNumber)) {
-////            txtshowQR.setError("please scan again");
-////            txtshowQR.requestFocus();
-////        } else {
-//             sdf = new SimpleDateFormat("dd-MM-yyyy,HH:mm");
-//             simpleFormat = new SimpleDateFormat("dd-MM-yyyy");
-//            simpleDateFormat = new SimpleDateFormat("HH:mm");
-//
-//            // on below line we are creating a variable
-//            // for current date and time and calling a simple date format in it.
-//             eveningDateandTime = sdf.format(new Date());
-//             eveningentryDate = simpleFormat.format(new Date());
-//             eveningentryTime = simpleDateFormat.format(new Date());
-//
-//            // on below line we are setting current
-//            // date and time to our text view.
-//            // currentTV.setText(currentDateAndTime);
-//            MorningStatus = "absent";
-//
-//            firebaseDatabase = FirebaseDatabase.getInstance();
-//            databaseReference = firebaseDatabase.getReference("AttendanceMorning").child("StudentMorning");
-//             attendance_out_activity = new   Attendance_Out_Activity(bus, studnet_RNumber, eveningentryDate, eveningentryTime, MorningStatus, eveningDateandTime);
-//            databaseReference.child(eveningDateandTime).setValue(attendance_out_activity);
-//            databaseReference.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    Toast.makeText(getApplicationContext(), "Add Student Data Successfully", Toast.LENGTH_SHORT).show();
-//
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//                    Toast.makeText(getApplicationContext(), "Faild to add data", Toast.LENGTH_SHORT).show();
-//
-//                }
-//            });
-//
-//
-//    }
 
 
     private void getMyLocation() {
@@ -468,33 +323,14 @@ startActivity(intent);
 
                       @Override
                       public void onCancelled(@NonNull DatabaseError error) {
-                          System.out.println("not");
+                         // System.out.println("not");
                          // Toast.makeText(MainActivity.this, "not", Toast.LENGTH_SHORT).show();
                       }
                   });
                       //  String C,driver_mobile,driver_age,drivere_mail,driver_Addres,usertype,bus,driver_password;
-                      FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
-//                      Intent intent=getIntent();
-//                      String driver_name=intent.getStringExtra("driver_name");
-//                      String driver_mobile=intent.getStringExtra("driver_mobile");
-//                      String driver_age=intent.getStringExtra("driver_age");
-//                      String drivere_mail=intent.getStringExtra("emaild");
-//                      String driver_Addres=intent.getStringExtra("driver_Addres");
-//                      String usertype=intent.getStringExtra("usertype");
-//                       bus=intent.getStringExtra("bus");
-//                      String driver_password=intent.getStringExtra("driver_password");
-//                 double  longitude =intent.getDoubleExtra("Longitude",location.getLongitude());
-//                   double latitude= intent.getDoubleExtra("Latitude",location.getLatitude());
+                     // FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
+//
 
-
-
-
-
-                      System.out.println(drivere_mail);
-                      System.out.println(driver_age);
-                      System.out.println(driver_Addres);
-                      System.out.println(usertype);
-                      System.out.println("em55");
 
                       Location_Modal_class helper=new Location_Modal_class(location1.getLongitude(),location1.getLatitude(),driver_name,driver_mobile,driver_age,drivere_mail,driver_Addres,usertype,bus,driver_password);
 
@@ -504,7 +340,7 @@ startActivity(intent);
                           @Override
                           public void onComplete(@NonNull Task<Void> task) {
                               if (task.isSuccessful()){
-                                  Toast.makeText(MainActivity.this, "Location update", Toast.LENGTH_SHORT).show();
+                                 // Toast.makeText(MainActivity.this, "Location update", Toast.LENGTH_SHORT).show();
                               }else {
                                   Toast.makeText(MainActivity.this, "Location not update", Toast.LENGTH_SHORT).show();
                               }
@@ -541,12 +377,20 @@ startActivity(intent);
         IntentResult intentResultt = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
             StudentnameandRno=intentResultt.getContents();
+//        if (StudentnameandRno != null && StudentnameandRno.equalsIgnoreCase("add")) {
+            // do whatever
             String ab= StudentnameandRno.toString();
-//        txtshowQR.setText( studnet_RNumber);
-//  String a=      txtshowQR.getText().toString();
             System.out.println(ab);
             System.out.println("aaaa");
             myList = new ArrayList<String>(Arrays.asList(ab.split(",")));
+           // Toast.makeText(this, "null", Toast.LENGTH_SHORT).show();
+
+
+
+
+//        txtshowQR.setText( studnet_RNumber);
+//  String a=      txtshowQR.getText().toString();
+
 
             System.out.println(myList);
             student_name=myList.get(0);
@@ -716,7 +560,7 @@ databaseReference.addValueEventListener(new ValueEventListener() {
                           SmsManager smgr = SmsManager.getDefault();
                           smgr.sendTextMessage(student_mobilenumber,null,"your child is out from bus",null,null);
                           // message.setText("");
-                          Toast.makeText(getApplicationContext(), "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+                          //Toast.makeText(getApplicationContext(), "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
                       }
                       catch (Exception e){
                           Toast.makeText(getApplicationContext(), "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
@@ -733,92 +577,10 @@ databaseReference.addValueEventListener(new ValueEventListener() {
               });
 
           }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-         //studnet_RNumber = txtshowQR.getText().toString().trim();
-
-//            databaseReference = FirebaseDatabase.getInstance().getReference("AttendanceEvening").child("StudentEveningEnter");
-//            valueEventListener = databaseReference.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//                        System.out.println(dataSnapshot);
-//                        System.out.println("data");
-//
-//                        // Toast.makeText(Show_Buses.this, dataSnapshot+"", Toast.LENGTH_SHORT).show();
-//
-//                        Attendance_Out_Activity attendance_out_activity = dataSnapshot.getValue( Attendance_Out_Activity.class);
-//                        System.out.println("stuu");
-//
-//                        eveningOStatus =  attendance_out_activity.getEveningOStatus();
-//
-//                        System.out.println( attendance_out_activity.getBus());
-//                        System.out.println( attendance_out_activity.getEveningOStatus());
-//                        System.out.println("statuu");}
-//                    if (chmorning.isChecked()){
-//                  //  if (eveningOStatus==null ) {
-//                        IntentResult intentResultt = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-//                        txtshowQR.setText(intentResultt.getContents());
-//
-//                        System.out.println(eveningOStatus);
-//                        System.out.println("cvb");
-//
-//
-//                    }else if (chevening.isChecked()){
-//
-//
-//
-//
-//                       // Toast.makeText(MainActivity.this, "absent???", Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                    }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                }
-//            });
-//
-
-           // Toast.makeText(this, "evening chicked", Toast.LENGTH_SHORT).show();
-
+//        } else {
+//            Toast.makeText(this, "no data scan", Toast.LENGTH_SHORT).show();
+//            // do whatever
+//        }
 
     }
 
@@ -915,4 +677,5 @@ databaseReference.addValueEventListener(new ValueEventListener() {
         }
 
     }
+
 }

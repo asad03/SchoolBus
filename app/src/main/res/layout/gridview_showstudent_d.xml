@@ -175,37 +175,37 @@
         </HorizontalScrollView>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="0dp">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:paddingLeft="0dp">-->
 
-        <ImageView
-            android:layout_width="50dp"
+<!--        <ImageView-->
+<!--            android:layout_width="50dp"-->
 
-            android:layout_height="25dp"
+<!--            android:layout_height="25dp"-->
 
-            android:src="@drawable/email" />
+<!--            android:src="@drawable/email" />-->
 
-        <HorizontalScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+<!--        <HorizontalScrollView-->
+<!--            android:layout_width="fill_parent"-->
+<!--            android:layout_height="fill_parent">-->
 
-            <TextView
-                android:id="@+id/text_StudentEmail"
+<!--            <TextView-->
+<!--                android:id="@+id/text_StudentEmail"-->
 
-                android:layout_width="match_parent"
+<!--                android:layout_width="match_parent"-->
 
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:gravity="center"
-                android:hint="343..."
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="2dp"-->
+<!--                android:gravity="center"-->
+<!--                android:hint="343..."-->
 
-                android:scrollHorizontally="true"
-                android:textColor="@color/black" />
-        </HorizontalScrollView>
-    </LinearLayout>
+<!--                android:scrollHorizontally="true"-->
+<!--                android:textColor="@color/black" />-->
+<!--        </HorizontalScrollView>-->
+<!--    </LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"

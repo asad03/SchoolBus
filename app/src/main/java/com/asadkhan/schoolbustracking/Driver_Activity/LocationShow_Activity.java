@@ -91,7 +91,7 @@ public class LocationShow_Activity extends AppCompatActivity{
     private void checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-            startLocationService();
+            sstartLocationService();
         } else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         }
@@ -102,14 +102,14 @@ public class LocationShow_Activity extends AppCompatActivity{
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                startLocationService();
+                sstartLocationService();
             } else {
                 Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void startLocationService() {
+    private void sstartLocationService() {
         Intent serviceIntent = new Intent(this, LocationTrackingService.class);
         System.out.println(drivere_mail);
         System.out.println("em22");

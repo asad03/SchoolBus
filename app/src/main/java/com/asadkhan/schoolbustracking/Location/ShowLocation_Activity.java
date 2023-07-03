@@ -91,7 +91,7 @@ public class ShowLocation_Activity extends AppCompatActivity implements OnMapRea
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             // Request location updates
-            startLocationUpdates();
+            startLocationUpdatess();
         } else {
             // Request location permission
             ActivityCompat.requestPermissions(this,
@@ -106,7 +106,7 @@ public class ShowLocation_Activity extends AppCompatActivity implements OnMapRea
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission granted, start location updates
-                startLocationUpdates();
+                startLocationUpdatess();
             } else {
                 // Permission denied, show a toast message
                 Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
@@ -138,11 +138,11 @@ public class ShowLocation_Activity extends AppCompatActivity implements OnMapRea
         LocalBroadcastManager.getInstance(this).registerReceiver(locationReceiver, filter);
 
         if (googleMap != null) {
-            startLocationUpdates();
+            startLocationUpdatess();
         }
     }
 
-    private void startLocationUpdates() {
+    private void startLocationUpdatess() {
         // Check location permission
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {

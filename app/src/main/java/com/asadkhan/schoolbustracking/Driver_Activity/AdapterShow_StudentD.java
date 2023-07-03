@@ -123,7 +123,7 @@ public View getView(int position, @Nullable View convertView, @NonNull ViewGroup
         TextView studentFullName = listitemView.findViewById(R.id.text_studentName);
         TextView studentFatherName = listitemView.findViewById(R.id.text_studentFatherName);
         TextView studentMobile = listitemView.findViewById(R.id.text_StudentMobileNo);
-        TextView studentEmail = listitemView.findViewById(R.id.text_StudentEmail);
+       // TextView studentEmail = listitemView.findViewById(R.id.text_StudentEmail);
         TextView studentClass = listitemView.findViewById(R.id.text_StudentClass);
         TextView studentLocation = listitemView.findViewById(R.id.text_StudentLocation);
         TextView studentBus = listitemView.findViewById(R.id.text_StudentBus);
@@ -136,7 +136,7 @@ public View getView(int position, @Nullable View convertView, @NonNull ViewGroup
         studentFullName.setText(student.getStdent_fullname());
         studentFatherName.setText(student.getStudent_fatherName());
         studentMobile.setText(student.getStudent_mobileNo());
-        studentEmail.setText(student.getStudent_email());
+        //studentEmail.setText(student.getStudent_email());
         studentClass.setText(student.getStudent_class());
         studentLocation.setText(student.getStudent_location());
         studentBus.setText(student.getSbus());

@@ -94,26 +94,26 @@ android:background="@color/white"
 
         android:textSize="19dp"
         />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            android:padding="6dp"
-            android:textColor="#3A3A3A"
-            android:layout_marginTop="10dp"
-            android:text="Age*"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="name"
-        android:textColor="@color/black"
-        android:id="@+id/txtpage"
-        android:padding="15dp"
-        android:background="@drawable/background_tx"
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="16dp"-->
+<!--            android:padding="6dp"-->
+<!--            android:textColor="#3A3A3A"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:text="Age*"/>-->
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="name"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:id="@+id/txtpage"-->
+<!--        android:padding="15dp"-->
+<!--        android:background="@drawable/background_tx"-->
 
 
-        android:textSize="19dp"
-        />
+<!--        android:textSize="19dp"-->
+<!--        />-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

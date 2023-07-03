@@ -46,7 +46,7 @@ Button btnchild,btnlogout,btnloc;
         setContentView(R.layout.activity_parent_profile);
         textViewpname=findViewById(R.id.txtpname);
         textViewpMobile=findViewById(R.id.txtpmobile);
-        textViewpAge=findViewById(R.id.txtpage);
+        //textViewpAge=findViewById(R.id.txtpage);
         textViewpAddres=findViewById(R.id.txtpaddres);
         textViewpEmail=findViewById(R.id.txtpemail);
         textViewPerentChild=findViewById(R.id.txtperent_chil);
@@ -95,7 +95,7 @@ Button btnchild,btnlogout,btnloc;
         Intent intent=getIntent();
         String Parent_name=intent.getStringExtra("Parent_name");
         String Parent_mobile=intent.getStringExtra("Parent_mobile");
-        String Parent_age=intent.getStringExtra("Parent_age");
+       // String Parent_age=intent.getStringExtra("Parent_age");
         String Parent_Addres=intent.getStringExtra("Parent_Addres");
         String Parent_email=intent.getStringExtra("Parent_mail");
          Parent_Chils=intent.getStringExtra("Parent_Chils");
@@ -103,7 +103,7 @@ Button btnchild,btnlogout,btnloc;
 
         textViewpname.setText(Parent_name);
         textViewpMobile.setText(Parent_mobile);
-        textViewpAge.setText(Parent_age);
+       // textViewpAge.setText(Parent_age);
         textViewpAddres.setText(Parent_Addres);
         textViewpEmail.setText(Parent_email);
         textViewPerentChild.setText(Parent_Chils);
@@ -177,7 +177,7 @@ Button btnchild,btnlogout,btnloc;
         btnlogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Parent_Profile_Activity.this, "click", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Parent_Profile_Activity.this, "click", Toast.LENGTH_SHORT).show();
                 databaseReference= FirebaseDatabase.getInstance().getReference("Students").child("StudentRecord");                System.out.println(databaseReference);
                 valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -204,19 +204,21 @@ Button btnchild,btnlogout,btnloc;
                                         String dMobile=driver_model_class.getDriver_mobile();
                                         String dLocation=driver_model_class.getDriver_Addres();
                                         String dAge=driver_model_class.getDriver_age();
-                                        String dBus=driver_model_class.getBus();
+                                        String dbBus=driver_model_class.getBus();
                                         String dEmail=driver_model_class.getDrivere_mail();
-                                        System.out.println(dBus);
+                                        System.out.println(dbBus);
                                         System.out.println(student_Bus);
                                         System.out.println("bbbnn");
-                                        if (dBus.equals(sbus)){
+                                        String b="abd";
+                                        if (dbBus.equals(sbus)){
                                             Intent intent1=new Intent(getApplicationContext(),ShowDriver_Parent_Activity.class);
                                             intent1.putExtra("dname",dname);
                                             intent1.putExtra("dMobile",dMobile);
                                             intent1.putExtra("dLocation",dLocation);
                                             intent1.putExtra("dAge",dAge);
-                                            intent1.putExtra("dBus",dBus);
+                                            intent1.putExtra("dbBus",dbBus);
                                             intent1.putExtra("dEmail",dEmail);
+                                            intent1.putExtra("b",b);
                                             startActivity(intent1);
                                         }else {
                                            // Toast.makeText(Parent_Profile_Activity.this, "nottr", Toast.LENGTH_SHORT).show();
