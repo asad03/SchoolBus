@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
+
     tools:context=".Show_Attendance_Activity.AttenAllBtn_Activity">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -27,13 +28,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="110dp"
+        
         android:orientation="horizontal">
         <Button
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:text="Morning In"
             android:background="@color/teal_200"
-            android:layout_marginTop="130dp"
+
             android:layout_marginLeft="22dp"
             android:id="@+id/btnmoringattenin"
             />
@@ -42,7 +45,7 @@
             android:layout_height="110dp"
             android:text="Morning Out"
             android:background="@color/teal_200"
-            android:layout_marginTop="130dp"
+
             android:layout_marginLeft="72dp"
             android:id="@+id/btnmorningattenout"
             />
@@ -50,13 +53,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
         android:orientation="horizontal">
         <Button
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:text="Evening In"
             android:background="@color/teal_200"
-            android:layout_marginTop="130dp"
             android:layout_marginLeft="22dp"
             android:id="@+id/btnatteneveningin"
             />
@@ -64,12 +67,21 @@
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:text="Evening Out"
-            android:layout_marginTop="130dp"
             android:background="@color/teal_200"
             android:layout_marginLeft="72dp"
             android:id="@+id/btnatteneveningout"
             />
     </LinearLayout>
+
+    <Button
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:text="Driver Recored"
+        android:layout_marginTop="30dp"
+        android:background="@color/teal_200"
+        android:layout_marginLeft="111dp"
+        android:id="@+id/btnDriver"
+        />
 
 
 </LinearLayout>

@@ -3,17 +3,28 @@ package com.asadkhan.schoolbustracking.Student_Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.asadkhan.schoolbustracking.Admin_ModalClass;
 import com.asadkhan.schoolbustracking.Location_Modal_class;
+import com.asadkhan.schoolbustracking.Login_Activity;
 import com.asadkhan.schoolbustracking.Parents_Activity.Parent_Profile_Activity;
+import com.asadkhan.schoolbustracking.Parents_Activity.SendMsg_Activity;
 import com.asadkhan.schoolbustracking.R;
 import com.asadkhan.schoolbustracking.Show_Attendance_Activity.AttenAllBtn_Activity;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +40,8 @@ TextView txtstudent_rno,txtstdent_fullname,txtstudent_fatherName,txtstudent_clas
     DatabaseReference databaseReference;
     ValueEventListener valueEventListener;
     ImageView imgstudent;
+    public static final String MyPREFERENCES = "Myapp";
+    String dMobile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +51,7 @@ TextView txtstudent_rno,txtstdent_fullname,txtstudent_fatherName,txtstudent_clas
         txtstudent_fatherName=findViewById(R.id.textstudent_fatherName);
         txtstudent_class=findViewById(R.id.textstudent_class);
         txtstudent_mobileNo=findViewById(R.id.textstudent_mobileNo);
-       // txtstudent_email=findViewById(R.id.textstudent_email);
+       txtstudent_email=findViewById(R.id.textstudent_email);
         txtstudent_location=findViewById(R.id.textstudent_location);
         txtstudent_bus=findViewById(R.id.textstudent_bus);
         txtstudent_rno=findViewById(R.id.textstudent_Rno);
@@ -63,21 +76,23 @@ TextView txtstudent_rno,txtstdent_fullname,txtstudent_fatherName,txtstudent_clas
 
 
         Intent intent=getIntent();
-        String  stdent_fullname   =intent.getStringExtra("stdent_fullname");
-        String   student_fatherName  =intent.getStringExtra("student_fatherName");
-        String   student_class  =intent.getStringExtra("student_class");
-        String student_mobileNo    =intent.getStringExtra("student_mobileNo");
+
+        String  stdent_fullname   =intent.getStringExtra("Student_name");
+        String   tudent_mobile  =intent.getStringExtra("Student_mobile");
+        String   Student_Addres  =intent.getStringExtra("Student_Addres");
+        String Student_mail    =intent.getStringExtra("Student_mail");
        // String  student_email   =intent.getStringExtra("student_email");
-        String   student_location  =intent.getStringExtra("student_location");
-        String student_Bus=intent.getStringExtra("student_Bus");
-        String student_registerationNo=intent.getStringExtra("student_registerationNo");
+        String   student_registerationNo  =intent.getStringExtra("Student_Reg_number");
+        String Student_Class=intent.getStringExtra("Student_Class");
+        String student_Bus=intent.getStringExtra("Student_Bus");
+        String Student_fatherName=intent.getStringExtra("Student_fatherName");
 
         txtstdent_fullname.setText(stdent_fullname);
-        txtstudent_fatherName.setText(student_fatherName);
-        txtstudent_class.setText(student_class);
-        txtstudent_mobileNo.setText(student_mobileNo);
-      //  txtstudent_email.setText(student_email);
-        txtstudent_location.setText(student_location);
+        txtstudent_fatherName.setText(Student_fatherName);
+        txtstudent_class.setText(Student_Class);
+        txtstudent_mobileNo.setText(tudent_mobile);
+       txtstudent_email.setText(Student_mail);
+        txtstudent_location.setText(Student_Addres);
         txtstudent_bus.setText(student_Bus);
         txtstudent_rno.setText(student_registerationNo);
         btnChildLocation=findViewById(R.id.btnChidloc);
@@ -229,4 +244,94 @@ TextView txtstudent_rno,txtstdent_fullname,txtstudent_fatherName,txtstudent_clas
                 .centerInside()
                 .into(  imgstudent);
     }
-}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_logout,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.btnlogout:
+                SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                // editor.putString("namee", "");
+                editor.remove("namee");
+                editor.clear();
+                editor.apply();
+                startActivity(new Intent(Student_Profile_Activity.this, Login_Activity.class));
+                finish();
+
+                return true;
+            case R.id.btncall:
+                databaseReference=FirebaseDatabase.getInstance().getReference("Admin").child("Admin Register");
+                valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        System.out.println(snapshot);
+
+
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            Admin_ModalClass admin_modalClass=dataSnapshot.getValue(Admin_ModalClass.class);
+                            dMobile=    admin_modalClass.getMobile();
+                            System.out.println(dMobile);
+                            System.out.println("ccds");}
+
+                        //   getContext().startActivity(callIntent);
+                        if (Build.VERSION.SDK_INT > 23) {
+                            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                            callIntent.setData(Uri.parse("tel:" + dMobile));
+                            startActivity(callIntent);
+                        } else {
+
+                            if (ActivityCompat.checkSelfPermission(getApplicationContext(),
+                                    android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                Toast.makeText(getApplicationContext(), "Permission Not Granted ", Toast.LENGTH_SHORT).show();
+                            } else {
+                                final String[] PERMISSIONS_STORAGE = {android.Manifest.permission.CALL_PHONE};
+                                //ActivityCompat.requestPermissions(getContext(), PERMISSIONS_STORAGE, 9);
+                                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                                callIntent.setData(Uri.parse("tel:" + dMobile));
+                                startActivity(callIntent);
+                            }
+                        }
+                        // adminemail=    admin_modalClass.getAdminNumber();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                return true;
+            case R.id.btnmsg:
+                databaseReference=FirebaseDatabase.getInstance().getReference("Admin").child("Admin Register");
+                valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        System.out.println(snapshot);
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            Admin_ModalClass admin_modalClass=dataSnapshot.getValue(Admin_ModalClass.class);
+                            dMobile=    admin_modalClass.getMobile();
+                            System.out.println(dMobile);
+                            System.out.println("adsds");}
+                        Intent intent1 = new Intent(getApplicationContext(), SendMsg_Activity.class);
+                        intent1.putExtra("dMobile", dMobile);
+                        startActivity(intent1);
+                        // adminemail=    admin_modalClass.getAdminNumber();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }}
+    }

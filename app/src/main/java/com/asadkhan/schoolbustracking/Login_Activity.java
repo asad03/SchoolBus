@@ -22,6 +22,8 @@ import android.widget.Toast;
 import com.asadkhan.schoolbustracking.Driver_Activity.Driver_Model_Class;
 import com.asadkhan.schoolbustracking.Parents_Activity.Parent_Profile_Activity;
 import com.asadkhan.schoolbustracking.Parents_Activity.Parents_Model_class;
+import com.asadkhan.schoolbustracking.Parents_Activity.Show_Child_ModalClass;
+import com.asadkhan.schoolbustracking.Student_Activity.Student_Profile_Activity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -46,7 +48,7 @@ public class Login_Activity extends AppCompatActivity {
     DatabaseReference databaseReference;
     ValueEventListener valueEventListener;
     String parentKey, driverKey;
-    Parents_Model_class parent_addModal_class;
+    Show_Child_ModalClass parent_addModal_class;
     Location_Modal_class driver_model_class;
     String usertype,adminnumber,adminemail;
     public static final String MyPREFERENCES = "Myapp";
@@ -64,7 +66,7 @@ public class Login_Activity extends AppCompatActivity {
         chdriver = findViewById(R.id.chdriver);
         chparent = findViewById(R.id.chparent);
 
-        ChickForLogin();
+        //ChickForLogin();
         checkForDriver();
 
         btnlogin.setOnClickListener(new View.OnClickListener() {
@@ -130,33 +132,33 @@ public class Login_Activity extends AppCompatActivity {
         }
     }
 
-    private void ChickForLogin() {
-        SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        String check = sharedpreferences.getString("namee", "");
+//    private void ChickForLogin() {
+//        SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+//        String check = sharedpreferences.getString("namee", "");
+//
+//        // System.out.println(Parent_name);
+//        System.out.println("llll");
+//        if (check.equals("true")) {
+//            String Parent_name = sharedpreferences.getString("Parent_name", "");
+//            String Parent_mobile = sharedpreferences.getString("Parent_mobile", "");
+//           // String Parent_age = sharedpreferences.getString("Parent_age", "");
+//            String Parent_Addres = sharedpreferences.getString("Parent_Addres", "");
+//            String Parent_mail = sharedpreferences.getString("Parent_mail", "");
+//            String Parent_Chils = sharedpreferences.getString("Parent_Chils", "");
+////            Intent intent2 = new Intent(getApplicationContext(), Student_Profile_Activity.class);
+////            intent2.putExtra("Parent_name", Parent_name);
+////            intent2.putExtra("Parent_mobile", Parent_mobile);
+////            //intent2.putExtra("Parent_age", Parent_age);
+////            intent2.putExtra("Parent_Addres", Parent_Addres);
+////            intent2.putExtra("Parent_mail", Parent_mail);
+////            intent2.putExtra("Parent_Chils", Parent_Chils);
+////
+////
+////            startActivity(intent2);
+//            finish();
+//        }
 
-        // System.out.println(Parent_name);
-        System.out.println("llll");
-        if (check.equals("true")) {
-            String Parent_name = sharedpreferences.getString("Parent_name", "");
-            String Parent_mobile = sharedpreferences.getString("Parent_mobile", "");
-           // String Parent_age = sharedpreferences.getString("Parent_age", "");
-            String Parent_Addres = sharedpreferences.getString("Parent_Addres", "");
-            String Parent_mail = sharedpreferences.getString("Parent_mail", "");
-            String Parent_Chils = sharedpreferences.getString("Parent_Chils", "");
-            Intent intent2 = new Intent(getApplicationContext(), Parent_Profile_Activity.class);
-            intent2.putExtra("Parent_name", Parent_name);
-            intent2.putExtra("Parent_mobile", Parent_mobile);
-            //intent2.putExtra("Parent_age", Parent_age);
-            intent2.putExtra("Parent_Addres", Parent_Addres);
-            intent2.putExtra("Parent_mail", Parent_mail);
-            intent2.putExtra("Parent_Chils", Parent_Chils);
-
-
-            startActivity(intent2);
-            finish();
-        }
-
-    }
+    //}
 
     private void LoginAdmin(String textemail, String textpassword) {
 
@@ -179,7 +181,8 @@ public class Login_Activity extends AppCompatActivity {
         if (chparent.isChecked()) {
 
 
-            databaseReference = FirebaseDatabase.getInstance().getReference("Parent").child("Parents Register");
+
+            databaseReference= FirebaseDatabase.getInstance().getReference("Students").child("StudentRecord");
             System.out.println(databaseReference);
             valueEventListener = databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -191,26 +194,31 @@ public class Login_Activity extends AppCompatActivity {
                         System.out.println("data22");
 
                         // Toast.makeText(Show_Buses.this, dataSnapshot+"", Toast.LENGTH_SHORT).show();
-                        parent_addModal_class = dataSnapshot.getValue(Parents_Model_class.class);
-
-                        String Parent_name = parent_addModal_class.getParent_name();
-                        String Parent_mobile = parent_addModal_class.getParent_mobile();
-                       // String Parent_age = parent_addModal_class.getParent_age();
-                        String Parent_Addres = parent_addModal_class.getParent_Addres();
-                        String Parent_mail = parent_addModal_class.getParent_mail();
-                        String Parent_password = parent_addModal_class.getParent_password();
+                        parent_addModal_class = dataSnapshot.getValue(Show_Child_ModalClass.class);
+                        String Student_Reg_number=parent_addModal_class.getStudent_registerationNo();
+                        String Student_Class=parent_addModal_class.getStudent_class();
+                        String Student_Bus=parent_addModal_class.getSbus();
+                        String Student_name = parent_addModal_class.getStdent_fullname();
+                        String Student_mobile = parent_addModal_class.getStudent_mobileNo();
+                        String Student_fatherName = parent_addModal_class.getStudent_fatherName();
+                        String Student_Addres = parent_addModal_class.getStudent_location();
+                        String Student_mail = parent_addModal_class.getStudent_email();
+                        String Student_password = parent_addModal_class.getStudent_password();
                         usertype = parent_addModal_class.getUsertype();
-                        String Parent_Chils = parent_addModal_class.getParent_Chils();
+                        //String Parent_Chils = parent_addModal_class.getParent_Chils();
+                        System.out.println(Student_mail);
+                        System.out.println(Student_Reg_number);
+                        System.out.println("std email");
                         String emaill = textemail.replace(".", "");
-                        String pemail = Parent_mail.replace(".", "");
+                        String pemail = Student_mail.replace(".", "");
                         System.out.println(emaill);
                         System.out.println(pemail);
                         System.out.println(usertype);
                         System.out.println("showp");
-                        if (emaill.equals(pemail) && textpassword.equals(Parent_password)) {
+                        if (emaill.equals(pemail) && textpassword.equals(Student_password)) {
 
 
-                            authprofile.signInWithEmailAndPassword(Parent_mail, Parent_password).addOnCompleteListener(Login_Activity.this, new OnCompleteListener<AuthResult>() {
+                            authprofile.signInWithEmailAndPassword(Student_mail, Student_password).addOnCompleteListener(Login_Activity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
@@ -229,22 +237,30 @@ public class Login_Activity extends AppCompatActivity {
 
                                         SharedPreferences.Editor editor = sharedpreferences.edit();
                                         editor.putString("namee", "true");
-                                        editor.putString("Parent_name", Parent_name);
-                                        editor.putString("Parent_mobile", Parent_mobile);
-                                       // editor.putString("Parent_age", Parent_age);
-                                        editor.putString("Parent_Addres", Parent_Addres);
-                                        editor.putString("Parent_mail", Parent_mail);
-                                        editor.putString("Parent_password", Parent_password);
-                                        editor.putString("Parent_Chils", Parent_Chils);
+                                        editor.putString("Student_name", Student_name);
+                                        editor.putString("Student_mobile", Student_mobile);
+                                        editor.putString("Student_fatherName", Student_fatherName);
+                                        editor.putString("Student_Addres", Student_Addres);
+                                        editor.putString("Student_mail", Student_mail);
+                                        editor.putString("Student_password", Student_password);
+                                        editor.putString("Student_Reg_number", Student_Reg_number);
+                                        editor.putString("Student_Class", Student_Class);
+                                        editor.putString("Student_Bus", Student_Bus);
+                                        editor.putString("Student_fatherName", Student_fatherName);
+
 
                                         editor.apply();
-                                        Intent intent1 = new Intent(getApplicationContext(), Parent_Profile_Activity.class);
-                                        intent1.putExtra("Parent_name", Parent_name);
-                                        intent1.putExtra("Parent_mobile", Parent_mobile);
+                                        Intent intent1 = new Intent(getApplicationContext(), Student_Profile_Activity.class);
+                                        intent1.putExtra("Student_name",Student_name);
+                                        intent1.putExtra("Student_mobile",Student_mobile);
                                       //  intent1.putExtra("Parent_age", Parent_age);
-                                        intent1.putExtra("Parent_Addres", Parent_Addres);
-                                        intent1.putExtra("Parent_mail", Parent_mail);
-                                        intent1.putExtra("Parent_Chils", Parent_Chils);
+                                        intent1.putExtra("Student_Addres", Student_Addres);
+                                        intent1.putExtra("Student_mail", Student_mail);
+                                        intent1.putExtra("Student_Reg_number",Student_Reg_number);
+                                        intent1.putExtra("Student_Class",Student_Class);
+                                        intent1.putExtra("Student_Bus",Student_Bus);
+                                        intent1.putExtra("Student_fatherName",Student_fatherName);
+
 
 
 
@@ -351,18 +367,18 @@ public class Login_Activity extends AppCompatActivity {
                                         editor.putString("driver", "true");
                                         editor.putString("driver_name", driver_name);
                                         editor.putString("driver_mobile", driver_mobile);
-                                        editor.putString("driver_Addres",driver_Addres);
+                                        editor.putString("driver_Addres", driver_Addres);
                                         editor.putString("driver_age", driver_age);
                                         editor.putString("bus", bus);
                                         editor.putString("emaild", emaild);
-                                        editor.putString("usertype",  usertype);
+                                        editor.putString("usertype", usertype);
                                         editor.putString("driver_password", driver_password);
                                         editor.putString("Longitude", Longitude);
                                         editor.putString("Latitude", Latitude);
 
                                         editor.apply();
 
-String a="abc";
+                                        String a = "abc";
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         intent.putExtra("driver_name", driver_name);
                                         intent.putExtra("driver_mobile", driver_mobile);
@@ -374,7 +390,7 @@ String a="abc";
                                         intent.putExtra("driver_password", driver_password);
                                         intent.putExtra("Longitude", Longitude);
                                         intent.putExtra("Latitude", Latitude);
-                                        intent.putExtra("a",a);
+                                        intent.putExtra("a", a);
 
                                         startActivity(intent);
 
@@ -382,7 +398,6 @@ String a="abc";
                                                         "Login driver",
                                                         Toast.LENGTH_LONG)
                                                 .show();
-
 
 
 //                    }else if (chdriver.isChecked()){
@@ -431,258 +446,6 @@ String a="abc";
                 }
             });
 
-
-            //   }
-
-
-            // System.out.println(email);
-
-
-        }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
-
-//        databaseReference = FirebaseDatabase.getInstance().getReference("Driver").child("Driver Register");
-//
-//
-//        valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
-//                     driverKey=dataSnapshot.getKey();
-//                    System.out.println(driverKey);
-//                    System.out.println("driverKey");
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
-
-//        if (email==parentKey) {
-//            FirebaseAuth auth=FirebaseAuth.getInstance();
-//            FirebaseUser firebaseUser=auth.getCurrentUser();
-//            firebaseUser.getUid();
-
-//            databaseReference= FirebaseDatabase.getInstance().getReference("Parent").child("Parents Register");
-//            System.out.println(databaseReference);
-//            valueEventListener=databaseReference.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                 //   parentData.clear();
-//                    //  Toast.makeText(Show_Buses.this, "show data", Toast.LENGTH_SHORT).show();
-//                    for (DataSnapshot dataSnapshot:snapshot.getChildren()){
-//                        System.out.println(dataSnapshot);
-//                        System.out.println("data22");
-//
-//                        // Toast.makeText(Show_Buses.this, dataSnapshot+"", Toast.LENGTH_SHORT).show();
-//                        Parents_Model_class parent_addModal_class=dataSnapshot.getValue(Parents_Model_class.class);
-//                        String Parent_name=parent_addModal_class.getParent_name();
-//                        String Parent_mobile=parent_addModal_class.getParent_mobile();
-//                        String Parent_age=parent_addModal_class.getParent_age();
-//                        String Parent_Addres=parent_addModal_class.getParent_Addres();
-//                        String Parent_mail=parent_addModal_class.getParent_mail();
-//                        String Parent_password=parent_addModal_class.getParent_password();
-//                        String usertype=parent_addModal_class.getUsertype();
-//
-//
-//
-////                       if (textpassword==password){
-//
-//
-//                           authprofile.signInWithEmailAndPassword(textemail, textpassword).addOnCompleteListener(Login_Activity.this, new OnCompleteListener<AuthResult>() {
-//                               @Override
-//                               public void onComplete(@NonNull Task<AuthResult> task) {
-//                                   if (task.isSuccessful()) {
-//                              progressBar.setVisibility(View.GONE);
-//
-//
-//                              Intent intent1=new Intent(getApplicationContext(), Parent_Profile_Activity.class);
-//                              intent1.putExtra("Parent_name",Parent_name);
-//                              intent1.putExtra("Parent_mobile",Parent_mobile);
-//                              intent1.putExtra("Parent_age",Parent_age);
-//                              intent1.putExtra("Parent_Addres",Parent_Addres);
-//                              intent1.putExtra("Parent_mail",Parent_mail);
-//
-//
-//
-//                              startActivity(intent1);
-//                                      // startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                                       Toast.makeText(getApplicationContext(),
-//                                                       "Login p",
-//                                                       Toast.LENGTH_LONG)
-//                                               .show();
-//
-//                                   } else {
-//                                       Toast.makeText(getApplicationContext(),
-//                                                       "Login failed!!",
-//                                                       Toast.LENGTH_LONG)
-//                                               .show();
-//                                   }
-//
-//                               }
-//                           });
-//                          // Toast.makeText(Login_Activity.this, "Same", Toast.LENGTH_SHORT).show();
-//                           System.out.println("aa2");
-//                           System.out.println("same");
-//                       }
-//
-//                    }
-//
-//
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//                   Toast.makeText(getApplicationContext(), "Some thing went worng", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-
-        // }
-//        else if (email==driverKey){
-
-
-//            FirebaseAuth auth = FirebaseAuth.getInstance();
-//            FirebaseUser firebaseUser = auth.getCurrentUser();
-//            firebaseUser.getUid();
-
-//            databaseReference = FirebaseDatabase.getInstance().getReference("Driver").child("Driver Register");
-//            System.out.println(databaseReference);
-//            valueEventListener = databaseReference.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    //   parentData.clear();
-//                    //  Toast.makeText(Show_Buses.this, "show data", Toast.LENGTH_SHORT).show();
-//                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//                        System.out.println(dataSnapshot);
-//                        System.out.println("data22");
-//
-//                        // Toast.makeText(Show_Buses.this, dataSnapshot+"", Toast.LENGTH_SHORT).show();
-//
-//                        Location_Modal_class driver_model_class = dataSnapshot.getValue(Location_Modal_class.class);
-//                        String driver_name = driver_model_class.getDriver_name();
-//                        String driver_mobile = driver_model_class.getDriver_mobile();
-//                        String driver_age = driver_model_class.getDriver_age();
-//                        String driver_Addres = driver_model_class.getDriver_Addres();
-//                        String bus = driver_model_class.getBus();
-//                        String emaild = driver_model_class.getDrivere_mail();
-//                        String passwordd = driver_model_class.getDriver_password();
-//                        String usertype = driver_model_class.getUsertype();
-//                        String driver_password = driver_model_class.getDriver_password();
-//                        String Longitude = String.valueOf(driver_model_class.getLongitude());
-//                        String Latitude = String.valueOf(driver_model_class.getLatitude());
-//
-//
-//                       // Toast.makeText(Login_Activity.this, driver_model_class + "", Toast.LENGTH_SHORT).show();
-//
-//  String type="driver";
-//                      if (emaild==textemail || passwordd==textpassword) {
-//
-//
-//                          authprofile.signInWithEmailAndPassword(emaild, passwordd).addOnCompleteListener(Login_Activity.this, new OnCompleteListener<AuthResult>() {
-//                              @Override
-//                              public void onComplete(@NonNull Task<AuthResult> task) {
-//                                  if (task.isSuccessful()) {
-//                                      progressBar.setVisibility(View.GONE);
-//
-//                                      Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                                      intent.putExtra("driver_name", driver_name);
-//                                      intent.putExtra("driver_mobile", driver_mobile);
-//                                      intent.putExtra("driver_age", driver_age);
-//                                      intent.putExtra("emaild", emaild);
-//                                      intent.putExtra("driver_Addres", driver_Addres);
-//                                      intent.putExtra("usertype", usertype);
-//                                      intent.putExtra("bus", bus);
-//                                      intent.putExtra("driver_password", driver_password);
-//                                      intent.putExtra("Longitude", Longitude);
-//                                      intent.putExtra("Latitude", Latitude);
-//
-//                                      startActivity(intent);
-//                                      Toast.makeText(getApplicationContext(),
-//                                                      "Login p",
-//                                                      Toast.LENGTH_LONG)
-//                                              .show();
-//
-//
-////                    }else if (chdriver.isChecked()){
-////                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
-////                        Toast.makeText(getApplicationContext(),
-////                                        "Login",
-////                                        Toast.LENGTH_LONG)
-////                                .show();
-////                    }
-//
-//                                  } else {
-//                                      Toast.makeText(getApplicationContext(),
-//                                                      "Login failed!!",
-//                                                      Toast.LENGTH_LONG)
-//                                              .show();
-//                                  }
-//
-//                              }
-//                          });
-//                      }else {
-//                          Toast.makeText(Login_Activity.this, "usertype is not present", Toast.LENGTH_SHORT).show();
-//                      }
-//                    }
-////                       else {
-////                           System.out.println("aa3");
-////                           System.out.println("not same");
-////                           Toast.makeText(Login_Activity.this, "not same", Toast.LENGTH_SHORT).show();
-////                       }
-//                    //  parentData.add(parent_addModal_class);
-//                    // Toast.makeText(Show_Buses.this, ""+busdata.get(2), Toast.LENGTH_SHORT).show();
-//                }
-//                //   adapter_parentShow.notifyDataSetChanged();
-//
-//
-//                //    }
-//
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//                    Toast.makeText(getApplicationContext(), "Some thing went worng", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//
-
-        //}
-
-    }
-
-//
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        System.out.println(usertype);
-//        System.out.println("ussss");
-//        if (authprofile.getCurrentUser() !=null){
-////            Toast.makeText(this, "Already Logged In!", Toast.LENGTH_SHORT).show();
-////            startActivity(new Intent(getApplicationContext(),Parent_Profile_Activity.class));
-////            finish();
-////if (usertype.equals("parents")){
-////            Toast.makeText(this, "Already Logged In!", Toast.LENGTH_SHORT).show();
-////            startActivity(new Intent(getApplicationContext(),Parent_Profile_Activity.class));
-////            finish();}
-////else if (usertype.equals("driver")){
-////    Toast.makeText(this, "Already Logged In!", Toast.LENGTH_SHORT).show();
-////    startActivity(new Intent(getApplicationContext(),MainActivity.class));
-////    finish();
-////}
-//        }
-//        else {
-//            Toast.makeText(this, "You can login now !", Toast.LENGTH_SHORT).show();
-//
-//        }
-//    }
+        }}
 
 }

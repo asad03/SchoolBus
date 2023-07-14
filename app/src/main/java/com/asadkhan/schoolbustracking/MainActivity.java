@@ -295,6 +295,7 @@ startActivity(intent);
         }
         Task<Location> task = client.getLastLocation();
 
+
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location1) {
